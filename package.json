@@ -1,0 +1,14 @@
+{
+  "name": "bible-dyb-repo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "check:data": "node scripts/check-data.mjs",
+    "seed:generate": "node scripts/generate-seed.mjs"
+  }
+}
