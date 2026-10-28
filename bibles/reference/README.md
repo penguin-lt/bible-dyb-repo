@@ -38,6 +38,10 @@ Machine-readable counts are in `data/stats.json`.
 The two large files are published as **release assets**:
 <https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5>
 — `reference.parquet`, `reference_partitioned.zip`, `modules.parquet`.
+A **commentary-free edition** is published alongside the full one:
+[`bible-reference-v5-nocommentary`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5-nocommentary)
+— 3,795 works, 687,596 entries, 1,198,048,181 characters. See `NO_COMMENTARY.md`.
+
 Revisions: `v1` 96 works (SWORD only) · `v2` 100 (added LSJ, BDB, STEPBible) · `v3` 2,127 (added CCEL, Sefaria, morphology, cross-references, Pleiades) ·
 `v4` 10,156 (full Sefaria Hebrew/Aramaic, First1KGreek, STEPBible interlinears) ·
 `v5` 9,141 — same sources, 1,015 exact duplicates removed and six data-quality bugs fixed (see QA_REPORT).

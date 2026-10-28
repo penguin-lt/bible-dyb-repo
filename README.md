@@ -67,6 +67,24 @@ More recipes: [`docs/QUERIES.md`](docs/QUERIES.md) · column reference:
 
 ## The two datasets
 
+
+### Editions
+
+Two builds of the reference library are published from the same pipeline:
+
+| edition | works | entries | characters | parquet |
+|---|---|---|---|---|
+| [`bible-reference-v5`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5) — everything | 9,141 | 1,073,530 | 2,369,741,291 | 787.0 MB |
+| [`bible-reference-v5-nocommentary`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5-nocommentary) — commentaries removed | 3,795 | 687,596 | 1,198,048,181 | 385.6 MB |
+
+Both share the schema and the join convention exactly. The narrower build removes
+5,346 works: 162 SWORD commentary modules and 5,184 Sefaria works that Sefaria
+itself files under a commentary category. Every removed work is listed with its
+size and the rule that removed it in
+`bibles/reference/data/commentaries_removed.csv`; see
+[`bibles/reference/NO_COMMENTARY.md`](bibles/reference/NO_COMMENTARY.md).
+Produce it yourself with `pipeline/exclude_category.py --what commentaries --apply`.
+
 ### `bibles/text/` — the verse corpus
 
 77 public-domain or explicitly free translations, 1,577,225 verses, 39,909,848
