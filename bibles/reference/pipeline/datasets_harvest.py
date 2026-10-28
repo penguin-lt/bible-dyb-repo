@@ -47,7 +47,7 @@ SOURCES = {
     },
     "TEHMC": {
         "url": STEP + "Morphology%20codes/TEHMC%20-%20Translators%20Expansion%20of%20"
-                      "Hebrew%20Morphhology%20Codes%20-%20STEPBible.org%20CC%20BY.txt",
+                      "Hebrew%20Morphology%20Codes%20-%20STEPBible.org%20CC%20BY.txt",
         "file": "TEHMC.txt", "name": "STEPBible Hebrew morphology codes (expanded)",
         "topic": "Morphology & Parsing Data", "license": "Creative Commons: BY 4.0",
         "lang": "he", "kind": "tsv_codes",
@@ -61,6 +61,26 @@ SOURCES = {
         "lang": "he", "kind": "lexindex",
         "about": ("Strong's number to BDB article and SDBH semantic-domain entry, "
                   "with Hebrew/Greek lemmas and transliterations."),
+    },
+    "TIPNR": {
+        "url": STEP + "Proper%20Nouns/TIPNR%20-%20Translators%20Individualised%20Proper%20"
+                      "Names%20with%20all%20References%20-%20STEPBible.org%20CC%20BY.txt",
+        "file": "TIPNR.txt", "name": "STEPBible TIPNR — every proper name, with all its references",
+        "topic": "Historical & Cultural Background", "license": "Creative Commons: BY 4.0",
+        "lang": "en", "kind": "tipnr",
+        "about": "Every person and place named in the Bible, disambiguated so that "
+                 "homonyms are separate entries, with meaning and the full list of "
+                 "verses where each occurs.",
+    },
+    "TVTMS": {
+        "url": STEP + "Versification/TVTMS%20-%20Translators%20Versification%20Traditions%20"
+                      "with%20Methodology%20for%20Standardisation%20for%20Eng%2BHeb%2BLat%2BGrk%2B"
+                      "Others%20-%20STEPBible.org%20CC%20BY.txt",
+        "file": "TVTMS.txt", "name": "STEPBible TVTMS — versification traditions and standardisation",
+        "topic": "Cross-Reference Systems", "license": "Creative Commons: BY 4.0",
+        "lang": "en", "kind": "tsv_codes",
+        "about": "How English, Hebrew, Latin and Greek traditions number the same verses, "
+                 "and the mapping that reconciles them.",
     },
     "XREF": {
         "url": "https://a.openbible.info/data/cross-references.zip",
@@ -190,8 +210,91 @@ def rows_pleiades(path):
     return keys, texts
 
 
+def rows_tipnr(path):
+    """STEPBible TIPNR: every person and place, disambiguated, with all references.
+
+    Two record shapes in one file, both keyed by a tag like
+    ``Aaron@Exo.4.14-Heb=H0175``:
+
+      * summary rows  -> description, family relations, tribe, and a paragraph
+      * ``– Named`` rows -> one *form* of the name with its exhaustive reference list
+
+    They are merged on the tag so each name becomes one entry carrying its
+    meaning, its relatives and every verse it appears in.
+    """
+    summary, forms = {}, {}
+    with open(path, encoding="utf-8", errors="replace") as fh:
+        for raw in fh:
+            if not raw.strip() or raw.lstrip().startswith("#"):
+                continue
+            c = raw.rstrip("\r\n").split("\t")
+            tag = c[0].strip()
+            if tag.startswith("–") or tag.startswith("-"):
+                # form rows start with "– Named" / "– Unnamed"; handle before the
+                # generic tag filter below, which would reject them for the space
+                # form row: – Named \t tag \t strong«word \t display \t refs
+                if len(c) < 5:
+                    continue
+                t = c[1].strip()
+                word = c[2].strip()
+                disp = c[3].strip()
+                refs = clean(c[4])
+                forms.setdefault(t, []).append(
+                    (disp or t.split("@")[0], word, refs))
+                continue
+            if not tag or "‖" in tag or tag.startswith("=") or "@" not in tag:
+                continue
+            if " " in tag.split("@")[0]:
+                continue
+            desc = clean(c[1]) if len(c) > 1 else ""
+            rel = " ".join(c[2:7]) if len(c) > 2 else ""
+            entry = " ".join(c[7:]) if len(c) > 7 else ""
+            kind = ""
+            for x in c:
+                if x.strip() in ("Male", "Female", "Place"):
+                    kind = x.strip()
+                    break
+            summary[tag] = (desc, rel, entry, kind)
+
+    keys, texts = [], []
+    for tag, (desc, rel, entry, kind) in summary.items():
+        name = tag.split("@")[0]
+        parts = [name]
+        if kind:
+            parts.append(f"({kind})")
+        if desc and desc != name:
+            parts.append(desc)
+        body = " ".join(parts)
+        # keep only real name tags; the column also carries "+", ">" and blanks
+        relations = " ".join(t for t in (rel or "").split()
+                             if "@" in t and not t.startswith("#"))
+        relations = re.sub(r"\s+", " ", relations).strip(" ,")
+        if relations:
+            body += " Relations: " + relations + "."
+        if entry:
+            body += " " + entry
+        fr = forms.get(tag) or []
+        if fr:
+            refs = sorted({r for _, _, r in fr if r})
+            words = sorted({w for _, w, _ in fr if w})
+            if words:
+                body += " Forms: " + "; ".join(w[:80] for w in words[:8]) + "."
+            if refs:
+                body += " References: " + "; ".join(refs)[:4000]
+        body = re.sub(r"<(ref|strong)[^>]*>", "", body)      # pseudo-markup from TIPNR
+        body = re.sub(r"<[^>]{0,160}>", " ", body)
+        body = re.sub(r"\s+", " ", body).replace("#A ", "A ").replace("#", "")
+        body = re.sub(r"\)\s+referred to as", "); referred to as", body)
+        body = re.sub(r"\s+([,.;])", r"\1", body).strip()
+        if len(body) < 12:
+            continue
+        keys.append(name)
+        texts.append(body)
+    return keys, texts
+
+
 PARSERS = {"tsv_codes": rows_tsv_codes, "lexindex": rows_lexindex,
-           "xrefs": rows_xrefs, "pleiades": rows_pleiades}
+           "xrefs": rows_xrefs, "pleiades": rows_pleiades, "tipnr": rows_tipnr}
 
 
 def build(mod):

@@ -39,8 +39,11 @@ RULES = [
     ("reject", r"by-nc|by-nc-sa|by-nc-nd|by-nd|\bnc\b|non-?commercial|no-?derivat"),
     ("CC0", r"\bcc0\b|cc-0|creative commons zero"),
     ("CC BY-SA", r"by-sa|share-?alike"),
+    # Sefaria writes the bare string "CC BY"; match that spelling explicitly as
+    # well as the long form. The lookaheads are what keep -nc/-nd out, since
+    # "cc by" is a prefix of "cc by-nc".
     ("CC BY", r"creative commons[\s:]*\bby\b(?!-nc|-nd)|creative commons attribution|"
-              r"\bcc-?by\b(?!-nc|-nd)"),
+              r"\bcc[\s-]?by\b(?!-nc|-nd)|^cc by$"),
     ("GPL", r"\bgpl\b|general public licen[cs]e"),
     ("Public Domain", r"public domain|public-domain|released into the public|"
                       r"may be copied and distributed freely"),
@@ -87,20 +90,60 @@ def repair_partition(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--apply", action="store_true")
+    ap.add_argument("--recheck", action="store_true",
+                    help="re-evaluate works previously rejected, using their stored "
+                         "original licence wording (for policy corrections)")
     a = ap.parse_args()
 
     sidecar = os.path.join(OUT, "manifests")
-    manifest = {}
+    manifest, parked = {}, {}
     for f in sorted(os.listdir(sidecar)):
         if f.endswith(".json"):
             r = json.load(open(os.path.join(sidecar, f)))
+            manifest[r["module_id"]] = r
             if r.get("status") == "ok":
-                manifest[r["module_id"]] = r
+                parked[r["module_id"]] = None
+            elif a.recheck:
+                parked[r["module_id"]] = r
 
     rejected, relabelled, repaired = [], 0, 0
     tot_empty = tot_dups = 0
+    if a.recheck and not a.apply:
+        pass
     for mid, m in sorted(manifest.items()):
-        canon, why = canonical(m.get("license"), m.get("license_basis", ""))
+        if m.get("status") != "ok" and not a.recheck:
+            continue
+        # a previously rejected work is judged on the wording it arrived with
+        if m.get("status") != "ok":
+            # Never guess: only a preserved original wording can overturn a
+            # rejection. Without one, canonical(None) would read as Public Domain.
+            if not (m.get("license_raw") or "").strip():
+                continue
+            lic_for_judgement = m["license_raw"]
+        else:
+            lic_for_judgement = m.get("license")
+        canon, why = canonical(lic_for_judgement, m.get("license_basis", "") or "stated")
+        if m.get("status") != "ok" and canon != "reject":
+            # policy was wrong first time round: put the work back
+            if a.apply:
+                src = os.path.join(REJECTED, mid + ".parquet")
+                if not os.path.exists(src):
+                    # already live (e.g. an earlier partial run restored it);
+                    # still correct the manifest so status agrees with disk
+                    m["status"] = "ok"
+                    m["license"] = canon
+                    m.pop("reason", None)
+                    relabelled += 1
+                    json.dump(m, open(os.path.join(sidecar, mid + ".json"), "w"), indent=1)
+                    continue
+                m["status"] = "ok"
+                m["license"] = canon
+                m.pop("reason", None)
+                relabelled += 1
+                json.dump(m, open(os.path.join(sidecar, mid + ".json"), "w"), indent=1)
+            else:
+                relabelled += 1
+            continue
         if canon == "reject":
             rejected.append((mid, m.get("license"), why))
             if a.apply:

@@ -34,11 +34,19 @@ cd bibles/reference/pipeline
 python3 sword_plan.py      # fetch mods.d.tar.gz + rawzip index, resolve licences -> plan.json
 python3 harvest.py         # per module: fetch zip, mod2imp dump, normalise, write Parquet
 python3 ccel_harvest.py --include-unstated   # 1,331 CCEL works -> 741 ingested (~40 min)
-python3 sefaria_harvest.py                   # 19,815 Sefaria texts -> 1,282 ingested (~2 h)
+python3 sefaria_harvest.py                   # English versions  -> 1,282 ingested (~2 h)
+python3 sefaria_harvest.py --all-languages \
+    --categories "Talmud,Mishnah,Tosefta,Midrash,Halakhah,Responsa,Tanakh,\
+Jewish Thought,Kabbalah,Chasidut,Musar,Liturgy,Second Temple,Reference"
+                                             # + 7,734 Hebrew/Aramaic  (~4 h)
+python3 first1k_harvest.py                   # 282 Greek works, 76 Mchars  (~1 h)
+python3 interlinear_harvest.py               # TAGNT/TAHOT interlinears + morphology
 python3 datasets_harvest.py                  # XREF, TEGMC, TEHMC, OHLEX, PLEIA
 python3 opensource_harvest.py --only LSJ,BDB,TBESG,TBESH
 python3 repair.py --apply  # licence canonicalisation + enforcement, empty rows,
                            # duplicate-key requalification   <-- do not skip
+                           # if the licence *policy* changes, re-run with
+                           # --recheck --apply to re-judge parked works
 python3 dedupe.py --apply  # exact-text duplicates only; same-work pairs are reported
 python3 taxonomy.py --apply # classify every work against the twenty subject areas
 python3 combine.py         # combined reference.parquet, manifests, stats.json

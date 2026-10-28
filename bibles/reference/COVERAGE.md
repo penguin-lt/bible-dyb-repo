@@ -8,65 +8,75 @@ Generated from the built manifest by `bibles/reference/pipeline/taxonomy.py`.
 
 | # | area | works | entries | Mchars |
 |---|---|---|---|---|
-| 1 | Apocrypha & Pseudepigrapha | 63 | 4,115 | 42.1 |
-| 2 | Rabbinic Literature & Targums | 1,075 | 43,693 | 86.6 |
-| 3 | Patristics & Early Church Fathers | 68 | 20,485 | 156.1 |
-| 4 | Textual Criticism & Variants | 4 | 5,998 | 1.9 |
-| 5 | Systematic Theology & Dogmatics | 473 | 101,410 | 426.0 |
-| 6 | Sermons & Homiletics | 78 | 5,281 | 68.1 |
-| 7 | Church History & Historiography | 70 | 829 | 64.3 |
-| 8 | Liturgy & Lectionaries | 112 | 2,359 | 22.9 |
-| 9 | Historical & Cultural Background | 7 | 8,859 | 24.0 |
-| 10 | Maps & Geography | 5 | 90,610 | 8.8 |
-| 11 | Cross-Reference Systems | 12 | 94,791 | 25.7 |
-| 12 | Morphology & Parsing Data | 11 | 38,734 | 7.7 |
-| 13 | Interlinears & Reverse Interlinears | 5 | 33,757 | 11.9 |
-| 14 | Hermeneutics & Exegetical Methods | 336 | 101,942 | 284.3 |
-| 15 | Reformation & Early Modern Texts | 112 | 42,898 | 147.3 |
+| 1 | Apocrypha & Pseudepigrapha | 180 | 10,370 | 65.9 |
+| 2 | Rabbinic Literature & Targums | 8,275 | 222,576 | 1,113.0 |
+| 3 | Patristics & Early Church Fathers | 351 | 33,210 | 230.1 |
+| 4 | Textual Criticism & Variants | 139 | 6,910 | 5.3 |
+| 5 | Systematic Theology & Dogmatics | 610 | 102,573 | 461.6 |
+| 6 | Sermons & Homiletics | 80 | 5,287 | 69.7 |
+| 7 | Church History & Historiography | 169 | 3,159 | 119.7 |
+| 8 | Liturgy & Lectionaries | 242 | 3,801 | 31.7 |
+| 9 | Historical & Cultural Background | 47 | 13,403 | 31.2 |
+| 10 | Maps & Geography | 7 | 94,991 | 10.0 |
+| 11 | Cross-Reference Systems | 13 | 94,913 | 25.7 |
+| 12 | Morphology & Parsing Data | 22 | 126,137 | 32.2 |
+| 13 | Interlinears & Reverse Interlinears | 13 | 78,779 | 30.5 |
+| 14 | Hermeneutics & Exegetical Methods | 2,972 | 146,879 | 638.3 |
+| 15 | Reformation & Early Modern Texts | 122 | 130,276 | 171.8 |
 | 16 | Creeds & Confessions | 23 | 332 | 12.4 |
-| 17 | Mysticism & Asceticism | 174 | 2,629 | 43.5 |
-| 18 | Archaeology & Epigraphy | 44 | 6,068 | 7.5 |
+| 17 | Mysticism & Asceticism | 456 | 8,006 | 156.0 |
+| 18 | Archaeology & Epigraphy | 138 | 10,885 | 55.0 |
 | 19 | Apologetics & Polemics | 10 | 129 | 4.1 |
-| 20 | Lexical Datasets (Domain/Semantic) | 33 | 398,875 | 92.6 |
+| 20 | Lexical Datasets (Domain/Semantic) | 47 | 486,301 | 120.3 |
 
-**No area is empty.** Four are thin, and the reasons are concrete:
+**No area is empty.** Two remain genuinely thin, and the reason is a rights
+problem rather than an effort problem:
 
-* **Textual Criticism & Variants (4)** — the copyright-free apparatus material in
-  reach is limited to Tischendorf's spurious passages, the CC0 NT variant
-  apparatus, and the SBLGNT apparatus (which is non-commercial and therefore
-  excluded). Fuller critical apparatuses (NA28, UBS5) are copyrighted and will
-  never be here.
-* **Apologetics & Polemics (10)** and **Historical & Cultural Background (7)** —
-  the works exist in CCEL (Butler's *Analogy*, Paley, Lardner, Edersheim,
-  Smith's *Bible Dictionary* background articles) but many are classified under
-  their primary area (dogmatics or lexicography) and appear as secondary hits.
-* **Maps & Geography (5)** — Pleiades contributes 80,413 ancient place names, and
-  CCEL carries the geography works, but there is no public-domain *map image*
-  corpus here: this dataset is text, so maps arrive as gazetteer text only.
+* **Apologetics & Polemics (10 works, 129 entries)** — the CCEL apologetics shelf
+  is largely pre-1929 but the works are classified under dogmatics or church
+  history as their *primary* area and appear as secondary hits there. A dedicated
+  keyword pass over Butler, Paley, Lardner and Newman's Anglican writings would
+  move works, not add text.
+* **Textual Criticism & Variants (139 works)** — much improved over v3 (4 works),
+  because TAHOT/TAGNT carry the Ketiv/Qere and edition-difference apparatus
+  column by column, and 130 Sefaria texts are critical editions with variant
+  apparatus. What is still missing is a full critical apparatus proper (NA28,
+  UBS5, BHS): copyrighted, and it will not appear.
 
 ## Where the mass comes from
 
 | source | works | note |
 |---|---|---|
-| Sefaria (Sefaria-Export) | 1,282 | rabbinics, Targums, Second Temple, liturgy, Kabbalah — the whole English PD corpus |
+| Sefaria (Sefaria-Export) | 9,016 | 1,282 English in v3 plus 7,734 Hebrew/Aramaic editions: Talmud Bavli and Yerushalmi, Mishneh Torah with its commentaries, Shulchan Arukh, responsa, Midrash, Targums, Zohar |
 | Christian Classics Ethereal Library | 741 | patristics (NPNF/ANF), dogmatics, church history, sermons, devotion |
-| CrossWire SWORD | 96 | lexicons, dictionaries, commentaries, topical indexes |
-| STEPBible / Open Scriptures / OpenBible / Pleiades | 8 | LSJ, BDB, TBESG/TBESH, morphology codes, cross-references, gazetteer |
+| First Thousand Years of Greek | 282 | 76 Mchars of Greek: Homer, Hesiod, the tragedians, Herodotus, Thucydides, Plato, Aristotle, the Septuagint, Philo, Josephus, apostolic fathers, NT apocrypha |
+| CrossWire SWORD | 100 | lexicons, dictionaries, commentaries, topical indexes |
+| STEPBible (interlinears) | 10 | TAGNT and TAHOT verse interlinears, plus verse-level morphology and Strong's datasets |
+| Open Scriptures · OpenBible · Pleiades | 7 | LSJ, BDB, TEBG/TBESH, 340k cross-references, 80,424 place names |
 
 ## Deliberate exclusions
 
 | corpus | why |
 |---|---|
-| Sefaria CC-BY-NC / CC-BY-NC-SA (103 texts) | non-commercial licence; removed by `repair.py` |
-| CCEL works with an empty `DC.Rights` whose print edition is post-1928 | no public-domain basis |
-| CCEL image-only volumes (74) | page scans with no extractable text — rejected on the no-OCR rule |
+| Sefaria CC-BY-NC / CC-BY-NC-SA / CC-BY-NC-ND (783 works) | non-commercial or no-derivative licence; removed by `repair.py` |
+| CCEL works with an empty `DC.Rights` whose print edition is 1929 or later (476) | no public-domain basis |
+| CCEL image-only volumes (74) | page scans with no extractable text — the no-OCR rule |
+| Catholic Encyclopedia (1913) | the born-digital transcription (New Advent) asserts its own copyright; the Wikisource text is OCR-derived, which the no-OCR rule excludes |
+| Jewish Encyclopedia (1906) | jewishencyclopedia.com blocks crawlers in `robots.txt`; the Wikisource text is OCR-derived |
 | SBLGNT apparatus, RWP, KingComments, NET notes | copyrighted, non-commercial, or no redistribution grant |
 | NA28 / UBS5 / BHS apparatus | copyrighted |
-| Internet Archive OCR, Google Books OCR | OCR excluded by standing rule |
+| Internet Archive OCR, Google Books OCR, Wikisource `Page:` transcriptions | OCR excluded by standing rule |
+
+Each of the two encyclopedias is a real loss — roughly 25,000 articles between
+them — and each is blocked by a different rights problem, not by difficulty. If
+you can obtain a public-domain transcription of either (a pre-1929 printed
+edition scanned with a text layer by its publisher, for instance), they would slot
+straight into the existing pipeline as two more partitions.
 
 ## Verification
 
-`bibles/reference/QA_REPORT.md` records the checks: 2,127 works, 795,269 entries,
-counts agreeing across the combined file, the 2,127 partitions and the manifest;
-no empty text, no null keys, no duplicate keys, no U+FFFD; twenty content spot
-checks; and **no non-commercial licence anywhere in the output**.
+`bibles/reference/QA_REPORT.md` records the checks: 10,156 works, 1,086,263
+entries, counts agreeing across the combined file, the 10,156 partitions and the
+manifest; no empty text, no null keys, no duplicate keys, no U+FFFD; twenty
+content spot checks; and **no non-commercial or no-derivative licence anywhere in
+the output**.

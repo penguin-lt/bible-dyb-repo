@@ -121,6 +121,57 @@ Chasidut, Musar.
 | `OHLEX` | Open Scriptures Hebrew lexical index (Strong→BDB→TWOT) | Public Domain |
 | `PLEIA` | Pleiades ancient place-name index, 80,413 names | CC BY 4.0 |
 
+
+## 6. Sefaria, second pass — the Hebrew/Aramaic editions (7,734 works)
+
+v3 took only the 1,282 English versions. The index lists 13,551 Hebrew and
+Aramaic editions and about half of them carry a free licence in their own text
+file. Re-running with `--all-languages` added 7,734: Talmud Bavli and Yerushalmi
+with their commentarial literature, Mishneh Torah and its commentaries, Shulchan
+Arukh, responsa, Midrash, Targums, Zohar, siddurim and machzorim.
+
+Two defects were found and fixed during this pass, both of which had been
+invisible in v3:
+
+* **Module-id collisions.** One title can exist in several versions (a Hebrew and
+  an English edition, or two printed editions). The id was derived from the title
+  alone, so the second version silently overwrote the first in the partition
+  directory. Ids now carry language and version.
+* **Licence canonicalisation regression.** A first repair run rejected 268 works
+  whose licence reads simply `CC-BY`, because the pattern only matched the long
+  "creative commons attribution" wording. The canonicaliser was extended, and
+  `repair.py --recheck` was added so a corrected policy can be re-applied to
+  works that were already parked — using the preserved `license_raw`, never a
+  guess.
+
+## 7. First Thousand Years of Greek (282 works, 76 Mchars)
+
+`https://github.com/OpenGreekAndLatin/First1KGreek`, CC BY-SA 4.0, TEI XML.
+Holds the Greek literary world the Fathers wrote inside: Homer, Hesiod, the
+tragedians, Herodotus, Thucydides, Plato, Aristotle, the Septuagint, Philo,
+Josephus, the New Testament apocrypha and the apostolic fathers.
+
+The repository's metadata CSV names the *suggested CTS* filename
+(`…opp-grc1.xml`), but the files actually present are the `1st1K-` ones; the
+harvester tries both. 312 editions catalogued, 282 parsed, 30 skipped where no
+Greek file exists in the tree (Latin or English only).
+
+## 8. STEPBible interlinears, morphology and proper names
+
+| module | what it is | licence |
+|---|---|---|
+| `TAGNT_Mat-Jhn`, `TAGNT_Act-Rev` | word-by-word Greek NT with transliteration, gloss, morphology | CC BY 4.0 |
+| `TAHOT_Gen-Deu`, `_Jos-Est`, `_Job-Sng`, `_Isa-Mal` | the same for the Hebrew OT | CC BY 4.0 |
+| `MORPHGRK`, `MORPHHEB` | verse-level morphology codes, joinable on book/chapter/verse | CC BY 4.0 |
+| `STRONGSGRK`, `STRONGSHEB` | verse-level disambiguated Strong's tags | CC BY 4.0 |
+| `TIPNR` | 4,248 people and places, disambiguated, with meaning and every reference | CC BY 4.0 |
+| `TVTMS` | versification traditions and the mapping between them | CC BY 4.0 |
+
+The interlinear rows are the "Interlinears & Reverse Interlinears" area: each row
+is one verse, each word shown as original — transliteration — gloss [morphology],
+in reading order. Verse counts were checked against the canon (Matthew–John 3,778;
+Acts–Revelation 4,170), which is how two column-offset bugs were caught.
+
 ## 5. Non-SWORD sources surveyed — findings and dispositions
 
 The brief was to look everywhere, so each candidate was opened and tested rather

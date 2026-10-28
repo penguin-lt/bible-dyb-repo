@@ -139,7 +139,14 @@ def build(entry, dry=False):
 
     title = (d.get("title") or entry["title"])
     cats = d.get("categories") or entry.get("categories") or []
-    mid = "sefaria_" + re.sub(r"[^A-Za-z0-9]+", "_", title)[:52].strip("_")
+    # One text can exist as several versions (Hebrew and English editions of the
+    # same title). Key the module on title *and* version, or the second version
+    # silently overwrites the first in the partition directory.
+    lang_tag = {"he": "he", "en": "en"}.get(
+        (d.get("actualLanguage") or d.get("language") or "en").lower()[:2], "x")
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", title)[:44].strip("_")
+    vtag = re.sub(r"[^A-Za-z0-9]+", "_", d.get("versionTitle", ""))[:18].strip("_")
+    mid = "_".join(x for x in ("sefaria", slug, lang_tag, vtag) if x)
     topic = topic_of(cats)
     # Sefaria files some non-English translations under language="English";
     # trust the text's own actualLanguage for labelling.
@@ -216,6 +223,9 @@ def main():
     ap.add_argument("--survey", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--categories", default="")
+    ap.add_argument("--all-languages", action="store_true",
+                    help="also take the Hebrew/Aramaic versions (13,551 texts); "
+                         "the licence gate is unchanged")
     a = ap.parse_args()
 
     books = index()
@@ -223,12 +233,12 @@ def main():
     cand = []
     seen = set()
     for b in books:
-        if b.get("language") != "English":
+        if b.get("language") != "English" and not a.all_languages:
             continue
         cats = b.get("categories") or []
         if want and not any(any(w in c.lower() for c in cats) for w in want):
             continue
-        t = b["title"]
+        t = b["title"] + "|" + (b.get("versionTitle") or "")
         if t in seen:                     # several versions of one title
             continue
         seen.add(t)

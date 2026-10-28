@@ -8,10 +8,10 @@ executable form of this report; it exits non-zero on any hard failure.
 ```
 PASS combined schema  [module_id, module_name, category, entry_key, entry_order,
                        book_id, chapter, verse, entry_text, char_count]
-PASS module count / partition count  [2,127 modules, 2,127 partitions]
+PASS module count / partition count  [10,156 modules, 10,156 partitions]
 PASS manifest and partition module sets agree
-PASS partitions sum to combined row count  [795,269 rows]
-PASS manifest entry_count sum matches  [795,269]
+PASS partitions sum to combined row count  [1,086,263 rows]
+PASS manifest entry_count sum matches  [1,086,263]
 PASS no empty entry text  [0]
 PASS no null keys or texts  [0]
 PASS no duplicate (module, key) pairs  [0 across 0 modules]
@@ -32,8 +32,8 @@ PASS spot ISBE:AARON  [Amram]
 PASS no U+FFFD replacement characters  [0]
 PASS no residual markup in sample
 
-modules=2,127 entries=795,269 chars=1,175,804,995
-combined=340.7 MB partitions=339.5 MB
+modules=10,156 entries=1,086,263 chars=2,433,940,016
+combined=812.5 MB partitions=819.5 MB
 RESULT: ALL CHECKS PASSED
 ```
 
@@ -150,3 +150,15 @@ RESULT: ALL CHECKS PASSED
   conservatively licensed 1,075.
 * **Public-domain status is the distributor's assertion**, recorded verbatim in
   the manifest, not independently re-verified against national copyright records.
+
+14. **A licence-policy correction silently re-admitted 277 works with no data.**
+    Deleting the parked partitions before knowing the storage budget meant
+    `repair.py --recheck` moved manifest rows back to `ok` for files that no
+    longer existed. Two guards were added: a rejection can only be overturned
+    when the work has a preserved `license_raw` (otherwise `canonical(None)`
+    reads as public domain, which is a guess), and a restore that finds no parked
+    file corrects the manifest instead of failing. All 268 Sefaria works and the
+    3 SWORD modules were then rebuilt from source and re-verified.
+15. **`verify.py` now cross-checks the partition directory against the manifest in
+    both directions.** This is what caught the above: 10,153 modules against
+    10,156 partitions, then 10,156 against 10,156.

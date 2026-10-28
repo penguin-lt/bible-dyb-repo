@@ -1,109 +1,109 @@
 {
- "modules": 2127,
+ "modules": 10156,
  "by_topic": {
-  "Systematic Theology & Dogmatics": {
-   "works": 473,
-   "entries": 101410,
-   "chars": 426036221
+  "Rabbinic Literature & Targums": {
+   "works": 8275,
+   "entries": 222576,
+   "chars": 1113048518
   },
   "Hermeneutics & Exegetical Methods": {
-   "works": 336,
-   "entries": 101942,
-   "chars": 284251399
+   "works": 2972,
+   "entries": 146879,
+   "chars": 638332412
+  },
+  "Systematic Theology & Dogmatics": {
+   "works": 610,
+   "entries": 102573,
+   "chars": 461553067
   },
   "Patristics & Early Church Fathers": {
-   "works": 68,
-   "entries": 20485,
-   "chars": 156127685
+   "works": 351,
+   "entries": 33210,
+   "chars": 230057184
   },
   "Reformation & Early Modern Texts": {
-   "works": 112,
-   "entries": 42898,
-   "chars": 147289444
-  },
-  "Lexical Datasets (Domain/Semantic)": {
-   "works": 33,
-   "entries": 398875,
-   "chars": 92601035
-  },
-  "Rabbinic Literature & Targums": {
-   "works": 1075,
-   "entries": 43693,
-   "chars": 86641146
-  },
-  "Sermons & Homiletics": {
-   "works": 78,
-   "entries": 5281,
-   "chars": 68146465
-  },
-  "Church History & Historiography": {
-   "works": 70,
-   "entries": 829,
-   "chars": 64320244
+   "works": 122,
+   "entries": 130276,
+   "chars": 171817229
   },
   "Mysticism & Asceticism": {
-   "works": 174,
-   "entries": 2629,
-   "chars": 43543583
+   "works": 456,
+   "entries": 8006,
+   "chars": 155951244
+  },
+  "Lexical Datasets (Domain/Semantic)": {
+   "works": 47,
+   "entries": 486301,
+   "chars": 120327292
+  },
+  "Church History & Historiography": {
+   "works": 169,
+   "entries": 3159,
+   "chars": 119702268
+  },
+  "Sermons & Homiletics": {
+   "works": 80,
+   "entries": 5287,
+   "chars": 69668810
   },
   "Apocrypha & Pseudepigrapha": {
-   "works": 63,
-   "entries": 4115,
-   "chars": 42109761
+   "works": 180,
+   "entries": 10370,
+   "chars": 65911354
   },
-  "Cross-Reference Systems": {
-   "works": 12,
-   "entries": 94791,
-   "chars": 25681320
+  "Archaeology & Epigraphy": {
+   "works": 138,
+   "entries": 10885,
+   "chars": 54965248
   },
-  "Historical & Cultural Background": {
-   "works": 7,
-   "entries": 8859,
-   "chars": 24040409
+  "Morphology & Parsing Data": {
+   "works": 22,
+   "entries": 126137,
+   "chars": 32242591
   },
   "Liturgy & Lectionaries": {
-   "works": 112,
-   "entries": 2359,
-   "chars": 22871906
+   "works": 242,
+   "entries": 3801,
+   "chars": 31656552
+  },
+  "Historical & Cultural Background": {
+   "works": 47,
+   "entries": 13403,
+   "chars": 31248728
+  },
+  "Interlinears & Reverse Interlinears": {
+   "works": 13,
+   "entries": 78779,
+   "chars": 30515822
+  },
+  "Cross-Reference Systems": {
+   "works": 13,
+   "entries": 94913,
+   "chars": 25691385
   },
   "Creeds & Confessions": {
    "works": 23,
    "entries": 332,
    "chars": 12436982
   },
-  "Interlinears & Reverse Interlinears": {
-   "works": 5,
-   "entries": 33757,
-   "chars": 11913574
-  },
   "Maps & Geography": {
-   "works": 5,
-   "entries": 90610,
-   "chars": 8809240
+   "works": 7,
+   "entries": 94991,
+   "chars": 10031877
   },
-  "Morphology & Parsing Data": {
-   "works": 11,
-   "entries": 38734,
-   "chars": 7713930
-  },
-  "Archaeology & Epigraphy": {
-   "works": 44,
-   "entries": 6068,
-   "chars": 7494723
+  "Textual Criticism & Variants": {
+   "works": 139,
+   "entries": 6910,
+   "chars": 5316206
   },
   "Apologetics & Polemics": {
    "works": 10,
    "entries": 129,
    "chars": 4115200
-  },
-  "Textual Criticism & Variants": {
-   "works": 4,
-   "entries": 5998,
-   "chars": 1879636
   }
  },
- "entries": 795269,
- "chars": 1175804995,
+ "entries": 1086263,
+ "chars": 2433940016,
  "by_category": {
   "Liturgy": {
    "modules": 65,
@@ -131,9 +131,9 @@
    "chars": 30906162
   },
   "Reference": {
-   "modules": 1577,
-   "entries": 142178,
-   "chars": 347778872
+   "modules": 9600,
+   "entries": 404046,
+   "chars": 1589076049
   },
   "Theology": {
    "modules": 48,
@@ -164,6 +164,11 @@
    "modules": 9,
    "entries": 42300,
    "chars": 5716510
+  },
+  "Interlinear": {
+   "modules": 6,
+   "entries": 29126,
+   "chars": 16837844
   }
  },
  "languages": [
@@ -209,7 +214,7 @@
   "zho",
   "zxx"
  ],
- "combined_bytes": 340696827,
- "partitioned_bytes": 339543050,
+ "combined_bytes": 812478795,
+ "partitioned_bytes": 819532143,
  "excluded_modules": 52
 }
