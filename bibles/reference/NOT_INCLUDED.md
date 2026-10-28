@@ -130,3 +130,41 @@ the next revision, not rejections:
 | STEPBible (`STEPBible-Data`) | TFLSJ formatted LSJ, TBESG/TBESH | CC BY 4.0 | **ingested as `LSJ`, `TBESG`, `TBESH`** |
 | STEPBible (`STEPBible-Data`) | TIPNR proper names, morphology codes | CC BY 4.0 | annotation data, not a reference work — out of scope |
 | CCEL | its whole reference corpus | mixed PD | same works as SWORD, but ThML endpoints now 404 — SWORD is the cleaner route |
+
+## v3 exclusions, with counts
+
+### Non-commercial and no-derivative licences — 112 works
+
+Sefaria publishes 103 of its English texts under `CC-BY-NC` or `CC-BY-NC-SA`, and
+9 more carry comparable restrictions. They are readable, but the licence forbids
+commercial use and, for the `-SA` subset, imposes share-alike on anything derived.
+Rejected before combining; the list is in `data/modules_excluded.csv`. Notably
+this removes SBLGNT's apparatus and several modern translations of rabbinic
+works.
+
+### CCEL page-image volumes — 74 works
+
+Scanned volumes whose ThML carries only `Image of page i`, `Image of page ii`, …
+placeholders. There is no text to extract, and OCR is excluded by standing rule.
+These were ingested in the first v3 run and removed after detection; the guard in
+`ccel_harvest.py` now rejects them at source.
+
+### Empty rights with a post-1928 print edition — 476 works
+
+CCEL lists them, `DC.Rights` is blank, and the print edition they were digitised
+from is 1929 or later. With no statement and no expiry argument there is no
+public-domain basis. They are the single largest omission in this revision.
+
+### Exact duplicates — 2 works
+
+`ccel_encyclopedia` (superseded by `schaff_encyclopedia`) and
+`walker_harmony2`. Text-identical, so only one copy is kept.
+
+### Same-work pairs kept, not merged — 50 pairs
+
+`data/dedupe_report.csv` lists works whose titles and subject overlap across
+sources (e.g. BDB from SWORD and from Open Scriptures; Schaff's *History* from
+CCEL and from SWORD). Both editions are kept because their coverage and wording
+differ; the report flags them so a consumer can pick. Fuzzy deduplication was
+tried and abandoned — it deleted Barnes on Isaiah as a duplicate of Schaff's
+encyclopedia on a 0.93 containment score driven entirely by series front matter.

@@ -31,35 +31,56 @@ sudo apt-get install -y libsword-utils diatheke unzip curl
 pip install pyarrow zstandard
 
 cd bibles/reference/pipeline
-python3 sword_plan.py      # fetch mods.d.tar.gz + rawzip index, resolve licences -> /tmp/plan.json
+python3 sword_plan.py      # fetch mods.d.tar.gz + rawzip index, resolve licences -> plan.json
 python3 harvest.py         # per module: fetch zip, mod2imp dump, normalise, write Parquet
+python3 ccel_harvest.py --include-unstated   # 1,331 CCEL works -> 741 ingested (~40 min)
+python3 sefaria_harvest.py                   # 19,815 Sefaria texts -> 1,282 ingested (~2 h)
+python3 datasets_harvest.py                  # XREF, TEGMC, TEHMC, OHLEX, PLEIA
+python3 opensource_harvest.py --only LSJ,BDB,TBESG,TBESH
+python3 repair.py --apply  # licence canonicalisation + enforcement, empty rows,
+                           # duplicate-key requalification   <-- do not skip
+python3 dedupe.py --apply  # exact-text duplicates only; same-work pairs are reported
+python3 taxonomy.py --apply # classify every work against the twenty subject areas
 python3 combine.py         # combined reference.parquet, manifests, stats.json
 python3 verify.py          # independent checks; non-zero exit on failure
 ```
 
-Four works come from outside SWORD and are harvested by their own parser into
-the same partition format:
+The order matters. `repair.py` runs **before** `combine.py` because it may
+reject a whole work on licence grounds — 112 works were removed this way — and
+because `combine.py` must never have to make a licence decision. `dedupe.py`
+runs after it for the same reason: do not delete a work, then discover its
+neighbour was the duplicate.
 
-```bash
-python3 opensource_harvest.py --only LSJ,BDB,TBESG,TBESH
-```
-LSJ is ~24 MB and takes ~3 minutes; the other three are seconds.
+### The sidecar manifest
 
-`sword_plan.py` is the policy checkpoint: it reads every module's
-`DistributionLicense` and emits `selected` / `skipped` lists. Change the policy
-there, not in the harvester.
+Each harvester writes one JSON file per work to `$REF_OUT/manifests/<module_id>.json`
+and nothing shared. An early design had all four harvesters appending to a single
+`modules.json`; run in parallel they overwrote each other and 1,388 works ended up
+in the data with no manifest row. The sidecar is the unit of truth: `combine.py`
+assembles `modules.parquet` / `.csv` / `stats.json` from the directory, and a
+partition without a sidecar is an error, not a default.
 
-`harvest.py` is streaming — one module in memory at a time, and the zip, the
-unpacked module and the dump are deleted as soon as its Parquet file is written,
-so peak disk is roughly one module (the largest is ~40 MB) rather than 600 MB.
-A full run is about 9 minutes for 96 modules.
+### The licence gate
+
+`repair.py` is the only place allowed to decide whether a licence string is
+permitted. Its canonical set is `Public Domain`, `CC0`, `CC BY`, `CC BY-SA`,
+`GPL`; everything else is rejected and the work is moved to
+`$REF_OUT/not_ingested/` with the reason recorded. Substring tests are unsafe in
+both directions and have caused two leaks: `"cc-by" in s` is true for
+`cc-by-nc` (102 Sefaria texts), and a naive "contains BY" pattern rejects
+`Creative Commons: BY 4.0`. `canonical()` therefore matches an ordered list of
+regexes with `(?!-nc|-nd)` lookaheads, and `verify.py` calls the same function
+rather than re-implementing the test.
+
+`license_raw` preserves the distributor's own wording; `license` is the canonical
+value and `license_basis` is `stated` or `inferred_pre1929`.
 
 Publishing the built dataset:
 
 ```bash
 export GH_TOKEN=...        # repo scope
-python3 publish_github.py penguin-lt/bible-dyb-repo bible-reference-v1 \
-    /tmp/out/reference.parquet /tmp/out/reference_partitioned.zip /tmp/out/modules.parquet
+python3 publish_github.py penguin-lt/bible-dyb-repo bible-reference-v3 \
+    $REF_OUT/reference.parquet /tmp/out/reference_partitioned.zip /tmp/out/modules.parquet
 ```
 
 ## Adding a work that is not a SWORD module
