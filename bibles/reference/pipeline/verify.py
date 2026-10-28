@@ -22,7 +22,9 @@ import pyarrow.parquet as pq
 OUT = "/tmp/out"
 EXPECTED = ["module_id", "module_name", "category", "entry_key", "entry_order",
             "book_id", "chapter", "verse", "entry_text", "char_count"]
-SPOT = [("Easton", "AARON", "Amram"), ("Smith", "AARON", "Amram"),
+SPOT = [("LSJ", "G0026", "love"), ("BDB", "אָבַד", "perish"),
+        ("TBESG", "G0001G", "alpha"), ("TBESH", "H0001G", "father"),
+        ("Easton", "AARON", "Amram"), ("Smith", "AARON", "Amram"),
         ("StrongsGreek", "00001", "alpha"), ("Nave", "AARON", "Lineage"),
         ("Torrey", "ACCESS TO GOD", "Christ"), ("MHC", "Genesis 1:1", "beginning"),
         ("Webster1913", "AARON'S ROD", "serpent"), ("ISBE", "AARON", "Amram")]

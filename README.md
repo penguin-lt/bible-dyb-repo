@@ -16,11 +16,11 @@ other copy that matters.
 | area | path | contents | size |
 |---|---|---|---|
 | Bible text | `bibles/text/` | 77 translations · **1,577,225 verses** · 10 columns | 28.2 MB combined + 55.1 MB partitioned |
-| Reference works | `bibles/reference/` | 96 works · **615,459 entries** · 387,289,451 characters | release assets (216 MB) |
+| Reference works | `bibles/reference/` | 100 works · **655,648 entries** · 398,036,788 characters | release assets (222 MB) |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
 
-**Totals: 2,192,684 rows of text, 173 works, ~420 million characters.**
+**Totals: 2,232,873 rows of text, 177 works, ~438 million characters.**
 
 Two datasets, one schema philosophy: one combined Parquet file for whole-corpus
 scans, one Parquet file per translation/work for cheap filtering, a manifest table
@@ -86,7 +86,10 @@ Details: [`bibles/text/README.md`](bibles/text/README.md).
 
 ### `bibles/reference/` — the reference library
 
-96 works, 615,459 entries, 387,289,451 characters, in 12 languages. Entry-level
+100 works, 655,648 entries, 398,036,788 characters, in 12 languages. 96 are
+CrossWire SWORD modules; four are ingested from open scholarly repositories:
+full LSJ and STEPBible TBESG/TBESH (CC BY 4.0), and full Brown-Driver-Briggs
+(public domain). Entry-level
 Parquet: one row per headword, verse or section, keyed by the work's own key.
 
 | column | type |
@@ -99,7 +102,7 @@ Parquet: one row per headword, verse or section, keyed by the work's own key.
 
 210,522 entries carry a parsed scripture reference and join straight to
 `bibles/text/bibles.parquet` on `(book_id, chapter, verse)`.
-Licences: Public Domain 84, CC BY-SA 7, CC BY 4, CC0 1, GPL 1.
+Licences: Public Domain 85, CC BY-SA 7, CC BY 6, CC0 1, GPL 1.
 Details: [`bibles/reference/README.md`](bibles/reference/README.md) — plus
 `SOURCES.md`, `NOT_INCLUDED.md` (52 modules rejected, all on licence) and
 `QA_REPORT.md`.
@@ -135,12 +138,12 @@ The reference library is too large for a git checkout alongside the verse data,
 so it is published as release assets while its docs, manifests and pipeline stay
 in the repository:
 
-**<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v1>**
+**<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v2>**
 
 | asset | size | contents |
 |---|---|---|
-| `reference.parquet` | 109.4 MB | all 96 works, 615,459 entries |
-| `reference_partitioned.zip` | 105.8 MB | one Parquet file per work |
+| `reference.parquet` | 112.7 MB | all 100 works, 655,648 entries |
+| `reference_partitioned.zip` | 109.0 MB | one Parquet file per work |
 | `modules.parquet` | 30 KB | manifest (also in `bibles/reference/data/`) |
 
 ## Working on it

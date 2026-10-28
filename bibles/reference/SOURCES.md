@@ -27,7 +27,8 @@ tally across all 428 modules: Public Domain 227, "Permission granted to
 CrossWire" 80, free non-commercial 31, blank 16, CC BY-SA 11, CC BY-NC-ND 10,
 freely distributable 8, CC BY-NC-SA 7, CC BY 6, GPL 5.
 
-**Result: 96 modules ingested, 52 excluded**, 615,459 entries.
+**Result: 96 modules ingested, 52 excluded.** With the four external works below
+the dataset stands at **100 works / 655,648 entries / 398,036,788 characters**.
 
 ### Ingested (96)
 
@@ -87,13 +88,29 @@ licence.
 The brief was to look everywhere, so each candidate was opened and tested rather
 than assumed. Results:
 
-### Perseus Digital Library — Liddell-Scott-Jones (`PerseusDL/lexica`)
+### Perseus Digital Library — Liddell-Scott-Jones (`PerseusDL/lexica`) — INSPECTED, REJECTED
 
-`https://raw.githubusercontent.com/PerseusDL/lexica/master/CTS_XML_TEI/perseus/pdllex/grc/lsj/grc.lsj.perseus-eng1.xml`
-— **HTTP 200, 42.9 MB TEI XML, public domain**, reachable and parseable.
-Full LSJ with the Perseus encoding of Greek headwords and English definitions.
-This is the single largest genuine lexicon not present in the SWORD archive and
-is the next ingest candidate (see `NOT_INCLUDED.md`).
+`.../CTS_XML_TEI/perseus/pdllex/grc/lsj/grc.lsj.perseus-eng1.xml` — HTTP 200,
+42.9 MB TEI XML, public domain. Parsed successfully (18,950 `<entryFree>`), and
+then **rejected: 18,586 of the 18,950 keys begin with alpha.** Despite its name
+this file is the alpha-only fascicle, not the complete lexicon — 42.9 MB of
+apparatus around 361 non-alpha headwords. Recorded here so the same file is not
+mistaken for the full LSJ a second time. The complete LSJ is ingested from
+STEPBible's TFLSJ instead (below).
+
+### Ingested in this revision — four non-SWORD works
+
+| module_id | work | source | licence | entries | characters |
+|---|---|---|---|---|---|
+| `LSJ` | Liddell-Scott-Jones, full, biblical vocabulary (TFLSJ) | STEPBible-Data | CC BY 4.0 | 5,706 | 4.61 M |
+| `BDB` | Brown-Driver-Briggs, full lexicon | Openscriptures/HebrewLexicon | Public Domain | 11,769 | 0.71 M |
+| `TBESG` | Translators Brief lexicon, Extended Strong's — Greek | STEPBible-Data | CC BY 4.0 | 11,032 | 2.68 M |
+| `TBESH` | Translators Brief lexicon, Extended Strong's — Hebrew | STEPBible-Data | CC BY 4.0 | 11,682 | 2.75 M |
+
+LSJ's individual entries reach 21,013 characters (`ἀγάπη`, `λόγος`), keyed by
+Extended Strong's number so they join the Greek lexicons already in the corpus.
+`bibles/reference/pipeline/opensource_harvest.py` parses all four and writes the
+same ten-column partition the SWORD harvester writes.
 
 ### Open Scriptures
 
@@ -101,11 +118,11 @@ is the next ingest candidate (see `NOT_INCLUDED.md`).
   `StrongHebrewG.xml` (6.4 MB): the upstream of the SWORD `StrongsGreek` /
   `StrongsHebrew` modules already ingested. **Duplicate of what we have; not
   re-ingested.**
-* `openscriptures/HebrewLexicon` — `BrownDriverBriggs.xml` (2.7 MB),
+* `openscriptures/HebrewLexicon` — **ingested** as `BDB`; `BrownDriverBriggs.xml` (2.7 MB),
   `HebrewStrong.xml`, `LexicalIndex.xml`, `AugIndex.xml`, plus a pre-built
   `sinri/json/StrongHebrewDictionary.json` (3.7 MB). BDB in full structured
   form. SWORD ships only **BDB glosses** (`BDBGlosses_Strongs`), so the full BDB
-  is **additional content**, not a duplicate — next ingest candidate.
+  is **additional content, not a duplicate** — now ingested.
 
 ### STEPBible (Tyndale House Cambridge) — `STEPBible/STEPBible-Data`
 
@@ -114,8 +131,9 @@ Greek (4.7 MB), `TBESH` Hebrew (3.3 MB), `TFLSJ` full LSJ formatted (23.8 MB +
 8.4 MB extra), `TIPNR` proper names with every reference (8.2 MB), `MounceGithubTouched`,
 `OGNT-Analytical_Lexicon`. Licence: **CC BY 4.0** — free but attribution-required,
 so it fits the standing "explicitly free" rule and is flagged accordingly.
-Not ingested in this revision; recorded as the highest-value pending non-SWORD
-addition alongside LSJ and BDB.
+TBESG and TBESH are **ingested**; TFLSJ is ingested as `LSJ`; `TIPNR` (proper
+names) and the morphology-code files are text-annotation data rather than
+reference works and stay out of scope.
 
 ### e-Sword, theWord, MySword (third-party module libraries)
 

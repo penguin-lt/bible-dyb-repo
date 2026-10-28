@@ -109,6 +109,14 @@ that permits redistribution (CC0, CC BY, CC BY-SA, GPL). A module that says
   French, German, Dutch, Latin, Greek, Swedish, Ge'ez and Vietnamese works that
   did clear the licence test.
 
+## Ingested since this list was first written
+
+`LSJ`, `BDB`, `TBESG` and `TBESH` were on the "not yet ingested" list below and
+are now **in** the dataset (see `SOURCES.md`). They were never licence
+exclusions — only parser work. Still open from that list: `TIPNR` (proper names)
+and the STEPBible morphology-code files, both text-annotation data rather than
+reference works.
+
 ## Not yet ingested, though the source is open
 
 These are public domain or explicitly free and were confirmed reachable on
@@ -117,7 +125,8 @@ the next revision, not rejections:
 
 | source | work | licence | why it matters |
 |---|---|---|---|
-| Perseus (`PerseusDL/lexica`) | Liddell-Scott-Jones, full, 42.9 MB TEI XML | public domain | the standard Greek lexicon; we only have Abbott-Smith, Dodson and Strong's |
-| Open Scriptures (`HebrewLexicon`) | Brown-Driver-Briggs, full, `BrownDriverBriggs.xml` 2.7 MB | public domain | SWORD ships BDB **glosses** only, not the full lexicon |
-| STEPBible (`STEPBible-Data`) | TBESG/TBESH brief lexicons, TFLSJ formatted LSJ, TIPNR proper names | CC BY 4.0 | modern scholarly glosses with extended Strong's numbers |
+| Perseus (`PerseusDL/lexica`) | LSJ TEI XML, 42.9 MB | public domain | **rejected — alpha-only fascicle, not the full lexicon** |
+| Open Scriptures (`HebrewLexicon`) | Brown-Driver-Briggs, full | public domain | **ingested as `BDB`** |
+| STEPBible (`STEPBible-Data`) | TFLSJ formatted LSJ, TBESG/TBESH | CC BY 4.0 | **ingested as `LSJ`, `TBESG`, `TBESH`** |
+| STEPBible (`STEPBible-Data`) | TIPNR proper names, morphology codes | CC BY 4.0 | annotation data, not a reference work — out of scope |
 | CCEL | its whole reference corpus | mixed PD | same works as SWORD, but ThML endpoints now 404 — SWORD is the cleaner route |

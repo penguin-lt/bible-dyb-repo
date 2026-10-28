@@ -8,15 +8,19 @@ executable form of this report; it exits non-zero on any hard failure.
 ```
 PASS combined schema  [module_id, module_name, category, entry_key, entry_order,
                        book_id, chapter, verse, entry_text, char_count]
-PASS module count / partition count  [96 modules, 96 partitions]
+PASS module count / partition count  [100 modules, 100 partitions]
 PASS manifest and partition module sets agree
-PASS partitions sum to combined row count  [615,459 rows]
-PASS manifest entry_count sum matches  [615,459]
+PASS partitions sum to combined row count  [655,648 rows]
+PASS manifest entry_count sum matches  [655,648]
 PASS no empty entry text  [0]
 PASS no null keys or texts  [0]
 PASS no duplicate (module, key) pairs  [0 across 0 modules]
 PASS scripture-linked entries parsed  [210,522]
 PASS no copyrighted-only licences in the dataset
+PASS spot LSJ:G0026  [love]
+PASS spot BDB:אָבַד  [perish]
+PASS spot TBESG:G0001G  [alpha]
+PASS spot TBESH:H0001G  [father]
 PASS spot Easton:AARON  [Amram]
 PASS spot Smith:AARON  [Amram]
 PASS spot StrongsGreek:00001  [alpha]
@@ -28,8 +32,8 @@ PASS spot ISBE:AARON  [Amram]
 PASS no U+FFFD replacement characters  [0]
 PASS no residual markup in sample
 
-modules=96 entries=615,459 chars=387,289,451
-combined=109.4 MB partitions=106.3 MB
+modules=100 entries=655,648 chars=398,036,788
+combined=112.7 MB partitions=109.5 MB
 RESULT: ALL CHECKS PASSED
 ```
 
@@ -75,6 +79,26 @@ RESULT: ALL CHECKS PASSED
    crashed. Output is now captured as bytes and decoded per the module's own
    `Encoding`.
 
+6. **The "Perseus LSJ" is an alpha-only file.** The 42.9 MB
+   `grc.lsj.perseus-eng1.xml` parses to 18,950 entries — and 18,586 of them begin
+   with alpha. It is the alpha fascicle, not the complete lexicon, so ingesting it
+   under the name "LSJ" would have shipped ~2 % of the work while claiming the
+   whole. Replaced with STEPBible's TFLSJ (5,706 full LSJ articles for the
+   biblical vocabulary, 4.61 M characters, keyed by Extended Strong's number).
+   `SOURCES.md` records the rejected file so it is not retried.
+7. **XML child elements were cleared before their parent was read.** Both new
+   XML parsers reacted to every element's `end` event and called `clear()` on
+   children, so `iterparse` handed back an emptied `<entryFree>` / `<entry>`.
+   LSJ articles collapsed to ~20 % of their length and BDB entries to headword-only
+   stubs. Both parsers now react to the container tag only.
+8. **BDB's editor status flags leaked into the text.** `<status p="1">done</status>`
+   is a progress marker; `ET.tostring` re-prefixes the namespace, so the remover
+   missed it and entries ended `…in OT times.\ndone`. Now stripped by a
+   namespace-agnostic pattern.
+9. **STEPBible link stubs.** `[<a title="…">Refs 2nd c.AD+</a>]` reduced to
+   `[Refs 2nd c.AD+]` and then removed — the `title` attribute holds the citation
+   the anchor points at, so keeping the anchor text alone was noise.
+
 ## Known limitations
 
 * **Commentary keys are prefaces as well as verses.** Modules such as `MHC` and
@@ -88,5 +112,8 @@ RESULT: ALL CHECKS PASSED
   is included because `AARON'S ROD`, `EPHAH`, `SHEKEL` and hundreds of other
   biblical terms are defined there. Filter on `category`/`module_id` if you only
   want scripture-focused works.
+* **LSJ keys are Extended Strong's numbers, not Greek lemmas.** `G3056` is
+  λόγος; there is no lemma index, so join LSJ to the corpus through the other
+  lexicons rather than by headword.
 * **Public-domain status is the distributor's assertion**, recorded verbatim in
   the manifest, not independently re-verified against national copyright records.

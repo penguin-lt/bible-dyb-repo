@@ -1,17 +1,17 @@
 {
- "modules": 96,
- "entries": 615459,
- "chars": 387289451,
+ "modules": 100,
+ "entries": 655648,
+ "chars": 398036788,
  "by_category": {
   "Commentary": {
    "modules": 30,
    "entries": 262548,
-   "chars": 265914694
+   "chars": 265914801
   },
   "Lexicon": {
-   "modules": 15,
-   "entries": 52247,
-   "chars": 7118116
+   "modules": 19,
+   "entries": 92436,
+   "chars": 17865346
   },
   "Dictionary": {
    "modules": 10,
@@ -35,6 +35,7 @@
   "fr",
   "gez",
   "grc",
+  "he",
   "la",
   "nl",
   "sv",
@@ -43,7 +44,7 @@
   "vi",
   "zxx"
  ],
- "combined_bytes": 109376636,
- "partitioned_bytes": 106276375,
+ "combined_bytes": 112730328,
+ "partitioned_bytes": 109454224,
  "excluded_modules": 52
 }

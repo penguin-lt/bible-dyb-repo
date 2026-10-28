@@ -15,21 +15,22 @@ pass over the counts.
 
 | | |
 |---|---|
-| Works (SWORD modules) | **96** |
-| Entries | **615,459** |
-| Characters of text | **387,289,451** |
-| Combined `reference.parquet` | **109.4 MB** |
-| `reference_partitioned/` (96 files) | **106.3 MB** (105.8 MB zip) |
-| Languages | en, fr, de, nl, la, grc, vi, sv, sl, gez, tlh, und |
-| Licence | Public Domain 84 · CC BY-SA 7 · CC BY 4 · CC0 1 · GPL 1 |
+| Works (96 SWORD modules + 4 external scholarly) | **100** |
+| Entries | **655,648** |
+| Characters of text | **398,036,788** |
+| Combined `reference.parquet` | **112.7 MB** |
+| `reference_partitioned/` (100 files) | **109.5 MB** (109.0 MB zip) |
+| Languages | en, fr, de, nl, la, grc, he, vi, sv, gez, tlh, und |
+| Licence | Public Domain 85 · CC BY-SA 7 · CC BY 6 · CC0 1 · GPL 1 |
 
-By category: Commentary 30 works / 262,548 entries · Dictionary 10 / 249,802 ·
-Lexicon 15 / 52,247 · Reference 32 / 8,562 · Topical 9 / 42,300.
+By category: Commentary 30 / 262,548 entries · Dictionary 10 / 249,802 ·
+Lexicon 19 / 92,436 · Reference 32 / 8,562 · Topical 9 / 42,300.
 Machine-readable counts are in `data/stats.json`.
 
 The two large files are published as **release assets**:
-<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v1>
+<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v2>
 — `reference.parquet`, `reference_partitioned.zip`, `modules.parquet`.
+Previous revision (96 SWORD-only works): `bible-reference-v1`.
 
 ---
 
@@ -99,6 +100,11 @@ scripture_linked_entries, retrieved`
   Josephus, Bunyan, à Kempis, Chesterton, Owen, Edwards, Ryle, Finney, Bounds,
   the Book of Concord, Westminster and Baptist confessions, 1 Enoch (English and
   Ge'ez), Jubilees, Didache.
+* **Four works that are not SWORD modules**, ingested from open scholarly
+  repositories: full **LSJ** (5,706 biblical Greek articles, 4.6 M characters)
+  and **TBESG/TBESH** from STEPBible (CC BY 4.0), plus the full
+  **Brown-Driver-Briggs** lexicon from Open Scriptures (public domain) — SWORD
+  carries only BDB *glosses*, so this is new content.
 * Non-English public-domain works are included and flagged by `language`
   (French Chrysostom/Augustine/Jerome, Dutch Kanttekeningen, Latin Glossa,
   German Rieger/Ansorg, Swedish, Vietnamese, Ge'ez).

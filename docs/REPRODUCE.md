@@ -37,6 +37,14 @@ python3 combine.py         # combined reference.parquet, manifests, stats.json
 python3 verify.py          # independent checks; non-zero exit on failure
 ```
 
+Four works come from outside SWORD and are harvested by their own parser into
+the same partition format:
+
+```bash
+python3 opensource_harvest.py --only LSJ,BDB,TBESG,TBESH
+```
+LSJ is ~24 MB and takes ~3 minutes; the other three are seconds.
+
 `sword_plan.py` is the policy checkpoint: it reads every module's
 `DistributionLicense` and emits `selected` / `skipped` lists. Change the policy
 there, not in the harvester.
@@ -56,11 +64,16 @@ python3 publish_github.py penguin-lt/bible-dyb-repo bible-reference-v1 \
 
 ## Adding a work that is not a SWORD module
 
-LSJ (Perseus), full BDB (Open Scriptures) and STEPBible's TBESG/TBESH are
-public domain / CC BY and confirmed reachable, but each needs its own parser.
-They should be added as a new `pipeline/<source>_harvest.py` writing the same
-ten-column Parquet partition, so `combine.py` and `verify.py` pick them up
-unchanged. Track them in `bibles/reference/NOT_INCLUDED.md`.
+Done for four works, and the pattern generalises: `opensource_harvest.py` holds a
+`SOURCES` dict of URL/licence metadata plus a row parser, and writes the same
+ten-column partition the SWORD harvester writes, so `combine.py` and `verify.py`
+pick it up with no special-casing. To add another, append a `SOURCES` entry, a
+parser, and a `PARSERS` mapping.
+
+One trap worth repeating: the Perseus `grc.lsj.perseus-eng1.xml` is the
+**alpha-only** fascicle despite the filename — 18,586 of its 18,950 headwords
+start with alpha. Always check a lexicon's key distribution before trusting its
+name.
 
 ## Verification contract
 

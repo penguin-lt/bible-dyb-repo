@@ -56,7 +56,7 @@ def clean(text, keep_linebreaks=True):
     t = re.sub(r"(?m)^[\s,;:.\u2014\u2013-]+(?=\S)", "", t)   # placeholder left a dangling comma
     t = re.sub(r"\s+([,;.:])(?=\s|$)", r"\1", t)
     if not keep_linebreaks:
-        t = WS.sub(" ", t)
+        t = re.sub(r"\s+", " ", t)      # flow text: collapse newlines too
         return t.strip()
     # normalise whitespace line by line, keep paragraph breaks
     lines = [WS.sub(" ", ln).strip() for ln in t.split("\n")]

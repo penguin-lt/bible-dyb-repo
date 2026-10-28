@@ -33,7 +33,7 @@ in `translations.csv` with 22 columns including `license_type`, `license_url`,
 `chapter_count`, `word_count`, `ot_verses`, `nt_verses`, `dc_verses` and a
 `text_sha256` over the translation's text.
 
-## Reference library — 10 columns, 615,459 rows
+## Reference library — 10 columns, 655,648 rows
 
 | column | Arrow type | notes |
 |---|---|---|
