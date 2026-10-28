@@ -1,0 +1,6 @@
+# scratch / build artefacts that must not enter the workspace of record
+__pycache__/
+*.pyc
+.venv/
+/tmp/
+*.imp
