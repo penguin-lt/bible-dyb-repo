@@ -58,7 +58,8 @@ RULES = [
      ("patristic", "fathers", "ante-nicene", "nicene", "post-nicene", "apostolic",
       "chrysostom", "augustine", "athanasius", "origen", "tertullian", "irenaeus",
       "clement", "eusebius", "jerome", "cyril", "gregory", "basil", "ambrose",
-      "early church", "christian literature, early", "apostolic fathers")),
+      "early church", "christian literature, early", "apostolic fathers",
+      "ante nicene", "post nicene", "church fathers")),
     ("Textual Criticism & Variants",
      ("textual criticism", "variant", "apparatus", "manuscript", "codex",
       "tischendorf", "nestle", "sblgnt", "spurious passages", "criticism, textual",
@@ -128,6 +129,21 @@ SOURCE_DEFAULT = {
     "external:dataset": None,
 }
 MODULE_TOPIC = {
+    # the tagged-original files: their rows *are* interlinears, whatever else
+    # their text mentions. Without this they were classified as morphology
+    # because every row carries a morphology tag.
+    "TAGNT_Mat-Jhn": "Interlinears & Reverse Interlinears",
+    "TAGNT_Act-Rev": "Interlinears & Reverse Interlinears",
+    "TAHOT_Gen-Deu": "Interlinears & Reverse Interlinears",
+    "TAHOT_Jos-Est": "Interlinears & Reverse Interlinears",
+    "TAHOT_Job-Sng": "Interlinears & Reverse Interlinears",
+    "TAHOT_Isa-Mal": "Interlinears & Reverse Interlinears",
+    "MORPHGRK": "Morphology & Parsing Data",
+    "MORPHHEB": "Morphology & Parsing Data",
+    "STRONGSGRK": "Lexical Datasets (Domain/Semantic)",
+    "STRONGSHEB": "Lexical Datasets (Domain/Semantic)",
+    "TIPNR": "Historical & Cultural Background",
+    "TVTMS": "Cross-Reference Systems",
     "XREF": "Cross-Reference Systems",
     "TEGMC": "Morphology & Parsing Data",
     "TEHMC": "Morphology & Parsing Data",
@@ -151,9 +167,17 @@ MODULE_TOPIC = {
 
 
 def blob(m):
+    """Classification input: the source's own description of the work.
+
+    The previous `topic` is deliberately NOT included. Reading it back made the
+    classifier non-idempotent — re-running it moved works between areas because
+    an earlier guess became evidence for the next one.
+    """
+    cats = m.get("categories", "")
+    if not isinstance(cats, str):
+        cats = " ".join(cats or [])
     parts = [m.get("module_name", ""), m.get("about", ""), m.get("source_name", ""),
-             m.get("topic", ""), m.get("categories", "") if isinstance(m.get("categories"), str)
-             else " ".join(m.get("categories") or [])]
+             m.get("category", ""), cats]
     return " ".join(parts).lower()
 
 

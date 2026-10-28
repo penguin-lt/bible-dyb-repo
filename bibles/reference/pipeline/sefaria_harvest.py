@@ -43,6 +43,12 @@ CACHE = os.environ.get("REF_CACHE", "/home/user/scratch/cache/sefaria")
 FREE = ("public domain", "cc0", "creative commons attribution", "cc-by",
         "creative commons: by", "gpl")
 
+# script ranges used to detect a text's language when the file does not say
+_HE = re.compile(r"[\u0590-\u05ff]")
+_GR = re.compile(r"[\u0370-\u03ff\u1f00-\u1fff]")
+_AR = re.compile(r"[\u0600-\u06ff]")
+_CY = re.compile(r"[\u0400-\u04ff]")
+
 # Sefaria category -> our topic family
 TOPIC = {
     "Talmud": "Rabbinic Literature", "Mishnah": "Rabbinic Literature",
@@ -150,7 +156,23 @@ def build(entry, dry=False):
     topic = topic_of(cats)
     # Sefaria files some non-English translations under language="English";
     # trust the text's own actualLanguage for labelling.
-    actual = (d.get("actualLanguage") or d.get("language") or "en").lower()[:5]
+    actual = (d.get("actualLanguage") or d.get("language") or "").lower()[:5]
+    if not actual:
+        # Many Sefaria files omit actualLanguage. Guessing "en" from the index
+        # mislabelled 5,414 Hebrew and 3 Arabic/Cyrillic works, so detect the
+        # script from the text itself.
+        head = " ".join(b for b in bodies if b)[:60000]
+        n = max(1, len(head))
+        he = len(_HE.findall(head)) / n
+        gr = len(_GR.findall(head)) / n
+        ar = len(_AR.findall(head)) / n
+        cy = len(_CY.findall(head)) / n
+        best = max(he, gr, ar, cy)
+        if best > 0.12:
+            actual = ("he" if he == best else "grc" if gr == best
+                      else "ar" if ar == best else "ru")
+        else:
+            actual = "en"
     info = {
         "module_id": mid,
         "module_name": (title + (" — " + d.get("versionTitle", "") if d.get("versionTitle") else ""))[:300],

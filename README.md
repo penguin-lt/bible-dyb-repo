@@ -16,11 +16,11 @@ other copy that matters.
 | area | path | contents | size |
 |---|---|---|---|
 | Bible text | `bibles/text/` | 77 translations · **1,577,225 verses** · 10 columns | 28.2 MB combined + 55.1 MB partitioned |
-| Reference works | `bibles/reference/` | **10,156 works** · **1,086,263 entries** · 2,433,940,016 characters | release assets (1.6 GB) |
+| Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | release assets (1.5 GB) |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
 
-**Totals: 2,663,488 rows of text, 10,233 works, ~2.47 billion characters, 41 languages,
+**Totals: 2,650,755 rows of text, 9,218 works, ~2.41 billion characters, 43 languages,
 covering all twenty requested subject areas.**
 
 Two datasets, one schema philosophy: one combined Parquet file for whole-corpus
@@ -87,14 +87,14 @@ Details: [`bibles/text/README.md`](bibles/text/README.md).
 
 ### `bibles/reference/` — the reference library
 
-10,156 works, 1,086,263 entries, 2,433,940,016 characters, in 41 languages:
+9,141 works, 1,073,530 entries, 2,369,741,291 characters, in 43 languages:
 
 | source | works | what it brings |
 |---|---|---|
-| Sefaria (Sefaria-Export) | 9,016 | Talmud, Mishnah, Midrash, Targums, halakhah, responsa, Kabbalah, liturgy — English and the Hebrew/Aramaic originals |
-| Christian Classics Ethereal Library | 741 | patristics (ANF/NPNF), dogmatics, church history, sermons, devotion |
+| Sefaria (Sefaria-Export) | 8,003 | Talmud, Mishnah, Midrash, Targums, halakhah, responsa, Kabbalah, liturgy — English and the Hebrew/Aramaic originals |
+| Christian Classics Ethereal Library | 740 | patristics (ANF/NPNF), dogmatics, church history, sermons, devotion |
 | First Thousand Years of Greek | 282 | Homer, Plato, Septuagint, Philo, Josephus, apostolic fathers (Greek) |
-| CrossWire SWORD | 100 | lexicons, dictionaries, commentaries, topical indexes |
+| CrossWire SWORD | 99 | lexicons, dictionaries, commentaries, topical indexes |
 | STEPBible · Open Scriptures · OpenBible · Pleiades | 17 | interlinears, morphology, verse-level Strong's, cross-references, place names |
 
 Coverage against the twenty requested areas is in
@@ -112,7 +112,7 @@ Parquet: one row per headword, verse or section, keyed by the work's own key.
 
 210,522 entries carry a parsed scripture reference and join straight to
 `bibles/text/bibles.parquet` on `(book_id, chapter, verse)`.
-Licences: Public Domain 6,526 · CC0 2,060 · CC BY 977 · CC BY-SA 592 · GPL 1. No non-commercial licence is present anywhere in the output.
+Licences: Public Domain 6,289 · CC0 1,289 · CC BY 977 · CC BY-SA 585 · GPL 1. No non-commercial licence is present anywhere in the output.
 Details: [`bibles/reference/README.md`](bibles/reference/README.md) — plus
 `SOURCES.md`, `NOT_INCLUDED.md` (52 modules rejected, all on licence) and
 `QA_REPORT.md`.
@@ -148,12 +148,12 @@ The reference library is too large for a git checkout alongside the verse data,
 so it is published as release assets while its docs, manifests and pipeline stay
 in the repository:
 
-**<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v4>**
+**<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5>**
 
 | asset | size | contents |
 |---|---|---|
-| `reference.parquet` | 812.5 MB | all 10,156 works, 1,086,263 entries |
-| `reference_partitioned.zip` | 784.6 MB | one Parquet file per work |
+| `reference.parquet` | 787.0 MB | all 9,141 works, 1,073,530 entries |
+| `reference_partitioned.zip` | 762.3 MB | one Parquet file per work |
 | `modules.parquet` | 30 KB | manifest (also in `bibles/reference/data/`) |
 
 ## Working on it

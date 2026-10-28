@@ -8,10 +8,10 @@ executable form of this report; it exits non-zero on any hard failure.
 ```
 PASS combined schema  [module_id, module_name, category, entry_key, entry_order,
                        book_id, chapter, verse, entry_text, char_count]
-PASS module count / partition count  [10,156 modules, 10,156 partitions]
+PASS module count / partition count  [9,141 modules, 9,141 partitions]
 PASS manifest and partition module sets agree
-PASS partitions sum to combined row count  [1,086,263 rows]
-PASS manifest entry_count sum matches  [1,086,263]
+PASS partitions sum to combined row count  [1,073,530 rows]
+PASS manifest entry_count sum matches  [1,073,530]
 PASS no empty entry text  [0]
 PASS no null keys or texts  [0]
 PASS no duplicate (module, key) pairs  [0 across 0 modules]
@@ -32,8 +32,8 @@ PASS spot ISBE:AARON  [Amram]
 PASS no U+FFFD replacement characters  [0]
 PASS no residual markup in sample
 
-modules=10,156 entries=1,086,263 chars=2,433,940,016
-combined=812.5 MB partitions=819.5 MB
+modules=9,141 entries=1,073,530 chars=2,369,741,291
+combined=787.0 MB partitions=793.0 MB
 RESULT: ALL CHECKS PASSED
 ```
 
@@ -162,3 +162,48 @@ RESULT: ALL CHECKS PASSED
 15. **`verify.py` now cross-checks the partition directory against the manifest in
     both directions.** This is what caught the above: 10,153 modules against
     10,156 partitions, then 10,156 against 10,156.
+
+## Audit pass, v5 — seven defects found by random sampling
+
+`pipeline/audit.py` was written for this pass and is now part of the release
+gate. It samples partitions at random and checks row-level content, not just
+counts. Seven real defects surfaced; each is fixed and each has a guard.
+
+16. **The classifier was not idempotent.** `taxonomy.py` fed a work's *existing*
+    `topic` into the text it classified, so an earlier guess became evidence for
+    the next run. Re-running it drifted works between areas — Patristics went
+    351 → 92 for reasons that had nothing to do with the data, and Mbit. The
+    previous topic is no longer an input; two runs now produce identical output
+    (verified by hashing the output).
+17. **5,427 works carried the wrong language.** Sefaria JSON often omits
+    `actualLanguage`, and the harvester fell back to `"en"`. 5,419 Hebrew, 3
+    Arabic, 4 Greek and 1 Cyrillic work were labelled English. The text's script
+    is now detected, and `audit.py` checks every prose work's declared language
+    against its script in both directions.
+18. **Numeric and named entities reached the output uncleaned.** `&#226;`,
+    `&gt;`, `&quot;` appeared in Matthew Henry, Flavel, Westcott; one source had
+    double-escaped entities (`&#38;&#35;183;`). The cleaner now resolves named
+    entities, repeats numeric resolution until stable, and drops out-of-range
+    code points instead of emitting mojibake.
+19. **Template residue** (`{{rom|__PAGESEPARATOR__xv}}`, `{{corr|conste|constate}}`)
+    survived in French and Latin sources; 184 partitions were affected and were
+    re-cleaned in place with the corrected cleaner.
+20. **Editorial insertions and control bytes.** Sefaria's critical editions mark
+    insertions as `[[השמטה …]]`, which reached the output as odd brackets, and one
+    row in Rashba on Niddah carried a stray `0x19` byte. Both are stripped.
+21. **`entry_order` was not 0..n-1 in 58 partitions** (Smith, JESermons, Clarke,
+    TSK, Webster1828, …) — a parse artefact that breaks "entries in order"
+    queries. Now asserted and repaired.
+22. **1,015 exact duplicates were being kept.** Sefaria publishes many works
+    twice — a page-split edition and a merged one — and the page separators made
+    the full-text hash differ. Duplicate detection now also matches on the body
+    sample. The tie-break was also broken: it tested for the word "inferred" in
+    the licence *label*, which says "Public Domain", so it never fired. It now
+    reads `license_basis`, and prefers a merged edition over a page-split one.
+    The same pass cut the same-work review list from 78,234 junk pairs to 94 real
+    ones by ignoring words that appear in more than 40 titles.
+
+Everything above was re-verified after the rebuild: `verify.py` passes, and
+`audit.py` passes with 800 randomly sampled partitions / 90,507 rows, no residual
+markup, entities, control bytes or template text, correct `char_count` on every
+sampled row, and no identical text across partitions.

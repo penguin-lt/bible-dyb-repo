@@ -139,6 +139,15 @@ def build(row, dry=False):
     if not keys:
         return None, "no text"
 
+    # The tree also holds Latin and German versions (…opp-lat1.xml). Label the
+    # module by the script actually parsed, not by the corpus's default.
+    body_join = " ".join(texts)[:40000]
+    if len(re.findall(r"[\u0370-\u03ff\u1f00-\u1fff]", body_join)) / max(1, len(body_join)) > 0.10:
+        lang = "grc"
+    elif len(re.findall(r"[\u0400-\u04ff]", body_join)) / max(1, len(body_join)) > 0.10:
+        lang = "ru"
+    else:
+        lang = "la" if "lat" in fn else "en"
     slug = re.sub(r"[^A-Za-z0-9]+", "_", urn.split(":")[-1])[:48].strip("_")
     mid = "f1k_" + slug
     topic, note = TOPIC_BY_AUTHOR.get(author.lower(), ("Patristics & Early Church Fathers", ""))
@@ -150,7 +159,7 @@ def build(row, dry=False):
         "category": "Reference",
         "topic": topic,
         "license": LICENSE,
-        "language": "grc",
+        "language": lang,
         "entry_count": len(keys),
         "char_count": sum(len(t) for t in texts),
         "source_url": url,

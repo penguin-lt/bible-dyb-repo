@@ -31,6 +31,27 @@ def _img_alt(m):
     return alt.group(1) if alt else ""
 
 
+NAMED_ENTITIES = {"amp": "&", "lt": "<", "gt": ">", "quot": '"', "apos": "'",
+                  "nbsp": " ", "mdash": "\u2014", "ndash": "\u2013",
+                  "hellip": "\u2026", "lsquo": "\u2018", "rsquo": "\u2019",
+                  "ldquo": "\u201c", "rdquo": "\u201d"}
+ENTITY = re.compile(r"&(amp|lt|gt|quot|apos|nbsp|mdash|ndash|hellip|lsquo|rsquo|ldquo|rdquo);",
+                    re.I)
+NUMERIC_ENT = re.compile(r"&#(x?)([0-9a-fA-F]{2,6});")
+
+
+def _charcode(hexflag, code):
+    try:
+        n = int(code, 16) if hexflag else int(code)
+    except ValueError:
+        return ""
+    if n in (0x26, 0x3C, 0x3E, 0x22, 0x27):      # keep genuine ampersands etc as text
+        return chr(n)
+    if 0x20 <= n <= 0x10FFFF and not (0xD800 <= n <= 0xDFFF):
+        return chr(n)
+    return ""
+
+
 def clean(text, keep_linebreaks=True):
     """Strip markup from a SWORD entry body."""
     if not text:
@@ -46,8 +67,25 @@ def clean(text, keep_linebreaks=True):
     t = re.sub(r"<(div|p|title|head|item|tr|li|ul|ol|table|lg|list)\b[^>]*>",
                "\n", t, flags=re.I)
     t = TAG.sub("", t)
+    # Entities: unescape only the named ones we trust. html.unescape() also
+    # eats things like "&lt;" inside already-escaped Greek, and leaves numeric
+    # forms such as &#226; untouched; both showed up in the audit (MHC, Flavel).
+    t = ENTITY.sub(lambda m: NAMED_ENTITIES.get(m.group(1).lower(), m.group(0)), t)
+    # Sources double-escaped their ampersands (&#38;&#35;183; -> &#183;), so
+    # repeat until nothing changes rather than once.
+    for _ in range(3):
+        if not NUMERIC_ENT.search(t):
+            break
+        t = NUMERIC_ENT.sub(lambda m: _charcode(m.group(1), m.group(2)), t)
     t = html.unescape(t)
     t = t.replace("\u00ad", "")
+    # Editorial insertions from critical editions ("[[השמטה …]]", "[[see Rashi]")
+    # are apparatus, not reading text, and were reaching the output from Sefaria.
+    t = re.sub(r"\[\[[^\]]{0,600}\]\]?", " ", t)
+    t = t.replace("[[", " ").replace("]]", " ")
+    # Stray C0 control bytes survive in some OCR-era transcriptions upstream
+    # (one 0x19 inside Rashba on Niddah); they are never part of the text.
+    t = re.sub(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]", "", t)
     # Pronunciation placeholders: SWORD dictionaries (Webster, ISBE) carry the
     # original "(?)" or an undefined glyph where a phonetic transcription could
     # not be encoded.  They are typesetting noise, not reading text.

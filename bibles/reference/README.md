@@ -15,13 +15,13 @@ pass over the counts.
 
 | | |
 |---|---|
-| Works | **10,156** (9,016 Sefaria · 741 CCEL · 282 First1KGreek · 100 SWORD · 10 STEPBible · 7 datasets) |
-| Entries | **1,086,263** |
-| Characters of text | **2,433,940,016** |
-| Combined `reference.parquet` | **812.5 MB** |
-| `reference_partitioned/` (10,156 files) | **819.5 MB** (784.6 MB zip) |
-| Languages | **41** — he, en, grc, la, de, fr, ar, syr, gez, vi … |
-| Licence | Public Domain 6,526 · CC0 2,060 · CC BY 977 · CC BY-SA 592 · GPL 1 |
+| Works | **9,141** (8,003 Sefaria · 740 CCEL · 282 First1KGreek · 99 SWORD · 10 STEPBible · 7 datasets) |
+| Entries | **1,073,530** |
+| Characters of text | **2,369,741,291** |
+| Combined `reference.parquet` | **787.0 MB** |
+| `reference_partitioned/` (9,141 files) | **793.0 MB** (762.3 MB zip) |
+| Languages | **43** — he, en, grc, la, de, fr, ar, syr, gez, vi, ru … |
+| Licence | Public Domain 6,289 · CC0 1,289 · CC BY 977 · CC BY-SA 585 · GPL 1 |
 
 By source category: Reference 1,577 works / 159,894 entries · Commentary 162 / 99,246 ·
 Patristics 57 · Devotional 80 · Liturgy 65 · Theology 48 · Sermons 44 ·
@@ -36,10 +36,11 @@ Sermons 78 · Background 7 · Interlinears 5 · Maps 5 · Textual Criticism 4.
 Machine-readable counts are in `data/stats.json`.
 
 The two large files are published as **release assets**:
-<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v4>
+<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5>
 — `reference.parquet`, `reference_partitioned.zip`, `modules.parquet`.
 Revisions: `v1` 96 works (SWORD only) · `v2` 100 (added LSJ, BDB, STEPBible) · `v3` 2,127 (added CCEL, Sefaria, morphology, cross-references, Pleiades) ·
-`v4` 10,156 (full Sefaria Hebrew/Aramaic, First1KGreek, STEPBible interlinears).
+`v4` 10,156 (full Sefaria Hebrew/Aramaic, First1KGreek, STEPBible interlinears) ·
+`v5` 9,141 — same sources, 1,015 exact duplicates removed and six data-quality bugs fixed (see QA_REPORT).
 
 ---
 

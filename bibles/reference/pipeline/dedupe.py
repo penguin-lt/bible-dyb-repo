@@ -114,17 +114,41 @@ def main():
 
     decisions = {}
 
-    # 1. exact duplicates only — same bytes of text
+    # 1. exact duplicates — same bytes of text. Also collapse pairs whose
+    #    *sampled body* is identical: Sefaria publishes some texts twice under
+    #    different version titles (e.g. Tosefta Demai and "…en Sefaria Community
+    #    Translation"), and the full-text hash missed them because page
+    #    separators differ between the two editions.
     by_sha = {}
     for mid, f in fps.items():
         by_sha.setdefault(f["sha"], []).append(mid)
-
     def prefer(group):
         def score(mid):
             f, m = fps[mid], manifest[mid]
-            stated = 0 if "inferred" in str(m.get("license", "")) else 1
-            return (round(f["linked_ratio"], 2), stated, f["chars"])
+            # a merged edition covers the whole work; a page-split edition is a
+            # partial view of the same text. Prefer merged.
+            merged = 1 if "merged" in str(m.get("module_version", "")).lower() else 0
+            # prefer a stated licence over an inferred basis. v1 tested the
+            # licence *label*, which says "Public Domain" for inferred works, so
+            # the tie-break silently did nothing and half of Sefaria's duplicates
+            # were kept as the Hebrew page-split and the English merged one at random.
+            stated = 0 if str(m.get("license_basis", "")) == "inferred_pre1929" else 1
+            return (round(f["linked_ratio"], 2), stated, merged, f["chars"])
         return max(group, key=score)
+
+    by_sample = {}
+    for mid, f in fps.items():
+        by_sample.setdefault(f["sample_sha"], []).append(mid)
+    for sha, group in by_sample.items():
+        if len(group) > 1:
+            if len({fps[m]["sha"] for m in group}) == 1:
+                continue                     # already handled as identical
+            keep = prefer(group)
+            for mid in group:
+                if mid != keep and mid not in decisions:
+                    decisions[mid] = {"duplicate_of": keep, "similarity": 0.99,
+                                      "action": "drop",
+                                      "reason": "identical body text, different page separators"}
 
     for sha, group in by_sha.items():
         if len(group) > 1:
@@ -137,25 +161,53 @@ def main():
     # 2. title overlap — reported, never auto-applied. Two editions of one work
     #    (SWORD Barnes vs CCEL Barnes volumes) are left in unless a human says
     #    otherwise, because the editions genuinely differ in coverage.
+    # title normalisation shared by the review pass below
+    DROP = {"the", "of", "a", "an", "on", "and", "in", "to", "for", "vol", "volume",
+            "part", "book", "saint", "st", "en", "he", "sefaria", "community",
+            "translation", "merged", "edition", "vilna", "romm", "friedberg",
+            "senlake", "gerlitz", "with", "his", "its"}
+
+    def norm(title):
+        t = re.sub(r"\b(sefaria community translation|sefaria|translation|merged)\b",
+                   " ", (title or "").lower())
+        return " ".join(w for w in re.sub(r"[^a-z0-9 ]", " ", t).split() if w not in DROP)
+
     suggest = []
-    norm = lambda s: " ".join(w for w in re.sub(r"[^a-z0-9 ]", " ", s.lower()).split()
-                              if w not in ("the", "of", "a", "an", "on", "and", "vol",
-                                           "volume", "part", "book", "saint", "st"))
     titles = {}
     for mid, m in manifest.items():
         if mid in fps:
             titles[mid] = (norm(m.get("module_name", "")) or mid, m.get("source_name", ""))
-    keys = sorted(titles.items(), key=lambda kv: kv[1][0])
-    for i, (a_id, (a_t, a_src)) in enumerate(keys):
-        for b_id, (b_t, b_src) in keys[i + 1:]:
-            if a_src == b_src:
-                continue                      # same source: a series, not a duplicate
-            aw, bw = set(a_t.split()), set(b_t.split())
-            if not aw or not bw:
-                continue
-            inter = aw & bw
-            if len(inter) >= 3 and len(inter) / min(len(aw), len(bw)) >= 0.7:
-                suggest.append((a_id, b_id, round(len(inter) / min(len(aw), len(bw)), 3)))
+    # Pairwise comparison over 10,156 works is 51 million title comparisons and,
+    # worse, drowns the report in junk: with this many works, words like "on" or
+    # "abraham" appear in hundreds of titles. Index the *rare* words instead and
+    # only compare works that share one.
+    words = {mid: set(t.split()) for mid, (t, _) in titles.items()}
+    df = {}
+    for mid, ws in words.items():
+        for w in ws:
+            df[w] = df.get(w, 0) + 1
+    RARE_DF = 40
+    index = {}
+    for mid, ws in words.items():
+        for w in ws:
+            if len(w) >= 4 and df[w] <= RARE_DF:
+                index.setdefault(w, []).append(mid)
+    shared = {}
+    for w, mids in index.items():
+        if len(mids) < 2:
+            continue
+        mids = sorted(mids)
+        for i, a_id in enumerate(mids):
+            for b_id in mids[i + 1:]:
+                if titles[a_id][1] == titles[b_id][1]:
+                    continue                  # same source: a series, not a duplicate
+                shared[(a_id, b_id)] = shared.get((a_id, b_id), 0) + 1
+    for (a_id, b_id), inter in shared.items():
+        aw, bw = words[a_id], words[b_id]
+        ratio = inter / min(len(aw), len(bw))
+        if inter >= 3 and ratio >= 0.7:
+            suggest.append((a_id, b_id, round(ratio, 3)))
+    suggest.sort(key=lambda x: (-x[2], x[0]))
 
     print()
     if decisions:
