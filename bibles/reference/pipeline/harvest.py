@@ -30,7 +30,7 @@ from normalize import clean, split_entry_blocks  # noqa: E402
 
 RAWZIP = "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/"
 WORK = "/tmp/w"
-OUT = "/tmp/out"
+OUT = os.environ.get("REF_OUT", "/home/user/scratch/out")
 
 SCHEMA = pa.schema([
     ("module_id", pa.string()),
@@ -259,6 +259,9 @@ def harvest_one(sel):
     }
     # 2026-10-28 fetch; keep the first date if a rerun happens
     del zp
+    sidecar = os.path.join(OUT, "manifests")
+    os.makedirs(sidecar, exist_ok=True)
+    json.dump(manifest, open(os.path.join(sidecar, manifest["module_id"] + ".json"), "w"), indent=1)
     return table, manifest
 
 

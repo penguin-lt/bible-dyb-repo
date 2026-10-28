@@ -27,8 +27,7 @@ tally across all 428 modules: Public Domain 227, "Permission granted to
 CrossWire" 80, free non-commercial 31, blank 16, CC BY-SA 11, CC BY-NC-ND 10,
 freely distributable 8, CC BY-NC-SA 7, CC BY 6, GPL 5.
 
-**Result: 96 modules ingested, 52 excluded.** With the four external works below
-the dataset stands at **100 works / 655,648 entries / 398,036,788 characters**.
+**Result: 96 modules ingested, 52 excluded.**
 
 ### Ingested (96)
 
@@ -83,7 +82,46 @@ licence.
 
 ---
 
-## 2. Non-SWORD sources surveyed — findings and dispositions
+## 2. CCEL — Christian Classics Ethereal Library (741 works)
+
+* Index: `https://www.ccel.org/index/title/<A..Z>` — 1,331 works enumerated
+* Each work: `https://www.ccel.org/ccel/<author>/<work>.xml`, one ThML file with
+  Dublin Core metadata inside it (`DC.Title`, `DC.Creator`, `DC.Rights`,
+  `DC.Subject`, `DC.Language`) and `<div1>` chapters.
+* Licence: `DC.Rights = "Public Domain"` is ingested as stated. Where the field
+  is **empty** but the digitised print edition predates 1929, the work is taken
+  and flagged `license_basis=inferred_pre1929` — this is opt-in
+  (`--include-unstated`) and disclosed in the manifest.
+* 741 ingested · 517 excluded (476 empty rights with no pre-1929 basis, 41
+  explicit copyright claims) · 74 image-only scans rejected.
+
+Brings: Ante-Nicene and Nicene/Post-Nicene Fathers, Aquinas, Calvin, Luther,
+Edwards, the Schaff creeds collection, church histories (Gibbon, Schaff, Neander,
+Harnack), sermon collections, devotion and mysticism (à Kempis, Tauler, Ruysbroeck,
+Molinos, Guyon), liturgy and hymnody.
+
+## 3. Sefaria (1,282 works)
+
+* Index: `https://raw.githubusercontent.com/Sefaria/Sefaria-Export/master/books.json`
+  — 19,815 texts with `json_url`, `categories`, `versionTitle`.
+* Text files on Google Cloud Storage carry their own `license` field.
+* English versions only, free licences only. 1,282 ingested, 103 removed for
+  `CC-BY-NC`/`CC-BY-NC-SA`, ~500 with no English licence-free text.
+
+Brings: Talmud (both), Mishnah, Tosefta, Midrash, the Targums, Tanakh with
+commentary, Second Temple literature (Josephus, Philo), liturgy, Kabbalah,
+Chasidut, Musar.
+
+## 4. Structured datasets (4 works)
+
+| module | source | licence |
+|---|---|---|
+| `XREF` | OpenBible.info cross-references, 340k votes | CC BY |
+| `TEGMC` / `TEHMC` | STEPBible Greek/Hebrew morphology code expansions | CC BY 4.0 |
+| `OHLEX` | Open Scriptures Hebrew lexical index (Strong→BDB→TWOT) | Public Domain |
+| `PLEIA` | Pleiades ancient place-name index, 80,413 names | CC BY 4.0 |
+
+## 5. Non-SWORD sources surveyed — findings and dispositions
 
 The brief was to look everywhere, so each candidate was opened and tested rather
 than assumed. Results:

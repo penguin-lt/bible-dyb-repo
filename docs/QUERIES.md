@@ -189,5 +189,5 @@ Every recipe above was run against the repository's own files on 2026-10-28:
 'For God so loved the world, that he gave hi'
 ```
 
-`reference.parquet` was verified separately: 655,648 rows, 100 works,
-398,036,788 characters, all checks in `bibles/reference/QA_REPORT.md` passing.
+`reference.parquet` was verified separately: 795,269 rows, 2,127 works,
+1,175,804,995 characters, all checks in `bibles/reference/QA_REPORT.md` passing.

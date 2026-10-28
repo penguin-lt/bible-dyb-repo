@@ -33,7 +33,7 @@ sys.path.insert(0, HERE)
 from normalize import clean  # noqa: E402
 from harvest import SCHEMA, OUT  # noqa: E402
 
-DL = "/tmp/od"
+DL = os.environ.get("REF_CACHE", "/home/user/scratch/cache/od")
 UA = {"User-Agent": "bible-reference-harvest/1.0 (+https://github.com/penguin-lt/bible-dyb-repo)"}
 
 SOURCES = {
@@ -290,6 +290,9 @@ def build(mod):
     print(f"  {mod:6s} {n:7d} entries {man['char_count']/1e6:7.2f} Mchars  "
           f"{os.path.getsize(os.path.join(OUT, 'partitioned', mod + '.parquet'))/1e6:.1f} MB",
           flush=True)
+    sidecar = os.path.join(OUT, "manifests")
+    os.makedirs(sidecar, exist_ok=True)
+    json.dump(man, open(os.path.join(sidecar, man["module_id"] + ".json"), "w"), indent=1)
     return man
 
 

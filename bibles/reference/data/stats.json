@@ -1,27 +1,164 @@
 {
- "modules": 100,
- "entries": 655648,
- "chars": 398036788,
+ "modules": 2127,
+ "by_topic": {
+  "Systematic Theology & Dogmatics": {
+   "works": 473,
+   "entries": 101410,
+   "chars": 426036221
+  },
+  "Hermeneutics & Exegetical Methods": {
+   "works": 336,
+   "entries": 101942,
+   "chars": 284251399
+  },
+  "Patristics & Early Church Fathers": {
+   "works": 68,
+   "entries": 20485,
+   "chars": 156127685
+  },
+  "Reformation & Early Modern Texts": {
+   "works": 112,
+   "entries": 42898,
+   "chars": 147289444
+  },
+  "Lexical Datasets (Domain/Semantic)": {
+   "works": 33,
+   "entries": 398875,
+   "chars": 92601035
+  },
+  "Rabbinic Literature & Targums": {
+   "works": 1075,
+   "entries": 43693,
+   "chars": 86641146
+  },
+  "Sermons & Homiletics": {
+   "works": 78,
+   "entries": 5281,
+   "chars": 68146465
+  },
+  "Church History & Historiography": {
+   "works": 70,
+   "entries": 829,
+   "chars": 64320244
+  },
+  "Mysticism & Asceticism": {
+   "works": 174,
+   "entries": 2629,
+   "chars": 43543583
+  },
+  "Apocrypha & Pseudepigrapha": {
+   "works": 63,
+   "entries": 4115,
+   "chars": 42109761
+  },
+  "Cross-Reference Systems": {
+   "works": 12,
+   "entries": 94791,
+   "chars": 25681320
+  },
+  "Historical & Cultural Background": {
+   "works": 7,
+   "entries": 8859,
+   "chars": 24040409
+  },
+  "Liturgy & Lectionaries": {
+   "works": 112,
+   "entries": 2359,
+   "chars": 22871906
+  },
+  "Creeds & Confessions": {
+   "works": 23,
+   "entries": 332,
+   "chars": 12436982
+  },
+  "Interlinears & Reverse Interlinears": {
+   "works": 5,
+   "entries": 33757,
+   "chars": 11913574
+  },
+  "Maps & Geography": {
+   "works": 5,
+   "entries": 90610,
+   "chars": 8809240
+  },
+  "Morphology & Parsing Data": {
+   "works": 11,
+   "entries": 38734,
+   "chars": 7713930
+  },
+  "Archaeology & Epigraphy": {
+   "works": 44,
+   "entries": 6068,
+   "chars": 7494723
+  },
+  "Apologetics & Polemics": {
+   "works": 10,
+   "entries": 129,
+   "chars": 4115200
+  },
+  "Textual Criticism & Variants": {
+   "works": 4,
+   "entries": 5998,
+   "chars": 1879636
+  }
+ },
+ "entries": 795269,
+ "chars": 1175804995,
  "by_category": {
+  "Liturgy": {
+   "modules": 65,
+   "entries": 1314,
+   "chars": 13961156
+  },
   "Commentary": {
-   "modules": 30,
-   "entries": 262548,
-   "chars": 265914801
+   "modules": 162,
+   "entries": 264099,
+   "chars": 496007097
   },
   "Lexicon": {
    "modules": 19,
    "entries": 92436,
    "chars": 17865346
   },
+  "Sermons": {
+   "modules": 44,
+   "entries": 473,
+   "chars": 23499478
+  },
+  "Devotional": {
+   "modules": 80,
+   "entries": 974,
+   "chars": 30906162
+  },
+  "Reference": {
+   "modules": 1577,
+   "entries": 142178,
+   "chars": 347778872
+  },
+  "Theology": {
+   "modules": 48,
+   "entries": 561,
+   "chars": 47091936
+  },
   "Dictionary": {
    "modules": 10,
    "entries": 249802,
    "chars": 70900078
   },
-  "Reference": {
-   "modules": 32,
-   "entries": 8562,
-   "chars": 37640053
+  "Church History": {
+   "modules": 43,
+   "entries": 551,
+   "chars": 33716757
+  },
+  "Creeds & Confessions": {
+   "modules": 13,
+   "entries": 88,
+   "chars": 6547425
+  },
+  "Patristics": {
+   "modules": 57,
+   "entries": 493,
+   "chars": 81814178
   },
   "Topical": {
    "modules": 9,
@@ -30,21 +167,49 @@
   }
  },
  "languages": [
+  "ceb",
   "de",
+  "deu",
+  "ell",
   "en",
+  "eng",
   "fr",
+  "fra",
   "gez",
   "grc",
   "he",
+  "heb",
+  "hrv",
+  "hun",
+  "ind",
+  "ita",
+  "jiv",
+  "kor",
   "la",
+  "lat",
+  "lav",
+  "mlg",
+  "mri",
   "nl",
+  "nld",
+  "por",
+  "ron",
+  "rus",
+  "spa",
+  "sqi",
   "sv",
+  "swa",
+  "swe",
+  "tgl",
   "tlh",
+  "ukr",
   "und",
   "vi",
+  "vie",
+  "zho",
   "zxx"
  ],
- "combined_bytes": 112730328,
- "partitioned_bytes": 109454224,
+ "combined_bytes": 340696827,
+ "partitioned_bytes": 339543050,
  "excluded_modules": 52
 }

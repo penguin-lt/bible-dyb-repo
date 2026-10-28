@@ -15,22 +15,22 @@ pass over the counts.
 
 | | |
 |---|---|
-| Works (96 SWORD modules + 4 external scholarly) | **100** |
-| Entries | **655,648** |
-| Characters of text | **398,036,788** |
-| Combined `reference.parquet` | **112.7 MB** |
-| `reference_partitioned/` (100 files) | **109.5 MB** (109.0 MB zip) |
-| Languages | en, fr, de, nl, la, grc, he, vi, sv, gez, tlh, und |
-| Licence | Public Domain 85 · CC BY-SA 7 · CC BY 6 · CC0 1 · GPL 1 |
+| Works | **2,127** (96 SWORD · 741 CCEL · 1,282 Sefaria · 4 scholarly · 4 datasets) |
+| Entries | **795,269** |
+| Characters of text | **1,175,804,995** |
+| Combined `reference.parquet` | **340.7 MB** |
+| `reference_partitioned/` (2,127 files) | **339.5 MB** (332.8 MB zip) |
+| Languages | **41** — en, he, grc, la, fr, de, nl, ar, syr, gez, vi, sv … |
+| Licence | Public Domain 1,052 · CC0 781 · CC BY 278 · CC BY-SA 15 · GPL 1 |
 
 By category: Commentary 30 / 262,548 entries · Dictionary 10 / 249,802 ·
 Lexicon 19 / 92,436 · Reference 32 / 8,562 · Topical 9 / 42,300.
 Machine-readable counts are in `data/stats.json`.
 
 The two large files are published as **release assets**:
-<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v2>
+<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v3>
 — `reference.parquet`, `reference_partitioned.zip`, `modules.parquet`.
-Previous revision (96 SWORD-only works): `bible-reference-v1`.
+Revisions: `v1` 96 works (SWORD only) · `v2` 100 (added LSJ, BDB, STEPBible) · `v3` 2,127 (added CCEL, Sefaria, morphology, cross-references, Pleiades).
 
 ---
 

@@ -16,21 +16,34 @@ import os
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-OUT = "/tmp/out"
+OUT = os.environ.get("REF_OUT", "/home/user/scratch/out")
 COMBINED = os.path.join(OUT, "reference.parquet")
 MANIFEST_COLS = [
-    "module_id", "module_name", "category", "sword_driver", "language", "license",
+    "module_id", "module_name", "category", "topic", "topic_secondary",
+    "sword_driver", "language", "license",
     "copyright", "source_name", "source_url", "download_url", "module_version",
     "sword_version_date", "text_source", "markup_source_type", "about",
-    "entry_count", "empty_entries_skipped", "duplicate_entries_dropped",
+    "license_basis", "entry_count", "empty_entries_skipped", "duplicate_entries_dropped",
     "repeated_keys_disambiguated", "char_count", "scripture_linked_entries",
     "retrieved",
 ]
 
 
 def main():
-    manifest = {r["module_id"]: r for r in json.load(open(os.path.join(OUT, "modules.json")))
-                if r.get("status") == "ok"}
+    # Manifests are read from per-work sidecars, not one shared JSON: parallel
+    # harvesters writing modules.json would lose each other's updates.
+    sidecar_dir = os.path.join(OUT, "manifests")
+    if os.path.isdir(sidecar_dir):
+        manifest = {}
+        for f in sorted(os.listdir(sidecar_dir)):
+            if f.endswith(".json"):
+                r = json.load(open(os.path.join(sidecar_dir, f)))
+                if r.get("status") == "ok":
+                    manifest[r["module_id"]] = r
+        print(f"manifest rows from {len(manifest)} sidecars")
+    else:
+        manifest = {r["module_id"]: r for r in json.load(open(os.path.join(OUT, "modules.json")))
+                    if r.get("status") == "ok"}
     parts = sorted(glob.glob(os.path.join(OUT, "partitioned", "*.parquet")))
     parts = [p for p in parts if os.path.basename(p)[:-8] in manifest]
     if os.path.exists(COMBINED):
@@ -54,7 +67,10 @@ def main():
 
     mrows = []
     for mid, r in manifest.items():
-        mrows.append({k: r.get(k, "") for k in MANIFEST_COLS})
+        row = {k: r.get(k, "") for k in MANIFEST_COLS}
+        if isinstance(row.get("topic_secondary"), list):
+            row["topic_secondary"] = "; ".join(row["topic_secondary"])
+        mrows.append(row)
     mrows.sort(key=lambda r: r["module_id"].lower())
     pq.write_table(pa.Table.from_pylist(mrows), os.path.join(OUT, "modules.parquet"),
                    compression="zstd", compression_level=19)
@@ -79,8 +95,18 @@ def main():
         c["modules"] += 1
         c["entries"] += int(r["entry_count"])
         c["chars"] += int(r["char_count"])
+    by_topic = {}
+    for r in mrows:
+        for t in [r["topic"]] + [x for x in str(r["topic_secondary"]).split("; ") if x]:
+            if not t:
+                continue
+            v = by_topic.setdefault(t, {"works": 0, "entries": 0, "chars": 0})
+            v["works"] += 1
+            v["entries"] += int(r["entry_count"] or 0)
+            v["chars"] += int(r["char_count"] or 0)
     stats = {
         "modules": len(mrows),
+        "by_topic": dict(sorted(by_topic.items(), key=lambda kv: -kv[1]["chars"])),
         "entries": rows,
         "chars": sum(int(r["char_count"]) for r in mrows),
         "by_category": cat,

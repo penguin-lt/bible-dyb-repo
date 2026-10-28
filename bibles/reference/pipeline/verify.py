@@ -19,7 +19,7 @@ import pyarrow as pa
 import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
-OUT = "/tmp/out"
+OUT = os.environ.get("REF_OUT", "/home/user/scratch/out")
 EXPECTED = ["module_id", "module_name", "category", "entry_key", "entry_order",
             "book_id", "chapter", "verse", "entry_text", "char_count"]
 SPOT = [("LSJ", "G0026", "love"), ("BDB", "אָבַד", "perish"),

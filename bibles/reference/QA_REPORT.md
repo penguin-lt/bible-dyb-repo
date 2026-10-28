@@ -8,10 +8,10 @@ executable form of this report; it exits non-zero on any hard failure.
 ```
 PASS combined schema  [module_id, module_name, category, entry_key, entry_order,
                        book_id, chapter, verse, entry_text, char_count]
-PASS module count / partition count  [100 modules, 100 partitions]
+PASS module count / partition count  [2,127 modules, 2,127 partitions]
 PASS manifest and partition module sets agree
-PASS partitions sum to combined row count  [655,648 rows]
-PASS manifest entry_count sum matches  [655,648]
+PASS partitions sum to combined row count  [795,269 rows]
+PASS manifest entry_count sum matches  [795,269]
 PASS no empty entry text  [0]
 PASS no null keys or texts  [0]
 PASS no duplicate (module, key) pairs  [0 across 0 modules]
@@ -32,8 +32,8 @@ PASS spot ISBE:AARON  [Amram]
 PASS no U+FFFD replacement characters  [0]
 PASS no residual markup in sample
 
-modules=100 entries=655,648 chars=398,036,788
-combined=112.7 MB partitions=109.5 MB
+modules=2,127 entries=795,269 chars=1,175,804,995
+combined=340.7 MB partitions=339.5 MB
 RESULT: ALL CHECKS PASSED
 ```
 
@@ -99,6 +99,34 @@ RESULT: ALL CHECKS PASSED
    `[Refs 2nd c.AD+]` and then removed — the `title` attribute holds the citation
    the anchor points at, so keeping the anchor text alone was noise.
 
+10. **Non-commercial licences leaked in again (v3).** Sefaria files 103 of its
+    English texts under `CC-BY-NC` / `CC-BY-NC-SA`. The licence test
+    `"cc-by" in license` matches `"cc-by-nc"`, so they were ingested — the same
+    substring bug that let SWORD's CC BY-NC-ND modules through in v1. Replaced
+    with an ordered canonicaliser (`pipeline/repair.py`) that tests for
+    `-nc` / `-nd` / "non-commercial" *first* and rejects the work outright.
+    109 works removed; the output now carries only Public Domain, CC0, CC BY,
+    CC BY-SA and GPL.
+11. **CCEL page-image volumes were being ingested as text.** 74 works are page
+    scans whose ThML still contains `Image of page i`, `Image of page ii`, …
+    placeholders. They passed because the parser took whatever text the markup
+    held. Detected by counting those markers (75 works, 74 essentially
+    image-only), removed to `not_ingested/`, and a guard added to
+    `ccel_harvest.py` so a rerun rejects them. This is the no-OCR rule being
+    enforced at the source rather than assumed.
+12. **Duplicate detection produced 62 false positives.** A shingle similarity
+    threshold of 0.92 on samples dominated by shared series front matter declared
+    Barnes on Isaiah a duplicate of Schaff's Encyclopedia. Rewritten to drop
+    **only exact-text duplicates** (2), and to *report* cross-source same-work
+    pairs (50) for review rather than deleting them — the editions genuinely
+    differ in coverage.
+13. **Parallel harvesters lost each other's manifest rows.** CCEL and Sefaria ran
+    concurrently and both rewrote `modules.json`, so 1,388 partitions ended up
+    with no manifest row. Manifests are now written as per-work sidecars under
+    `manifests/` and assembled by `combine.py`; a shared JSON is never the
+    writer's target. The 1,388 rows were reconstructed from the partitions and
+    the source surveys.
+
 ## Known limitations
 
 * **Commentary keys are prefaces as well as verses.** Modules such as `MHC` and
@@ -115,5 +143,10 @@ RESULT: ALL CHECKS PASSED
 * **LSJ keys are Extended Strong's numbers, not Greek lemmas.** `G3056` is
   λόγος; there is no lemma index, so join LSJ to the corpus through the other
   lexicons rather than by headword.
+* **1,052 works carry an inferred public-domain basis.** Where CCEL's
+  `DC.Rights` is empty but the digitised print edition predates 1929, the work is
+  ingested and flagged `license_basis=inferred_pre1929` with the print year in
+  the licence string. Filter on `license_basis = 'stated'` for the
+  conservatively licensed 1,075.
 * **Public-domain status is the distributor's assertion**, recorded verbatim in
   the manifest, not independently re-verified against national copyright records.
