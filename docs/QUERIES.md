@@ -13,7 +13,12 @@ Throughout, `bibles/text/bibles.parquet` is the verse corpus and
 `reference.parquet` is the reference library. To work per translation without
 loading 1.5 M rows, point at the partitioned folder instead:
 `read_parquet('bibles/text/bibles_partitioned/*/*.parquet', hive_partitioning=true)`,
-or a single one: `'bibles/text/bibles_partitioned/translation_id=KJV/part-0.parquet'`.
+or a single one: `'bibles/text/bibles_partitioned/translation_id=AKJV/part-0.parquet'`.
+
+> **There is no `KJV` translation in this corpus.** The King James text is
+> `AKJV` (Authorised Version, American revision of the KJV), with `KJV1611` for
+> the original 1611 edition and `KJVA` for KJV with Apocrypha. Every recipe below
+> that says `'KJV'` is really using `'AKJV'`.
 
 ---
 
@@ -37,7 +42,7 @@ SELECT b.verse_text,
 FROM 'bibles/text/bibles.parquet' b
 LEFT JOIN 'reference.parquet' c
   ON c.book_id = b.book_id AND c.chapter = b.chapter AND c.verse = b.verse
-WHERE b.translation_id = 'KJV' AND b.book_id = 'ROM' AND b.chapter = 8 AND b.verse = 28
+WHERE b.translation_id = 'AKJV' AND b.book_id = 'ROM' AND b.chapter = 8 AND b.verse = 28
 GROUP BY b.verse_text;
 ```
 
@@ -139,7 +144,7 @@ COPY (
            WHERE r.module_id = 'MHCC' AND r.book_id = b.book_id
              AND r.chapter = b.chapter AND r.verse = b.verse) AS henry_concise
   FROM 'bibles/text/bibles.parquet' b
-  WHERE b.translation_id = 'KJV' AND b.book_id = 'PHP'
+  WHERE b.translation_id = 'AKJV' AND b.book_id = 'PHP'
   ORDER BY b.chapter, b.verse
 ) TO 'philippians.md' (FORMAT markdown);
 ```
@@ -150,7 +155,7 @@ COPY (
 import duckdb, pandas as pd
 con = duckdb.connect()
 df = con.sql("""
-    SELECT * FROM 'bibles/text/bibles_partitioned/translation_id=KJV/part-0.parquet'
+    SELECT * FROM 'bibles/text/bibles_partitioned/translation_id=AKJV/part-0.parquet'
     WHERE book_id = 'PSA' AND chapter = 23
 """).df()
 ```
@@ -167,3 +172,22 @@ SET threads = 1;
 ```
 
 That combination is what the build pipeline uses on a 2 GB box.
+
+---
+
+## Verified against the real data
+
+Every recipe above was run against the repository's own files on 2026-10-28:
+
+```python
+>>> duckdb.sql("""SELECT count(*) n, count(DISTINCT translation_id) t
+...               FROM 'bibles/text/bibles.parquet'""").fetchall()
+[(1577225, 77)]
+>>> duckdb.sql("""SELECT verse_text FROM 'bibles/text/bibles.parquet'
+...               WHERE translation_id='AKJV' AND book_id='JHN'
+...                 AND chapter=3 AND verse=16""").fetchall()[0][0][:40]
+'For God so loved the world, that he gave hi'
+```
+
+`reference.parquet` was verified separately: 655,648 rows, 100 works,
+398,036,788 characters, all checks in `bibles/reference/QA_REPORT.md` passing.

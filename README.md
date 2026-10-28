@@ -53,7 +53,7 @@ duckdb.sql("""
   JOIN 'reference.parquet' c
     ON c.module_id = 'MHC' AND c.book_id = b.book_id
    AND c.chapter = b.chapter AND c.verse = b.verse
-  WHERE b.translation_id = 'KJV' AND b.book_id = 'JHN'
+  WHERE b.translation_id = 'AKJV' AND b.book_id = 'JHN'
     AND b.chapter = 3 AND b.verse = 16
 """).show()
 ```
@@ -112,7 +112,7 @@ Details: [`bibles/reference/README.md`](bibles/reference/README.md) — plus
 ## The one join that makes this a database
 
 ```sql
--- every verse of the KJV with Matthew Henry, Barnes and the Treasury of Scripture Knowledge
+-- every verse of the Authorised Version with Matthew Henry, Barnes and the Treasury of Scripture Knowledge
 SELECT b.book_name, b.chapter, b.verse, b.verse_text,
        max(CASE WHEN c.module_id='MHC'   THEN c.entry_text END) AS henry,
        max(CASE WHEN c.module_id='Barnes' THEN c.entry_text END) AS barnes,
@@ -120,7 +120,7 @@ SELECT b.book_name, b.chapter, b.verse, b.verse_text,
 FROM 'bibles/text/bibles.parquet' b
 LEFT JOIN 'reference.parquet' c
   ON c.book_id = b.book_id AND c.chapter = b.chapter AND c.verse = b.verse
-WHERE b.translation_id = 'KJV' AND b.book_id = 'ROM' AND b.chapter = 8
+WHERE b.translation_id = 'AKJV' AND b.book_id = 'ROM' AND b.chapter = 8
 GROUP BY ALL ORDER BY b.verse;
 ```
 
