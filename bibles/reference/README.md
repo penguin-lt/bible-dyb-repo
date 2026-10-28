@@ -23,8 +23,16 @@ pass over the counts.
 | Languages | **41** — en, he, grc, la, fr, de, nl, ar, syr, gez, vi, sv … |
 | Licence | Public Domain 1,052 · CC0 781 · CC BY 278 · CC BY-SA 15 · GPL 1 |
 
-By category: Commentary 30 / 262,548 entries · Dictionary 10 / 249,802 ·
-Lexicon 19 / 92,436 · Reference 32 / 8,562 · Topical 9 / 42,300.
+By source category: Reference 1,577 works / 159,894 entries · Commentary 162 / 99,246 ·
+Patristics 57 · Devotional 80 · Liturgy 65 · Theology 48 · Sermons 44 ·
+Church History 43 · Lexicon 19 / 92,436 · Creeds & Confessions 13 ·
+Dictionary 10 / 249,802 · Topical 9 / 42,300.
+
+By **subject area** (the twenty requested), in `COVERAGE.md`: Systematic Theology
+473 · Hermeneutics & Exegesis 336 · Mysticism 174 · Reformation 112 · Liturgy 112 ·
+Rabbinic 1,075 · Patristics 68 · Church History 70 · Apocrypha 63 · Archaeology 44 ·
+Lexical 33 · Creeds 23 · Cross-Reference 12 · Morphology 11 · Apologetics 10 ·
+Sermons 78 · Background 7 · Interlinears 5 · Maps 5 · Textual Criticism 4.
 Machine-readable counts are in `data/stats.json`.
 
 The two large files are published as **release assets**:
