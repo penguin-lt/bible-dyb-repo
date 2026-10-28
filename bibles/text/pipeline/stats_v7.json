@@ -1,0 +1,58 @@
+{
+ "translations": 77,
+ "verses": 1577225,
+ "ot": 994856,
+ "nt": 525473,
+ "dc": 56896,
+ "words": 39909848,
+ "combined_mb": 28.2,
+ "partitioned_mb": 55.1,
+ "checks": {
+  "rows": 1577225,
+  "translations": 77,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 67,
+  "books_present": 87
+ },
+ "additions": {
+  "TEG": {
+   "verse_count": 1292,
+   "book_count": 1,
+   "chapter_count": 66,
+   "word_count": 37323,
+   "ot_verses": 1292,
+   "nt_verses": 0,
+   "dc_verses": 0,
+   "blank_slots": [],
+   "text_sha256": "20575a983b5af89a2ed22d8147698b94e8602622bccead22589b6b130e8d8ef7",
+   "closest_existing": [
+    {
+     "id": "KJVA",
+     "shared": 1292,
+     "identical_pct": 5.34
+    },
+    {
+     "id": "RNKJV",
+     "shared": 1292,
+     "identical_pct": 4.64
+    },
+    {
+     "id": "ASV",
+     "shared": 1292,
+     "identical_pct": 4.57
+    },
+    {
+     "id": "ASVBT",
+     "shared": 1292,
+     "identical_pct": 4.26
+    },
+    {
+     "id": "JST",
+     "shared": 1288,
+     "identical_pct": 4.19
+    }
+   ]
+  }
+ }
+}

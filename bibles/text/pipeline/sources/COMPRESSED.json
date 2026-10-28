@@ -1,0 +1,30 @@
+{
+ "CGV.SQLite3": {
+  "bytes": 5275648,
+  "gz_bytes": 1850048
+ },
+ "COMM.SQLite3": {
+  "bytes": 1343488,
+  "gz_bytes": 433075
+ },
+ "FAA.SQLite3": {
+  "bytes": 1474560,
+  "gz_bytes": 471626
+ },
+ "HNC.SQLite3": {
+  "bytes": 1507328,
+  "gz_bytes": 485986
+ },
+ "NEV.SQLite3": {
+  "bytes": 5111808,
+  "gz_bytes": 1826621
+ },
+ "RHB.SQLite3": {
+  "bytes": 5537792,
+  "gz_bytes": 1945700
+ },
+ "SENT.SQLite3": {
+  "bytes": 1540096,
+  "gz_bytes": 518930
+ }
+}

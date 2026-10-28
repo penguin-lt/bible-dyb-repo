@@ -1,0 +1,558 @@
+{
+"A": {
+"whiting": [
+"N. N. Whiting, The Good News of Our Lord Jesus, the Anointed (from the critical Greek text)",
+1849,
+"NT"
+],
+"newcome": [
+"Archbishop William Newcome, An Attempt Toward Revising Our English Translation (NT)",
+1796,
+"NT"
+],
+"geddes": [
+"Alexander Geddes, The Holy Bible \u2026 (partial: Judges\u20132 Chronicles + Prayer of Manasseh)",
+1797,
+"OT portions"
+],
+"abufirst-second": [
+"American Bible Union NT \u2014 Second Revision",
+1865,
+"NT"
+],
+"abufirst-first": [
+"American Bible Union NT \u2014 First Revision (Vol I, Gospels)",
+1862,
+"NT portion"
+],
+"abufirst-third": [
+"American Bible Union NT \u2014 Third Revision",
+1883,
+"NT"
+],
+"abufirst-quartos": [
+"American Bible Union NT Quartos (2 Peter, 1\u20133 John, Jude)",
+1852,
+"NT portion"
+],
+"abufirst-ot": [
+"American Bible Union OT Portions (The Book of Job)",
+1856,
+"OT portion"
+],
+"abufirst-bible": [
+"American Bible Union \u2014 Complete Bible, An Improved Edition",
+1912,
+"Bible"
+],
+"ray": [
+"David Macrae / J. M. Ray, A Revised Translation and Interpretation of the Sacred Scriptures (Vol 1: Genesis\u2013Job)",
+1799,
+"OT portion"
+],
+"cone": [
+"Spencer Cone / William Wyckoff, The Commonly Received Version of the NT revised",
+1850,
+"NT"
+],
+"norton": [
+"Andrews Norton, A Translation of the Gospels (2 vols)",
+1855,
+"Gospels"
+],
+"sawyer": [
+"Leicester Ambrose Sawyer, The New Testament \u2026 with Chronological Arrangement",
+1858,
+"NT"
+],
+"wakefield": [
+"Gilbert Wakefield, A Translation of the New Testament (2 vols)",
+1791,
+"NT"
+],
+"kneeland": [
+"Abner Kneeland, The New Testament, being the English only of the Greek and English Testament",
+1823,
+"NT"
+],
+"campbella": [
+"Alexander Campbell, The Sacred Writings of the Apostles and Evangelists (Living Oracles)",
+1826,
+"NT"
+],
+"purver": [
+"Anthony Purver, A New and Literal Translation of All the Books of the Old and New Testament",
+1764,
+"Bible"
+],
+"wynne": [
+"Richard Wynne, The New Testament: Carefully Collated with the Greek, and Corrected",
+1764,
+"NT"
+],
+"doddridge": [
+"Philip Doddridge, A Translation of the New Testament (Family Expositor)",
+1765,
+"NT"
+],
+"harwood": [
+"Edward Harwood, A Liberal Translation of the New Testament",
+1768,
+"NT"
+],
+"palfrey": [
+"John Gorham Palfrey, The New Testament in the Common Version, Conformed to Griesbach's Greek",
+1828,
+"NT"
+],
+"htanderson": [
+"H. T. Anderson, The New Testament Translated from the Original Greek",
+1864,
+"NT"
+],
+"bowes": [
+"John Bowes, The New Testament: Translated from the purest Greek",
+1870,
+"NT"
+],
+"bwilson": [
+"Benjamin Wilson, The Emphatic Diaglott",
+1864,
+"NT"
+],
+"taylor": [
+"Edgar Taylor, The New Testament \u2026 Revised from the Authorized Version",
+1840,
+"NT"
+],
+"penn": [
+"Granville Penn, The Book of the New Covenant \u2026 a critical revision",
+1836,
+"NT"
+],
+"sharpe": [
+"Samuel Sharpe, The New Testament translated from Griesbach's Text",
+1840,
+"NT"
+],
+"barlee": [
+"Edward Barlee, A Free and Explanatory Version of the Epistles",
+1837,
+"Epistles"
+],
+"craik": [
+"Henry Craik, An Amended Translation of the Epistle to the Hebrews",
+1847,
+"single book"
+],
+"heinfetter": [
+"Herman Heinfetter (Frederick Parker), Literal Translations on Definite Rules (Romans, Matthew, Luke, John \u2026)",
+1848,
+"NT portions"
+],
+"kelly": [
+"William Kelly, The Psalms \u2014 A New Version with Short Notes",
+1904,
+"OT portion"
+],
+"jowett": [
+"Benjamin Jowett, The Epistles of St. Paul (Thessalonians, Galatians, Romans)",
+1855,
+"Epistles"
+],
+"shadwell": [
+"Lancelot Shadwell, The Gospel According to Matthew \u2026 from a Revised Greek Text",
+1859,
+"Gospel"
+],
+"colenso": [
+"J. W. Colenso, St. Paul's Epistle to the Romans newly translated",
+1861,
+"single book"
+],
+"thorn": [
+"Leonard Thorn, The New Testament \u2026 as Revised and Corrected by The Spirit of Truth",
+1861,
+"NT"
+],
+"highton": [
+"Henry Highton, Revised Translation of the New Testament",
+1862,
+"NT"
+],
+"green": [
+"Thomas Sheldon Green, The Twofold New Testament",
+1865,
+"NT"
+],
+"ainslie": [
+"Robert Ainslie, The New Testament: translated from the Greek Text of Tischendorf",
+1869,
+"NT"
+],
+"godwin": [
+"John H. Godwin, The Gospel according to Saint Mark. A New Translation",
+1869,
+"Gospel"
+],
+"davidson": [
+"Samuel Davidson, The New Testament. Translated from the Critical Text of Von Tischendorf",
+1875,
+"NT"
+],
+"hansonjw": [
+"J. W. Hanson, The New Covenant (NT translation)",
+1884,
+"NT"
+],
+"weekes": [
+"Robert D. Weekes, The New Dispensation. The New Testament",
+1897,
+"NT"
+],
+"stevens": [
+"George Barker Stevens, The Epistles of Paul in Modern English",
+1898,
+"Epistles"
+],
+"rutherford": [
+"W. G. Rutherford, St. Paul's Epistle to the Romans. A New Translation",
+1900,
+"single book"
+],
+"mswiney": [
+"James M'Swiney, Translation of the Psalms and Canticles",
+1901,
+"OT portion"
+],
+"smithww": [
+"William Wye Smith, The New Testament in Braid Scots",
+1901,
+"NT (Scots)"
+],
+"lloyd": [
+"Samuel Lloyd, The Authorised Version of the New Testament in 'Revised English'",
+1904,
+"NT"
+],
+"clarke": [
+"Edward Clarke, The New Testament. The Authorized Version, Corrected",
+1913,
+"NT"
+],
+"pryse": [
+"James Morgan Pryse, The Restored New Testament",
+1914,
+"NT portions"
+],
+"hammond": [
+"Henry Hammond, A Paraphrase and Annotations Upon all the Books of the New Testament",
+1653,
+"NT"
+],
+"wells": [
+"Edward Wells, An Help for the more Easy and Clear Understanding of the Holy Scriptures",
+1718,
+"OT/NT portions"
+],
+"locke": [
+"John Locke, A Paraphrase and Notes on the Epistles of St. Paul",
+1707,
+"Epistles"
+],
+"gilpin": [
+"William Gilpin, An Exposition of the New Testament",
+1790,
+"NT"
+],
+"pyle": [
+"Thomas Pyle, A Paraphrase on the Acts and the Epistles",
+1765,
+"NT portion"
+],
+"macknight": [
+"James Macknight, A Harmony of the Four Gospels / Apostolical Epistles (new translation)",
+1756,
+"NT"
+],
+"lingard": [
+"John Lingard, NT / Gospels (Roman Catholic, 19th c.)",
+1836,
+"NT/Gospels"
+],
+"kenrick": [
+"Francis Patrick Kenrick, The Four Gospels translated from the Latin Vulgate",
+1849,
+"Gospels"
+],
+"nary": [
+"Cornelius Nary, The New Testament \u2026 in the Vulgar English (Rhemish corrected)",
+1718,
+"NT"
+],
+"liverbmore": [
+"Abiel Abbot Livermore, The Epistle to the Romans (revised translation)",
+1854,
+"single book"
+],
+"livermore": [
+"Abiel Abbot Livermore, The Epistle to the Romans (revised translation)",
+1854,
+"single book"
+]
+},
+"B": {
+"lowth": [
+"Robert Lowth, Isaiah: A New Translation",
+1778,
+"OT portion"
+],
+"scott": [
+"Thomas Scott, The Book of Job, in English Verse",
+1771,
+"OT portion"
+],
+"horsley": [
+"Samuel Horsley, Hosea, Translated from the Hebrew",
+1801,
+"OT portion"
+],
+"noyes": [
+"George R. Noyes, An Amended Version of the Book of Job",
+1827,
+"OT portion"
+],
+"lee": [
+"Chauncey Lee, The Trial of Virtue (paraphrase of Job)",
+1806,
+"OT portion"
+],
+"moore": [
+"T. V. Moore, The Prophets of the Restoration (Haggai, Zechariah, Malachi)",
+1856,
+"OT portion"
+],
+"alexander": [
+"Joseph Addison Alexander, The Psalms Translated and Explained",
+1850,
+"OT portion"
+],
+"coleman": [
+"John Noble Coleman, The Poem of Job",
+1871,
+"OT portion"
+],
+"ball": [
+"C. J. Ball, The Book of Job, a revised text and version",
+1922,
+"OT portion"
+],
+"genung": [
+"John Franklin Genung, The Epic of the Inner Life (Job)",
+1891,
+"OT portion"
+],
+"cheyne": [
+"T. K. Cheyne, The Book of Psalms Translated",
+1884,
+"OT portion"
+],
+"dewitt": [
+"John De Witt, Praise Songs of Israel (Psalms)",
+1884,
+"OT portion"
+],
+"driver": [
+"S. R. Driver, The Parallel Psalter (new version of the Psalms)",
+1898,
+"OT portion"
+],
+"cheyneg": [
+"T. K. Cheyne, Isaiah (Polychrome Bible)",
+1898,
+"OT portion"
+],
+"polychrome": [
+"The Sacred Books of the Old and New Testaments (Polychrome Bible, ed. Haupt) \u2014 Leviticus",
+1898,
+"OT portion"
+],
+"polychrome-isaiah": [
+"Polychrome Bible \u2014 Isaiah (Cheyne)",
+1898,
+"OT portion"
+],
+"polychrome-judges": [
+"Polychrome Bible \u2014 Judges (Moore)",
+1898,
+"OT portion"
+],
+"polychrome-leviticus": [
+"Polychrome Bible \u2014 Leviticus (Driver & White)",
+1898,
+"OT portion"
+],
+"polychrome-psalms": [
+"Polychrome Bible \u2014 Psalms (Wellhausen & Furness)",
+1898,
+"OT portion"
+],
+"polychrome-ezekiel": [
+"Polychrome Bible \u2014 Ezekiel (Toy)",
+1899,
+"OT portion"
+],
+"polychrome-joshua": [
+"Polychrome Bible \u2014 Joshua (Bennett)",
+1899,
+"OT portion"
+],
+"haley": [
+"John W. Haley / Lowell Hebrew Club, The Book of Esther, A New Translation",
+1885,
+"OT portion"
+],
+"margolis": [
+"Max L. Margolis, Micah (Holy Scriptures with Commentary)",
+1908,
+"OT portion"
+],
+"glazebrook": [
+"M. G. Glazebrook, Studies in the Book of Isaiah",
+1910,
+"OT portion"
+],
+"boylan": [
+"Patrick Boylan, The Psalms (Vulgate Psalter in the light of the Hebrew)",
+1920,
+"OT portion"
+],
+"mcfadyen": [
+"John Edgar McFadyen, The Psalms in Modern Speech",
+1916,
+"OT portion"
+],
+"paterson": [
+"T. Whyte Paterson, The Wyse-Sayin's o' Solomon (Proverbs in Scots)",
+1916,
+"OT portion (Scots)"
+],
+"waddell": [
+"P. Hately Waddell, The Psalms: Frae Hebrew Intil Scottis",
+1871,
+"OT portion (Scots)"
+],
+"nisbet": [
+"Murdoch Nisbet, The New Testament in Scots (Purvey's revision turned into Scots, c. 1520)",
+1901,
+"NT (Scots)"
+],
+"challis": [
+"James Challis, A Translation of the Epistle to the Romans",
+1871,
+"single book"
+],
+"terrot": [
+"C. H. Terrot, The Epistle to the Romans (introduction, paraphrase, notes)",
+1828,
+"single book"
+],
+"howard": [
+"John Eliot Howard, The Epistle to the Hebrews. A Revised Translation",
+1872,
+"single book"
+],
+"shuttleworth": [
+"Philip Nicholas Shuttleworth, A Paraphrastic Translation of the Apostolic Epistles",
+1829,
+"Epistles"
+],
+"jowettb": [
+"Benjamin Jowett, The Epistles of St. Paul",
+1855,
+"Epistles"
+],
+"paley": [
+"F. A. Paley, The Gospel of St. John; A Verbatim Translation from the Vatican Ms.",
+1887,
+"Gospel"
+],
+"godwinm": [
+"John H. Godwin, The Gospel according to Saint Mark",
+1869,
+"Gospel"
+],
+"lewis": [
+"Agnes Smith Lewis, A Translation of the Four Gospels from the Syriac of the Sinaitic Palimpsest",
+1894,
+"Gospels"
+],
+"nortona": [
+"Andrews Norton, A Translation of the Gospels",
+1855,
+"Gospels"
+],
+"torrey": [
+"Charles Cutler Torrey, The Four Gospels: A New Translation (1933 \u2014 still in copyright in the US)",
+1933,
+"Gospels (in copyright)"
+],
+"williamscb": [
+"Charles B. Williams, The New Testament in the Language of the People (1937 \u2014 copyright)",
+1937,
+"NT (in copyright)"
+],
+"fenton": [
+"Ferrar Fenton, St. Paul's Epistles in Modern English (1884) / The Holy Bible in Modern English (1903)",
+1884,
+"NT/Epistles"
+],
+"westminster": [
+"Westminster Version of the Sacred Scriptures (Catholic, 1913\u20131935 \u2014 copyright)",
+1928,
+"NT portions (in copyright)"
+],
+"torreya": [
+"Charles Cutler Torrey, The Four Gospels",
+1933,
+"Gospels (in copyright)"
+],
+"moffatt-hist": [
+"James Moffatt, The Historical New Testament (1901)",
+1901,
+"NT (in dataset as MOFFATT for 1913 text)"
+]
+},
+"C": {
+"bonaparte": [
+"The Gospel of St. Matthew in Lowland Scotch (H. S. Riddell)",
+1856,
+"dialect"
+],
+"bonaparte-lowland-scot": [
+"The Gospel of St. Matthew in Lowland Scotch (H. S. Riddell)",
+1856,
+"dialect"
+],
+"bonaparte-craven": [
+"Song of Solomon in the Dialect of Craven (H. A. Littledale)",
+1859,
+"dialect"
+],
+"bonaparte-lancashire": [
+"Song of Solomon in the Lancashire Dialect (J. T. Staton)",
+1859,
+"dialect"
+],
+"bonaparte-devonshire": [
+"Song of Solomon in the Devonshire Dialect (Henry Baird)",
+1860,
+"dialect"
+],
+"bonaparte-northumberla": [
+"Book of Ruth in the Northumberland Dialect (J. G. Forster)",
+1860,
+"dialect"
+]
+}
+}

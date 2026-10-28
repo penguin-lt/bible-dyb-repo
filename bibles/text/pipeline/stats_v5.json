@@ -1,0 +1,63 @@
+{
+ "translations": 73,
+ "verses": 1558733,
+ "ot": 992278,
+ "nt": 509559,
+ "dc": 56896,
+ "words": 39486544,
+ "combined_mb": 27.9,
+ "partitioned_mb": 54.5,
+ "checks": {
+  "rows": 1558733,
+  "translations": 73,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 65,
+  "books_present": 87
+ },
+ "additions": {
+  "WHISTON": {
+   "verse_count": 7957,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 178194,
+   "ot_verses": 0,
+   "nt_verses": 7957,
+   "dc_verses": 0,
+   "omitted_slots": [],
+   "text_sha256": "d0b8b82a6b7bed715ee1b88178cd0ac95e12ab338775078bd124c5dbdccfb70e",
+   "closest_existing": [
+    {
+     "id": "KJVA",
+     "identical_pct": 23.97,
+     "identical": 1907,
+     "shared": 7957
+    },
+    {
+     "id": "JST",
+     "identical_pct": 15.25,
+     "identical": 1199,
+     "shared": 7861
+    },
+    {
+     "id": "RNKJV",
+     "identical_pct": 14.63,
+     "identical": 1164,
+     "shared": 7957
+    },
+    {
+     "id": "Webster",
+     "identical_pct": 12.38,
+     "identical": 985,
+     "shared": 7957
+    },
+    {
+     "id": "UKJV",
+     "identical_pct": 11.75,
+     "identical": 935,
+     "shared": 7957
+    }
+   ]
+  }
+ }
+}

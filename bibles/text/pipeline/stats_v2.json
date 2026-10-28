@@ -1,0 +1,28 @@
+{
+ "translations": 67,
+ "verses": 1511068,
+ "ot": 992278,
+ "nt": 461894,
+ "dc": 56896,
+ "words": 38434525,
+ "combined_mb": 27.3,
+ "partitioned_mb": 52.9,
+ "checks": {
+  "rows": 1511068,
+  "translations": 67,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 59,
+  "books_present": 87
+ },
+ "sim_kjv1611_vs_kjva_pct": 3.63,
+ "kjv1611": {
+  "verse_count": 31102,
+  "book_count": 66,
+  "chapter_count": 1189,
+  "word_count": 791500,
+  "ot_verses": 23145,
+  "nt_verses": 7957,
+  "dc_verses": 0
+ }
+}

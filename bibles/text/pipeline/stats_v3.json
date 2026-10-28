@@ -1,0 +1,432 @@
+{
+ "translations": 70,
+ "verses": 1534899,
+ "ot": 992278,
+ "nt": 485725,
+ "dc": 56896,
+ "words": 38961478,
+ "combined_mb": 27.5,
+ "partitioned_mb": 53.7,
+ "checks": {
+  "rows": 1534899,
+  "translations": 70,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 62,
+  "books_present": 87
+ },
+ "additions": {
+  "ABU1865": {
+   "verse_count": 7953,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 175833,
+   "ot_verses": 0,
+   "nt_verses": 7953,
+   "dc_verses": 0,
+   "omitted_slots": [
+    {
+     "book_id": "MAT",
+     "chapter": 23,
+     "verse": 14,
+     "reason": "module slot contains a textual note, not translated text",
+     "module_line": "[V. 14 is wanting in the oldest and best copies.]"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 17,
+     "verse": 36,
+     "reason": "module slot contains a textual note, not translated text",
+     "module_line": "[V. 36 belongs in Mat 24:40; it is omitted here in the oldest copies.]"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 23,
+     "verse": 17,
+     "reason": "module slot contains a textual note, not translated text",
+     "module_line": "[V. 17 is omitted in all the oldest and best copies.]"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 28,
+     "verse": 29,
+     "reason": "module slot contains a textual note, not translated text",
+     "module_line": "[V. 29 is wanting in the oldest and best copies.]"
+    }
+   ],
+   "text_sha256": "d5f5dc11c61833f15994772dfac698604cddf4da4d9d7301949c49ebd27715bd",
+   "closest_existing": [
+    {
+     "id": "Noyes",
+     "identical_pct": 11.13,
+     "identical": 883,
+     "shared": 7937
+    },
+    {
+     "id": "Webster",
+     "identical_pct": 6.73,
+     "identical": 535,
+     "shared": 7953
+    },
+    {
+     "id": "ASVBT",
+     "identical_pct": 5.61,
+     "identical": 446,
+     "shared": 7947
+    },
+    {
+     "id": "ASV",
+     "identical_pct": 5.6,
+     "identical": 445,
+     "shared": 7941
+    },
+    {
+     "id": "AKJV",
+     "identical_pct": 5.47,
+     "identical": 435,
+     "shared": 7953
+    }
+   ]
+  },
+  "Worrell": {
+   "verse_count": 7946,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 176915,
+   "ot_verses": 0,
+   "nt_verses": 7946,
+   "dc_verses": 0,
+   "omitted_slots": [
+    {
+     "book_id": "MAT",
+     "chapter": 23,
+     "verse": 14,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 7,
+     "verse": 16,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 44,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 46,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 11,
+     "verse": 26,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 15,
+     "verse": 28,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 17,
+     "verse": 36,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 23,
+     "verse": 17,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 15,
+     "verse": 34,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 28,
+     "verse": 29,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "OMITTED TEXT."
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 16,
+     "verse": 24,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "Omitted Text"
+    }
+   ],
+   "text_sha256": "fd5fcecf653f9b7af4319e6f20980587ece9fd4489d891b20c395337c407dc66",
+   "closest_existing": [
+    {
+     "id": "ASV",
+     "identical_pct": 6.56,
+     "identical": 521,
+     "shared": 7941
+    },
+    {
+     "id": "RV1895",
+     "identical_pct": 6.09,
+     "identical": 484,
+     "shared": 7941
+    },
+    {
+     "id": "ASVBT",
+     "identical_pct": 5.02,
+     "identical": 399,
+     "shared": 7941
+    },
+    {
+     "id": "Noyes",
+     "identical_pct": 4.84,
+     "identical": 384,
+     "shared": 7936
+    },
+    {
+     "id": "Anderson",
+     "identical_pct": 2.51,
+     "identical": 199,
+     "shared": 7935
+    }
+   ]
+  },
+  "RIVERSIDE": {
+   "verse_count": 7932,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 174205,
+   "ot_verses": 0,
+   "nt_verses": 7932,
+   "dc_verses": 0,
+   "omitted_slots": [
+    {
+     "book_id": "MAT",
+     "chapter": 16,
+     "verse": 2,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 16,
+     "verse": 3,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 17,
+     "verse": 21,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 18,
+     "verse": 11,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 23,
+     "verse": 14,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 7,
+     "verse": 16,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 44,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 46,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 10,
+     "verse": 48,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 11,
+     "verse": 26,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 15,
+     "verse": 28,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 9,
+     "verse": 56,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 17,
+     "verse": 36,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 23,
+     "verse": 17,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "JHN",
+     "chapter": 5,
+     "verse": 4,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "JHN",
+     "chapter": 7,
+     "verse": 16,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 8,
+     "verse": 37,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 15,
+     "verse": 34,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 24,
+     "verse": 7,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 28,
+     "verse": 29,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 7,
+     "verse": 18,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 7,
+     "verse": 19,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 7,
+     "verse": 20,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 16,
+     "verse": 24,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    },
+    {
+     "book_id": "1JN",
+     "chapter": 5,
+     "verse": 7,
+     "reason": "module placeholder for an omitted verse",
+     "module_line": "TEXT OMITTED"
+    }
+   ],
+   "text_sha256": "46b493dd58df29a27c7e6c58c2d6d6a72ec8af0955e4729903247a66980da996",
+   "closest_existing": [
+    {
+     "id": "NHEB",
+     "identical_pct": 2.08,
+     "identical": 165,
+     "shared": 7932
+    },
+    {
+     "id": "WEB",
+     "identical_pct": 1.82,
+     "identical": 144,
+     "shared": 7929
+    },
+    {
+     "id": "TCENT",
+     "identical_pct": 1.61,
+     "identical": 128,
+     "shared": 7929
+    },
+    {
+     "id": "RKJNT",
+     "identical_pct": 1.53,
+     "identical": 121,
+     "shared": 7931
+    },
+    {
+     "id": "BSB",
+     "identical_pct": 1.44,
+     "identical": 114,
+     "shared": 7932
+    }
+   ]
+  }
+ }
+}

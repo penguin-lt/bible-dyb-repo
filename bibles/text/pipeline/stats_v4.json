@@ -1,0 +1,367 @@
+{
+ "translations": 72,
+ "verses": 1550776,
+ "ot": 992278,
+ "nt": 501602,
+ "dc": 56896,
+ "words": 39308350,
+ "combined_mb": 27.8,
+ "partitioned_mb": 54.2,
+ "checks": {
+  "rows": 1550776,
+  "translations": 72,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 64,
+  "books_present": 87
+ },
+ "additions": {
+  "MOFFATT": {
+   "verse_count": 7940,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 175094,
+   "ot_verses": 0,
+   "nt_verses": 7940,
+   "dc_verses": 0,
+   "omitted_slots": [
+    {
+     "book_id": "1CO",
+     "chapter": 15,
+     "verse": 56,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 8,
+     "verse": 37,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 15,
+     "verse": 34,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 24,
+     "verse": 7,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 28,
+     "verse": 29,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 17,
+     "verse": 36,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 23,
+     "verse": 17,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 12,
+     "verse": 47,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "\u2014 -"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 16,
+     "verse": 3,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "\u2014 -"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 17,
+     "verse": 21,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "\u2014 -"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 18,
+     "verse": 11,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "\u2014 -"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 23,
+     "verse": 14,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "\u2014 -"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 44,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 46,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 11,
+     "verse": 26,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 15,
+     "verse": 28,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 16,
+     "verse": 24,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "--"
+    }
+   ],
+   "text_sha256": "ee65554c84eb70625f35c7366caea07c4ef3fbe55339d81a439bf989523e1f93",
+   "closest_existing": [
+    {
+     "id": "MONTGOMERY",
+     "identical_pct": 1.0,
+     "identical": 79,
+     "shared": 7914
+    },
+    {
+     "id": "RIVERSIDE",
+     "identical_pct": 0.82,
+     "identical": 65,
+     "shared": 7930
+    },
+    {
+     "id": "BSB",
+     "identical_pct": 0.73,
+     "identical": 58,
+     "shared": 7938
+    },
+    {
+     "id": "MSB",
+     "identical_pct": 0.6,
+     "identical": 48,
+     "shared": 7940
+    },
+    {
+     "id": "TCENT",
+     "identical_pct": 0.57,
+     "identical": 45,
+     "shared": 7937
+    }
+   ]
+  },
+  "PANIN": {
+   "verse_count": 7937,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 171778,
+   "ot_verses": 0,
+   "nt_verses": 7937,
+   "dc_verses": 0,
+   "omitted_slots": [
+    {
+     "book_id": "1CO",
+     "chapter": 5,
+     "verse": 4,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 8,
+     "verse": 37,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 15,
+     "verse": 34,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 24,
+     "verse": 7,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "ACT",
+     "chapter": 28,
+     "verse": 29,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "HEB",
+     "chapter": 1,
+     "verse": 14,
+     "reason": "no verse in this translation at this reference",
+     "module_text": ""
+    },
+    {
+     "book_id": "HEB",
+     "chapter": 6,
+     "verse": 10,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "JAS",
+     "chapter": 5,
+     "verse": 9,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "JHN",
+     "chapter": 5,
+     "verse": 4,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 17,
+     "verse": 36,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "LUK",
+     "chapter": 23,
+     "verse": 17,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 17,
+     "verse": 21,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "Omitted"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 18,
+     "verse": 11,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": "Omitted"
+    },
+    {
+     "book_id": "MAT",
+     "chapter": 23,
+     "verse": 14,
+     "reason": "no verse in this translation at this reference",
+     "module_text": ""
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 7,
+     "verse": 16,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 9,
+     "verse": 46,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 11,
+     "verse": 26,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "MRK",
+     "chapter": 15,
+     "verse": 28,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "ROM",
+     "chapter": 16,
+     "verse": 24,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    },
+    {
+     "book_id": "TIT",
+     "chapter": 2,
+     "verse": 5,
+     "reason": "module slot is a placeholder/omission mark",
+     "module_text": ""
+    }
+   ],
+   "text_sha256": "4d194a5f3f684ff37b31aa1360a848cfd62c8deebc905fb3d416f1c37398ed22",
+   "closest_existing": [
+    {
+     "id": "ASV",
+     "identical_pct": 16.58,
+     "identical": 1316,
+     "shared": 7936
+    },
+    {
+     "id": "RV1895",
+     "identical_pct": 14.26,
+     "identical": 1132,
+     "shared": 7936
+    },
+    {
+     "id": "ASVBT",
+     "identical_pct": 11.34,
+     "identical": 900,
+     "shared": 7934
+    },
+    {
+     "id": "Worrell",
+     "identical_pct": 4.25,
+     "identical": 337,
+     "shared": 7936
+    },
+    {
+     "id": "Noyes",
+     "identical_pct": 3.67,
+     "identical": 291,
+     "shared": 7931
+    }
+   ]
+  }
+ }
+}

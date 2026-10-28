@@ -1,0 +1,89 @@
+book_id,book_name_standard,Testament,book_sort,translations_containing
+GEN,Genesis,OT,1,47
+EXO,Exodus,OT,2,44
+LEV,Leviticus,OT,3,45
+NUM,Numbers,OT,4,44
+DEU,Deuteronomy,OT,5,44
+JOS,Joshua,OT,6,42
+JDG,Judges,OT,7,41
+RUT,Ruth,OT,8,43
+1SA,1 Samuel,OT,9,42
+2SA,2 Samuel,OT,10,42
+1KI,1 Kings,OT,11,41
+2KI,2 Kings,OT,12,41
+1CH,1 Chronicles,OT,13,41
+2CH,2 Chronicles,OT,14,41
+EZR,Ezra,OT,15,41
+NEH,Nehemiah,OT,16,40
+EST,Esther,OT,17,41
+JOB,Job,OT,18,42
+PSA,Psalms,OT,19,45
+PRO,Proverbs,OT,20,44
+ECC,Ecclesiastes,OT,21,43
+SNG,Song of Solomon,OT,22,42
+ISA,Isaiah,OT,23,45
+JER,Jeremiah,OT,24,42
+LAM,Lamentations,OT,25,43
+EZK,Ezekiel,OT,26,42
+DAN,Daniel,OT,27,41
+HOS,Hosea,OT,28,43
+JOL,Joel,OT,29,43
+AMO,Amos,OT,30,43
+OBA,Obadiah,OT,31,43
+JON,Jonah,OT,32,46
+MIC,Micah,OT,33,43
+NAM,Nahum,OT,34,44
+HAB,Habakkuk,OT,35,44
+ZEP,Zephaniah,OT,36,43
+HAG,Haggai,OT,37,43
+ZEC,Zechariah,OT,38,43
+MAL,Malachi,OT,39,43
+TOB,Tobit,DC,40,10
+JDT,Judith,DC,41,10
+ESG,Greek Esther,DC,42,6
+WIS,Wisdom of Solomon,DC,43,10
+SIR,Sirach,DC,44,10
+BAR,Baruch,DC,45,10
+LJE,Letter of Jeremiah,DC,46,3
+S3Y,Song of the Three Young Men,DC,47,4
+SUS,Susanna,DC,48,6
+BEL,Bel and the Dragon,DC,49,6
+DAG,Daniel (Greek),DC,50,3
+1MA,1 Maccabees,DC,51,11
+2MA,2 Maccabees,DC,52,10
+3MA,3 Maccabees,DC,53,5
+4MA,4 Maccabees,DC,54,5
+1ES,1 Esdras,DC,55,8
+2ES,2 Esdras,DC,56,4
+MAN,Prayer of Manasseh,DC,57,8
+PS2,Psalm 151,DC,58,4
+ODA,Odes,DC,59,0
+PSS,Psalms of Solomon,DC,60,1
+MAT,Matthew,NT,61,67
+MRK,Mark,NT,62,67
+LUK,Luke,NT,63,67
+JHN,John,NT,64,67
+ACT,Acts,NT,65,66
+ROM,Romans,NT,66,66
+1CO,1 Corinthians,NT,67,66
+2CO,2 Corinthians,NT,68,65
+GAL,Galatians,NT,69,66
+EPH,Ephesians,NT,70,66
+PHP,Philippians,NT,71,66
+COL,Colossians,NT,72,66
+1TH,1 Thessalonians,NT,73,66
+2TH,2 Thessalonians,NT,74,66
+1TI,1 Timothy,NT,75,66
+2TI,2 Timothy,NT,76,66
+TIT,Titus,NT,77,66
+PHM,Philemon,NT,78,66
+HEB,Hebrews,NT,79,65
+JAS,James,NT,80,66
+1PE,1 Peter,NT,81,66
+2PE,2 Peter,NT,82,66
+1JN,1 John,NT,83,66
+2JN,2 John,NT,84,66
+3JN,3 John,NT,85,66
+JUD,Jude,NT,86,66
+REV,Revelation,NT,87,65
+LAO,Epistle to the Laodiceans,DC,88,1

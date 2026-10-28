@@ -1,0 +1,222 @@
+{
+ "translations": 76,
+ "verses": 1575933,
+ "ot": 993564,
+ "nt": 525473,
+ "dc": 56896,
+ "words": 39872525,
+ "combined_mb": 28.2,
+ "partitioned_mb": 55.0,
+ "checks": {
+  "rows": 1575933,
+  "translations": 76,
+  "empty_texts": 0,
+  "dup_keys": 0,
+  "jhn_1_1": 67,
+  "books_present": 87
+ },
+ "additions": {
+  "MACE": {
+   "verse_count": 7957,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 177860,
+   "ot_verses": 0,
+   "nt_verses": 7957,
+   "dc_verses": 0,
+   "omitted_slots": [],
+   "text_sha256": "cf2eeaac710659225795beadb647423a39c3b4082e0001af7416b77a870fbfa3",
+   "closest_existing": [
+    {
+     "id": "KJVA",
+     "identical_pct": 2.31,
+     "identical": 184,
+     "shared": 7957
+    },
+    {
+     "id": "Webster",
+     "identical_pct": 1.85,
+     "identical": 147,
+     "shared": 7957
+    },
+    {
+     "id": "RNKJV",
+     "identical_pct": 1.55,
+     "identical": 123,
+     "shared": 7957
+    },
+    {
+     "id": "AKJV",
+     "identical_pct": 1.41,
+     "identical": 112,
+     "shared": 7957
+    },
+    {
+     "id": "UKJV",
+     "identical_pct": 1.37,
+     "identical": 109,
+     "shared": 7957
+    }
+   ]
+  },
+  "SAWYER": {
+   "verse_count": 7957,
+   "book_count": 27,
+   "chapter_count": 260,
+   "word_count": 171724,
+   "ot_verses": 0,
+   "nt_verses": 7957,
+   "dc_verses": 0,
+   "omitted_slots": [],
+   "text_sha256": "f2389958e5e339fe0fc25c8b7f9fd0a75628bc314d56c7359ddf6f54ed7dafd9",
+   "closest_existing": [
+    {
+     "id": "Anderson",
+     "identical_pct": 3.31,
+     "identical": 263,
+     "shared": 7946
+    },
+    {
+     "id": "ABU1865",
+     "identical_pct": 2.54,
+     "identical": 202,
+     "shared": 7953
+    },
+    {
+     "id": "AKJV",
+     "identical_pct": 2.14,
+     "identical": 170,
+     "shared": 7957
+    },
+    {
+     "id": "Noyes",
+     "identical_pct": 2.0,
+     "identical": 159,
+     "shared": 7938
+    },
+    {
+     "id": "RKJNT",
+     "identical_pct": 1.92,
+     "identical": 153,
+     "shared": 7956
+    }
+   ]
+  },
+  "OTTLEY": {
+   "verse_count": 1286,
+   "book_count": 1,
+   "chapter_count": 66,
+   "word_count": 36399,
+   "ot_verses": 1286,
+   "nt_verses": 0,
+   "dc_verses": 0,
+   "omitted_slots": [],
+   "text_sha256": "0f10b75404f7ed7dd6c13c56dcb912f3a2b7c81a5bc10e033d90fffd6c41de24",
+   "closest_existing": [
+    {
+     "id": "LXXUP",
+     "identical_pct": 0.86,
+     "identical": 11,
+     "shared": 1283
+    },
+    {
+     "id": "Brenton",
+     "identical_pct": 0.7,
+     "identical": 9,
+     "shared": 1283
+    },
+    {
+     "id": "LXX2012",
+     "identical_pct": 0.39,
+     "identical": 5,
+     "shared": 1280
+    },
+    {
+     "id": "JPS1917",
+     "identical_pct": 0.16,
+     "identical": 2,
+     "shared": 1286
+    },
+    {
+     "id": "BSB",
+     "identical_pct": 0.08,
+     "identical": 1,
+     "shared": 1286
+    }
+   ]
+  }
+ },
+ "thomson_completeness": {
+  "in_dataset": [
+   "DAN",
+   "ECC",
+   "EST",
+   "GEN",
+   "HAB",
+   "LAM",
+   "LEV",
+   "NAM",
+   "PS2",
+   "RUT",
+   "SNG"
+  ],
+  "available_not_ingested": {
+   "1CH": 940,
+   "1CO": 437,
+   "1JN": 105,
+   "1KI": 812,
+   "1PE": 104,
+   "1SA": 810,
+   "1TH": 89,
+   "1TI": 113,
+   "2CH": 822,
+   "2CO": 255,
+   "2JN": 13,
+   "2KI": 718,
+   "2PE": 60,
+   "2SA": 693,
+   "2TH": 47,
+   "2TI": 81,
+   "3JN": 14,
+   "ACT": 1005,
+   "AMO": 145,
+   "COL": 94,
+   "DEU": 955,
+   "EPH": 155,
+   "EXO": 1211,
+   "EZK": 1270,
+   "EZR": 279,
+   "GAL": 148,
+   "HAG": 38,
+   "HEB": 295,
+   "HOS": 197,
+   "ISA": 1283,
+   "JAS": 104,
+   "JDG": 618,
+   "JER": 1331,
+   "JHN": 879,
+   "JOB": 1068,
+   "JOL": 73,
+   "JON": 48,
+   "JOS": 646,
+   "JUD": 25,
+   "LUK": 1151,
+   "MAL": 55,
+   "MAT": 1070,
+   "MIC": 105,
+   "MRK": 678,
+   "NEH": 405,
+   "NUM": 1285,
+   "OBA": 21,
+   "PHM": 25,
+   "PHP": 103,
+   "PRO": 913,
+   "PSA": 2461,
+   "REV": 401,
+   "ROM": 432,
+   "TIT": 46,
+   "ZEC": 211,
+   "ZEP": 53
+  }
+ }
+}

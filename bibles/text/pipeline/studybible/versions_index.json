@@ -1,0 +1,650 @@
+{
+ "ABP_Strongs": [
+  "ABP_Strongs",
+  "Apostolic Bible Polyglot English Text with Strong's numbers"
+ ],
+ "ABP_GRK": [
+  "ABP_GRK",
+  "Apostolic Bible Polyglot Greek Text with Strong's numbers"
+ ],
+ "Stephanus": [
+  "Stephanus",
+  "1550 Stephanus Greek New Testament"
+ ],
+ "LXX_WH": [
+  "LXX_WH",
+  "Septuagint OT and Westcott-Hort Greek NT"
+ ],
+ "Tischendorf": [
+  "Tischendorf",
+  "Tischendorf Greek New Testament"
+ ],
+ "Tregelles": [
+  "Tregelles",
+  "Tregelles Greek New Testament"
+ ],
+ "TR": [
+  "TR",
+  "Scrivener's Textus Receptus"
+ ],
+ "Nestle": [
+  "Nestle",
+  "Nestle Greek New Testament"
+ ],
+ "RP": [
+  "RP",
+  "Robinson-Pierpont Byzantine Greek New Testament"
+ ],
+ "SBLGNT": [
+  "SBLGNT",
+  "SBL Greek New Testament"
+ ],
+ "f35": [
+  "f35",
+  "f35 group of Byzantine manuscripts"
+ ],
+ "HOT": [
+  "HOT",
+  "Hebrew Old Testament"
+ ],
+ "IHOT": [
+  "IHOT",
+  "Interlinear Hebrew Old Testament"
+ ],
+ "IGNT": [
+  "IGNT",
+  "Interlinear Greek New Testament"
+ ],
+ "ACVI": [
+  "ACVI",
+  "A Conservative Version Reverse Interlinear"
+ ],
+ "new": [
+  "new",
+  "a new revision of Webster's translation"
+ ],
+ "Vulgate": [
+  "Vulgate",
+  "Latin Vulgate"
+ ],
+ "Clementine_Vulgate": [
+  "Clementine_Vulgate",
+  "Clementine text of the Latin Vulgate Bible"
+ ],
+ "WestSaxon990": [
+  "WestSaxon990",
+  "West Saxon Gospels, c. 990"
+ ],
+ "WestSaxon1175": [
+  "WestSaxon1175",
+  "West Saxon Gospels, c. 1175"
+ ],
+ "Wycliffe": [
+  "Wycliffe",
+  "John Wycliffe's Translation"
+ ],
+ "Tyndale": [
+  "Tyndale",
+  "William Tyndale's Translation"
+ ],
+ "Coverdale": [
+  "Coverdale",
+  "Coverdale's Translation"
+ ],
+ "MSTC": [
+  "MSTC",
+  "Modern Spelling Tyndale-Coverdale"
+ ],
+ "Matthew": [
+  "Matthew",
+  "Matthew Bible"
+ ],
+ "Great": [
+  "Great",
+  "Great Bible"
+ ],
+ "Geneva": [
+  "Geneva",
+  "Geneva Bible"
+ ],
+ "Bishops": [
+  "Bishops",
+  "Bishops Bible"
+ ],
+ "DouayRheims": [
+  "DouayRheims",
+  "Catholic Douay-Rheims Bible"
+ ],
+ "KJV": [
+  "KJV",
+  "King James Version"
+ ],
+ "KJV_Cambridge": [
+  "KJV_Cambridge",
+  "King James Version Pure Cambridge Edition"
+ ],
+ "KJV_Strongs": [
+  "KJV_Strongs",
+  "King James Version with Strong's numbers"
+ ],
+ "Mace": [
+  "Mace",
+  "Daniel Mace New Testament"
+ ],
+ "Whiston": [
+  "Whiston",
+  "William Whiston New Testament"
+ ],
+ "Wesley": [
+  "Wesley",
+  "John Wesley New Testament"
+ ],
+ "Worsley": [
+  "Worsley",
+  "1770 John Worsley New Testament"
+ ],
+ "Haweis": [
+  "Haweis",
+  "Thomas Haweis New Testament"
+ ],
+ "Thomson": [
+  "Thomson",
+  "Charles Thomson Translation"
+ ],
+ "Webster": [
+  "Webster",
+  "Noah Webster's revision of the KJV"
+ ],
+ "Webster_Strongs": [
+  "Webster_Strongs",
+  "Noah Webster's revision of the KJV with Strong's numbers"
+ ],
+ "Living_Oracles": [
+  "Living_Oracles",
+  "Living Oracles New Testament"
+ ],
+ "Etheridge": [
+  "Etheridge",
+  "John Wesley Etheridge's Translation of the Peschito Syriac New Testament"
+ ],
+ "Brenton": [
+  "Brenton",
+  "Sir Lancelot Charles Lee Brenton English Septuagint Translation"
+ ],
+ "Brenton_Greek": [
+  "Brenton_Greek",
+  "Sir Lancelot Charles Lee Brenton Greek Septuagint"
+ ],
+ "Murdock": [
+  "Murdock",
+  "James Murdock's Translation of the Syriac Peshitta New Testament"
+ ],
+ "Leeser": [
+  "Leeser",
+  "1853 Leeser Old Testament"
+ ],
+ "Sawyer": [
+  "Sawyer",
+  "Laicester Ambrose Sawyer 1858 New Testament Translation"
+ ],
+ "Diaglott": [
+  "Diaglott",
+  "Emphatic Diaglott New Testament"
+ ],
+ "ABU": [
+  "ABU",
+  "American Bible Union New Testament"
+ ],
+ "Anderson": [
+  "Anderson",
+  "H.T. Anderson's New Testament"
+ ],
+ "Noyes": [
+  "Noyes",
+  "George R. Noyes New Testament"
+ ],
+ "YLT": [
+  "YLT",
+  "Young's Literal Translation"
+ ],
+ "JuliaSmith": [
+  "JuliaSmith",
+  "Julia Smith Translation"
+ ],
+ "Darby": [
+  "Darby",
+  "John Nelson Darby Translation"
+ ],
+ "ERV": [
+  "ERV",
+  "English Revised Version"
+ ],
+ "ASV": [
+  "ASV",
+  "American Standard Version"
+ ],
+ "ASV_Strongs": [
+  "ASV_Strongs",
+  "American Standard Version with Strong's numbers"
+ ],
+ "JPS_ASV_Byz": [
+  "JPS_ASV_Byz",
+  "Jewish Publication Society OT Translation with ASV modified to reflect the Byzantine text"
+ ],
+ "Rotherham": [
+  "Rotherham",
+  "Joseph Bryant Rotherham's Emphasized Bible"
+ ],
+ "Twentieth_Century": [
+  "Twentieth_Century",
+  "Twentieth Century New Testament"
+ ],
+ "Godbey": [
+  "Godbey",
+  "William B. Godbey New Testament"
+ ],
+ "WNT": [
+  "WNT",
+  "Richard Francis Weymouth New Testament"
+ ],
+ "Ottley": [
+  "Ottley",
+  "R.R. Ottley translation of Isaiah from the LXX"
+ ],
+ "Worrell": [
+  "Worrell",
+  "Adolphus S. Worrell New Testament"
+ ],
+ "Moffatt": [
+  "Moffatt",
+  "James Moffatt New Testament"
+ ],
+ "Goodspeed": [
+  "Goodspeed",
+  "Edgar J. Goodspeed New Testament"
+ ],
+ "Riverside": [
+  "Riverside",
+  "Riverside New Testament translated by William G. Ballantine"
+ ],
+ "MNT": [
+  "MNT",
+  "Helen Barrett Montgomery New Testament"
+ ],
+ "Lamsa": [
+  "Lamsa",
+  "George M. Lamsa Translation of Aramaic of the Peshitta New Testament"
+ ],
+ "CLV": [
+  "CLV",
+  "Concordant Literal Version"
+ ],
+ "Williams": [
+  "Williams",
+  "Charles B. Williams New Testament"
+ ],
+ "BBE": [
+  "BBE",
+  "Bible in Basic English"
+ ],
+ "MKJV": [
+  "MKJV",
+  "Modern King James Version"
+ ],
+ "LITV": [
+  "LITV",
+  "Literal Translation Version"
+ ],
+ "ECB": [
+  "ECB",
+  "exeGeses Companion Bible"
+ ],
+ "AUV": [
+  "AUV",
+  "An Understandable Version"
+ ],
+ "ACV": [
+  "ACV",
+  "A Conservative Version"
+ ],
+ "Common": [
+  "Common",
+  "Common Edition New Testament"
+ ],
+ "WEB": [
+  "WEB",
+  "World English Bible"
+ ],
+ "WEB_Strongs": [
+  "WEB_Strongs",
+  "World English Bible with Strong's Numbers"
+ ],
+ "NHEB": [
+  "NHEB",
+  "New Heart English Bible"
+ ],
+ "AKJV": [
+  "AKJV",
+  "American King James Version"
+ ],
+ "AKJV_Strongs": [
+  "AKJV_Strongs",
+  "American King James Version with Strong's Numbers"
+ ],
+ "KJC": [
+  "KJC",
+  "King James Clarified"
+ ],
+ "KJ2000": [
+  "KJ2000",
+  "King James 2000"
+ ],
+ "UKJV": [
+  "UKJV",
+  "Updated King James Version"
+ ],
+ "RKJNT": [
+  "RKJNT",
+  "Revised King James New Testament"
+ ],
+ "TKJU": [
+  "TKJU",
+  "Timeless King James Update"
+ ],
+ "CKJV_Strongs": [
+  "CKJV_Strongs",
+  "Crossword Project KJV with Strong's Numbers"
+ ],
+ "RYLT": [
+  "RYLT",
+  "Revised Young's Literal Translation New Testament"
+ ],
+ "EJ2000": [
+  "EJ2000",
+  "English Jubilee Bible"
+ ],
+ "CAB": [
+  "CAB",
+  "Complete Apostle's Bible"
+ ],
+ "LXX2012": [
+  "LXX2012",
+  "LXX2012: Septuagint in American English"
+ ],
+ "WPNT": [
+  "WPNT",
+  "Wilbur Pickering New Testament"
+ ],
+ "JMNT": [
+  "JMNT",
+  "Jonathan Mitchell New Testament"
+ ],
+ "NSB": [
+  "NSB",
+  "New Simplified Bible"
+ ],
+ "ISV": [
+  "ISV",
+  "International Standard Version"
+ ],
+ "LEB": [
+  "LEB",
+  "Lexham English Bible"
+ ],
+ "BGB": [
+  "BGB",
+  "Berean Greek Bible"
+ ],
+ "BIB": [
+  "BIB",
+  "Berean Interlinear Bible"
+ ],
+ "BLB": [
+  "BLB",
+  "Berean Literal Bible"
+ ],
+ "BSB": [
+  "BSB",
+  "Berean Standard Bible"
+ ],
+ "MSB": [
+  "MSB",
+  "Majority Standard Bible"
+ ],
+ "MLV": [
+  "MLV",
+  "Modern Literal Version"
+ ],
+ "VIN": [
+  "VIN",
+  "Venerably Illuminating Narrative"
+ ],
+ "Luther1545": [
+  "Luther1545",
+  "German 1545 Luther Bible"
+ ],
+ "Luther1545_Strongs": [
+  "Luther1545_Strongs",
+  "German 1545 Luther Bible with Strong's"
+ ],
+ "Luther1912": [
+  "Luther1912",
+  "German 1912 Luther Bible"
+ ],
+ "Luther1912_Strongs": [
+  "Luther1912_Strongs",
+  "German 1912 Bible with Strong's"
+ ],
+ "ELB1871": [
+  "ELB1871",
+  "German 1871 Elberfelder Bible"
+ ],
+ "ELB1871_Strongs": [
+  "ELB1871_Strongs",
+  "German 1871 Elberfelder Bibel with Strong's"
+ ],
+ "ELB1905": [
+  "ELB1905",
+  "German 1905 Elberfelder Bible"
+ ],
+ "ELB1905_Strongs": [
+  "ELB1905_Strongs",
+  "German 1905 Elberfelder Bible with Strong's"
+ ],
+ "DSV": [
+  "DSV",
+  "1637 Dutch Statenvertaling"
+ ],
+ "DSV_Strongs": [
+  "DSV_Strongs",
+  "1637 Dutch Statenvertaling with Strong's Numbers"
+ ],
+ "Giguet": [
+  "Giguet",
+  "Traduction fran\u00e7aise de la Septante par Giguet"
+ ],
+ "DarbyFR": [
+  "DarbyFR",
+  "French Darby Bible 1880"
+ ],
+ "Martin": [
+  "Martin",
+  "French Martin Bible 1910"
+ ],
+ "Segond": [
+  "Segond",
+  "French Traduction de Louis Segond 1910"
+ ],
+ "Segond_Strongs": [
+  "Segond_Strongs",
+  "French Traduction de Louis Segond 1910 with Strong's"
+ ],
+ "SE": [
+  "SE",
+  "Spanish 1569 Sagradas Escrituras Version Antigua"
+ ],
+ "ReinaValera": [
+  "ReinaValera",
+  "Spanish 1909 Reina-Valera"
+ ],
+ "JBS": [
+  "JBS",
+  "Spanish Jubilee Bible"
+ ],
+ "Albanian": [
+  "Albanian",
+  "Albanian Bible"
+ ],
+ "RST": [
+  "RST",
+  "1876 Russian Synodal Translation"
+ ],
+ "Peshitta": [
+  "Peshitta",
+  "Syriac Peshitta"
+ ],
+ "Arabic": [
+  "Arabic",
+  "Smith and van Dyck's al-Kitab al-Muqaddas (Arabic Bible) 1865"
+ ],
+ "Amharic": [
+  "Amharic",
+  "Amharic New Testament"
+ ],
+ "Armenian": [
+  "Armenian",
+  "Western Armenian New Testament 1853"
+ ],
+ "ArmenianEastern": [
+  "ArmenianEastern",
+  "Eastern Armenian Bible"
+ ],
+ "Breton": [
+  "Breton",
+  "Breton Gospels"
+ ],
+ "Basque": [
+  "Basque",
+  "Basque Navarro-Labourdin New Testament 1571"
+ ],
+ "Bulgarian": [
+  "Bulgarian",
+  "Veren's Contemporary Bulgarian Bible"
+ ],
+ "Croatian": [
+  "Croatian",
+  "Croatian Bible"
+ ],
+ "BKR": [
+  "BKR",
+  "Czech Bible Kralicka 1613"
+ ],
+ "Danish": [
+  "Danish",
+  "Dansk Bibel 1871"
+ ],
+ "CUV": [
+  "CUV",
+  "Chinese Union Version Traditional 1919"
+ ],
+ "CUV_Strongs": [
+  "CUV_Strongs",
+  "Chinese Union Version Traditional 1919 with Strong's"
+ ],
+ "CUVS": [
+  "CUVS",
+  "Chinese Union Version Simplified"
+ ],
+ "CUVS_Strongs": [
+  "CUVS_Strongs",
+  "Chinese Union Version Simplified with Strong's"
+ ],
+ "Esperanto": [
+  "Esperanto",
+  "Esperanto Londona Biblio"
+ ],
+ "Estonian": [
+  "Estonian",
+  "Estonian Bible"
+ ],
+ "Finnish": [
+  "Finnish",
+  "Finnish Biblia 1776"
+ ],
+ "FinnishPR": [
+  "FinnishPR",
+  "Finnish Pyh\u00e4 Raamattu (1933/1938)"
+ ],
+ "Georgian": [
+  "Georgian",
+  "Georgian (Gospels, Acts, James)"
+ ],
+ "Haitian": [
+  "Haitian",
+  "Haitian Creole Bible"
+ ],
+ "Hungarian": [
+  "Hungarian",
+  "Hungarian Vizsoly (Karoli) Biblia 1590"
+ ],
+ "Indonesian": [
+  "Indonesian",
+  "Indonesian Bahasa Seharihari"
+ ],
+ "Italian": [
+  "Italian",
+  "Italian Giovanni Diodati Bibbia 1649"
+ ],
+ "ItalianRiveduta": [
+  "ItalianRiveduta",
+  "Italian Riveduta Bibbia 1927"
+ ],
+ "Japanese": [
+  "Japanese",
+  "Japanese Bungo-yaku/Taisho-kaiyaku 1950"
+ ],
+ "Kabyle": [
+  "Kabyle",
+  "Kabyle NT"
+ ],
+ "Korean": [
+  "Korean",
+  "Korean Bible"
+ ],
+ "Latvian": [
+  "Latvian",
+  "Latvian NT"
+ ],
+ "Lithuanian": [
+  "Lithuanian",
+  "Lithuanian Bible"
+ ],
+ "Portuguese": [
+  "Portuguese",
+  "Portuguese Almeida Atualizada"
+ ],
+ "PBG": [
+  "PBG",
+  "Polska Biblia Gda\u0144ska (1881)"
+ ],
+ "ManxGaelic": [
+  "ManxGaelic",
+  "Manx Gaelic"
+ ],
+ "Norwegian": [
+  "Norwegian",
+  "Norwegian Det Norsk Bibelselskap 1930"
+ ],
+ "Romanian": [
+  "Romanian",
+  "Romanian Cornilescu"
+ ],
+ "Ukrainian": [
+  "Ukrainian",
+  "Ukrainian Bible Ivan Ogienko 1930"
+ ],
+ "UkrainianNT": [
+  "UkrainianNT",
+  "Ukrainian NT P. Kulish 1871"
+ ]
+}

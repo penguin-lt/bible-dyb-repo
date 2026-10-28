@@ -1,0 +1,907 @@
+{
+"alford": {
+"query": "title:(\"New Testament\") AND creator:(Alford)",
+"picked": {
+"creator": "Alford, Henry, 1810-1871",
+"identifier": "newtestamentfore0201alfo",
+"title": "The New Testament for English readers; containing the authorized version with marginal corrections of readings and renderings, marginal references and a critical and explanatory commentary..",
+"year": 1868
+},
+"candidates": [
+{
+"creator": "Alford, Henry, 1810-1871",
+"identifier": "newtestamentfore0201alfo",
+"title": "The New Testament for English readers; containing the authorized version with marginal corrections of readings and renderings, marginal references and a critical and explanatory commentary..",
+"year": 1868
+},
+{
+"creator": "Henry Alford",
+"identifier": "bwb_W9-BIV-431",
+"title": "How to study the new testament",
+"year": 1878
+},
+{
+"creator": "Henry Alford",
+"identifier": "howtostudynewtes0000henr_n1l4",
+"title": "How to Study the New Testament",
+"year": 1877
+}
+]
+},
+"williams": {
+"query": "title:(\"New Testament\") AND creator:(\"Williams, Samuel\")",
+"picked": null,
+"candidates": []
+},
+"turnbull": {
+"query": "title:(Epistles) AND creator:(Turnbull)",
+"picked": null,
+"candidates": []
+},
+"wellbeloved": {
+"query": "creator:(Wellbeloved)",
+"picked": null,
+"candidates": [
+{
+"creator": "Wellbeloved, Charles, 1769-1858",
+"identifier": "handbooktoantiqu00welliala",
+"title": "A hand-book to the antiquities in the grounds and museum of the Yorkshire Philosophical Society",
+"year": 1881
+},
+{
+"creator": "Wellbeloved, Robert",
+"identifier": "atreatiseonlawr02wellgoog",
+"title": "A treatise on the law relating to highways : comprehending turnpike roads, public bridges, and public footpaths : in which the provisions of the several highway and turnpike acts are carefully arranged according to the subject-matter : to which is added an appendix of forms and precedents",
+"year": 1829
+},
+{
+"creator": "Charles Wellbeloved",
+"identifier": "threeletterstof00wellgoog",
+"title": "Three Letters to Francis Wrangham, Archdeacon of Cleveland, in Reply to His Remarks on ...",
+"year": 1823
+}
+]
+},
+"scarlett": {
+"query": "creator:(Scarlett)",
+"picked": null,
+"candidates": [
+{
+"creator": "Bailey, Scarlett, author",
+"identifier": "twoweddingsandba0000bail",
+"title": "Two weddings and a baby",
+"year": 2014
+},
+{
+"creator": "Scarlett Dean",
+"identifier": "isbn_9781592798230",
+"title": "Destiny's Call",
+"year": 2004
+},
+{
+"creator": "Scarlett Niven",
+"identifier": "acidplanet-audio-01115126",
+"title": "ScarlettCast@Digital Image - May, 2008 Issue"
+}
+]
+},
+"joynson": {
+"query": "title:(\"New Testament\") AND creator:(Joynson)",
+"picked": null,
+"candidates": []
+},
+"hayman": {
+"query": "creator:(Hayman) AND title:(Epistles)",
+"picked": null,
+"candidates": []
+},
+"cunnington": {
+"query": "title:(Adelphi)",
+"picked": {
+"creator": "Kimberly Keyes Stark",
+"identifier": "TheEarthIsHomePaintBranchUnitarianUniversalistChurchAdelphi",
+"title": "The Earth is Home, Paint Branch Unitarian Universalist Church, Adelphi, Maryland, April 18, 2010"
+},
+"candidates": [
+{
+"creator": "Kimberly Keyes Stark",
+"identifier": "TheEarthIsHomePaintBranchUnitarianUniversalistChurchAdelphi",
+"title": "The Earth is Home, Paint Branch Unitarian Universalist Church, Adelphi, Maryland, April 18, 2010"
+},
+{
+"creator": "John W. Hazel",
+"identifier": "nfsl_1_71783",
+"title": "Gypsy Moth Egg Mass Survey at the Adelphi Laboratory",
+"year": 2003
+},
+{
+"identifier": "dli.calcutta.04076",
+"title": "Adelphi, Vol-28, Issue no.-1, 2, 3, 4"
+}
+]
+},
+"way": {
+"query": "creator:(\"Way, Arthur\") AND title:(Letters)",
+"picked": {
+"creator": "S. Way Arthur",
+"identifier": "in.ernet.dli.2015.1221",
+"title": "The Letters Of St. Paul (1935)",
+"year": 1935
+},
+"candidates": [
+{
+"creator": "S. Way Arthur",
+"identifier": "in.ernet.dli.2015.1221",
+"title": "The Letters Of St. Paul (1935)",
+"year": 1935
+},
+{
+"creator": "S. Way Arthur",
+"identifier": "in.ernet.dli.2015.236812",
+"title": "The Letters Of St. Paul (1935)",
+"year": 1935
+}
+]
+},
+"weaver": {
+"query": "creator:(Weaver) AND title:(\"New Testament\")",
+"picked": {
+"creator": "Weaver, S. Townsend",
+"identifier": "universitynewtes00weav",
+"title": "The university New Testament in modern historical and literary form, for the church, the school, and the home, embracing the life of Jesus Christ in the words of Mark, Matthew, Luke and John, and the church of the apostles according to Acts, the Epistles and Revelation historically harmonized ..",
+"year": 1909
+},
+"candidates": [
+{
+"creator": "Weaver, S. Townsend",
+"identifier": "universitynewtes00weav",
+"title": "The university New Testament in modern historical and literary form, for the church, the school, and the home, embracing the life of Jesus Christ in the words of Mark, Matthew, Luke and John, and the church of the apostles according to Acts, the Epistles and Revelation historically harmonized ..",
+"year": 1909
+},
+{
+"creator": "Weaver, C. Douglas",
+"identifier": "insearchofnewtes0000weav",
+"title": "In search of the New Testament church : the Baptist story",
+"year": 2008
+},
+{
+"creator": "Weaver, S. Townsend",
+"identifier": "greatestbookever00weav",
+"title": "The greatest book ever written; the New Testament in its inspired literary form",
+"year": 1915
+}
+]
+},
+"smith-david": {
+"query": "creator:(\"Smith, David\") AND title:(\"St. Paul\")",
+"picked": {
+"creator": "Smith, David, 1866-1932",
+"identifier": "lifelettersofst00smit",
+"title": "The life and letters of St. Paul",
+"year": 1919
+},
+"candidates": [
+{
+"creator": "Smith, David, 1866-1932",
+"identifier": "lifelettersofst00smit",
+"title": "The life and letters of St. Paul",
+"year": 1919
+},
+{
+"creator": "Smith, David, 1866-1932",
+"identifier": "lifelettersofstp0000smit",
+"title": "The life and letters of St. Paul",
+"year": 1920
+},
+{
+"creator": "Smith, David, 1866-1932",
+"identifier": "cihm_80098",
+"title": "The life and letters of St. Paul [microform]",
+"year": 1919
+}
+]
+},
+"moulton": {
+"query": "creator:(Moulton) AND title:(\"Modern Reader\")",
+"picked": {
+"creator": "Richard G. Moulton",
+"identifier": "in.ernet.dli.2015.262622",
+"title": "The Modern Reader S Bible",
+"year": 1940
+},
+"candidates": [
+{
+"creator": "Richard G. Moulton",
+"identifier": "in.ernet.dli.2015.262622",
+"title": "The Modern Reader S Bible",
+"year": 1940
+},
+{
+"creator": "Richard G. Moulton",
+"identifier": "in.ernet.dli.2015.261957",
+"title": "The Modern Reader S Bible",
+"year": 1940
+},
+{
+"creator": "Ricard G. Moulton",
+"identifier": "modernreadersbib0000rica",
+"title": "The Modern Reader''s Bible",
+"year": 1914
+}
+]
+},
+"perowne": {
+"query": "creator:(Perowne) AND title:(Psalms)",
+"picked": {
+"creator": "Perowne, J. J. Stewart (John James Stewart), 1823-1904",
+"identifier": "cu31924029297482",
+"title": "The book of Psalms; a new translation, with explanatory notes for English readers",
+"year": 1884
+},
+"candidates": [
+{
+"creator": "Perowne, J. J. Stewart (John James Stewart), 1823-1904",
+"identifier": "cu31924029297482",
+"title": "The book of Psalms; a new translation, with explanatory notes for English readers",
+"year": 1884
+},
+{
+"creator": "j. j. stewart perowne",
+"identifier": "bwb_S0-BVD-952_2",
+"title": "the book of psalms: a new translation with introductions and notes explanatory and critical",
+"year": 1874
+},
+{
+"creator": "Perowne, J. J. Stewart (John James Stewart), 1823-1904",
+"identifier": "bookofpsalmsnewt01pero",
+"title": "The Book of Psalms : a new translation with introductions and notes, explanatory and critical",
+"year": 1876
+}
+]
+},
+"rodwell": {
+"query": "creator:(Rodwell) AND title:(Job)",
+"picked": null,
+"candidates": []
+},
+"elzas": {
+"query": "creator:(Elzas) AND title:(Proverbs)",
+"picked": {
+"creator": "Elzas, A. (Abraham), 1835-1880",
+"identifier": "proverbsofsolomo00elzauoft",
+"title": "The Proverbs of Solomon",
+"year": 1871
+},
+"candidates": [
+{
+"creator": "Elzas, A. (Abraham), 1835-1880",
+"identifier": "proverbsofsolomo00elzauoft",
+"title": "The Proverbs of Solomon",
+"year": 1871
+}
+]
+},
+"kalisch": {
+"query": "creator:(Kalisch) AND title:(Genesis)",
+"picked": {
+"creator": "Kalisch, M. M. (Marcus Moritz)",
+"identifier": "ahistoricalandc00kaligoog",
+"title": "A historical and critical commentary on the Old Testament. Genesis",
+"year": 1858
+},
+"candidates": [
+{
+"creator": "Kalisch, M. M. (Marcus Moritz)",
+"identifier": "ahistoricalandc00kaligoog",
+"title": "A historical and critical commentary on the Old Testament. Genesis",
+"year": 1858
+},
+{
+"creator": "Kalisch, Marcus Moritz, 1825-1885",
+"identifier": "historicalcriti00kali",
+"title": "Historical and critical commentary on the Old Testament, with a new translation: Genesis",
+"year": 1858
+}
+]
+},
+"guyse": {
+"query": "creator:(Guyse)",
+"picked": null,
+"candidates": [
+{
+"creator": "Guyse, John",
+"identifier": "bim_eighteenth-century_a-sermon-occasiond-by-t_guyse-john_1743",
+"title": "A sermon occasion'd by the much lamented death of the Reverend and learned Mr John Hubbard, who departed this life July 13, 1743, ... Preach'd at Stepney July 24, ... By John Guyse, D.D. 1743",
+"year": 1743
+},
+{
+"creator": "Guyse, John",
+"identifier": "bim_eighteenth-century_youths-monitor-in-six-a_guyse-john_1762",
+"title": "Youth's monitor in six annual sermons, preach'd to young people at New Broad-Street. ... By John Guyse, ... 1762",
+"year": 1762
+},
+{
+"creator": "Guyse, John.",
+"identifier": "bim_eighteenth-century_the-unchangeable-duratio_guyse-john_1750",
+"title": "The unchangeable duration of God's kindness and covenant. A sermon preached at Artillery-Lane, Feb.25, 1749-50. On occasion of the death of the Reverend Mr. Mordecai Andrews, ... By John Guyse, D.D. With an oration ... By Thomas Towle. ... To which is added, An elegiac ode by Thomas Gibbons. 1750",
+"year": 1750
+}
+]
+},
+"whitby": {
+"query": "creator:(Whitby) AND title:(Paraphrase)",
+"picked": {
+"creator": "Daniel Whitby",
+"identifier": "paraphrasecoment0000dani",
+"title": "A Paraphrase and Commentary on the New Testament: Volume II. Containing All the Epistles, With a Discourse On the Millennium. To Which Is Added, a Chronology of the New Testament, a Map and Alphabetical Table of All the Places Mentioned in the Gospels, Acts, or the Epistles. With Tables of the Matters Contained, and of the Words and Phrases Explained Throughout the Whole Work.",
+"year": 1727
+},
+"candidates": [
+{
+"creator": "Daniel Whitby",
+"identifier": "paraphrasecoment0000dani",
+"title": "A Paraphrase and Commentary on the New Testament: Volume II. Containing All the Epistles, With a Discourse On the Millennium. To Which Is Added, a Chronology of the New Testament, a Map and Alphabetical Table of All the Places Mentioned in the Gospels, Acts, or the Epistles. With Tables of the Matters Contained, and of the Words and Phrases Explained Throughout the Whole Work.",
+"year": 1727
+},
+{
+"creator": [
+"Patrick, Simon, 1626-1707",
+"Lowth, William, 1660-1732",
+"Lowman, Moses, 1680-1752",
+"Arnald, Richard, 1700-1756",
+"Whitby, Daniel, 1638-1726"
+],
+"identifier": "criticalcommenta02patr",
+"title": "A critical commentary and paraphrase on the Old and New Testament and the Apocrypha",
+"year": 1845
+},
+{
+"creator": [
+"Patrick, Simon, 1626-1707",
+"Lowth, William, 1660-1732",
+"Lowman, Moses, 1680-1752",
+"Arnald, Richard, 1700-1756",
+"Whitby, Daniel, 1638-1726"
+],
+"identifier": "criticalcommenta04patr",
+"title": "A critical commentary and paraphrase on the Old and New Testament and the Apocrypha",
+"year": 1845
+}
+]
+},
+"stanhope": {
+"query": "creator:(Stanhope) AND title:(Paraphrase)",
+"picked": {
+"creator": "Stanhope, George",
+"identifier": "bim_eighteenth-century_a-paraphrase-and-comment_stanhope-george_1726_1",
+"title": "A paraphrase and comment upon the Epistles and Gospels, appointed to be used in the Church of England on all Sundays and holy-days ... By George Stanhope, ... 1726: Vol 1",
+"year": 1726
+},
+"candidates": [
+{
+"creator": "Stanhope, George",
+"identifier": "bim_eighteenth-century_a-paraphrase-and-comment_stanhope-george_1726_1",
+"title": "A paraphrase and comment upon the Epistles and Gospels, appointed to be used in the Church of England on all Sundays and holy-days ... By George Stanhope, ... 1726: Vol 1",
+"year": 1726
+},
+{
+"creator": [
+"Stanhope, George, 1660-1728",
+"Church of England"
+],
+"identifier": "paraphrasecommen04stan",
+"title": "A paraphrase and comment upon the Epistles and Gospels, appointed to the used in the Church of England on all Sundays and holy-days throughout the year, designed to excite devotion, and to promote the knowledge and practice of sincere piety and virtue",
+"year": 1817
+},
+{
+"creator": "Stanhope, George",
+"identifier": "bim_eighteenth-century_a-paraphrase-and-comment_stanhope-george_1726_3",
+"title": "A paraphrase and comment upon the Epistles and Gospels, appointed to be used in the Church of England on all Sundays and holy-days ... By George Stanhope, ... 1726: Vol 3",
+"year": 1726
+}
+]
+},
+"campbellg": {
+"query": "creator:(\"Campbell, George\") AND title:(Gospels)",
+"picked": {
+"creator": "Campbell, George, 1719-1796",
+"identifier": "fourgospelstrans02camp",
+"title": "The four Gospels : translated from the Greek, with preliminary dissertations, and notes critical and explanatory ... with the author's last corrections ..",
+"year": 1811
+},
+"candidates": [
+{
+"creator": "Campbell, George, 1719-1796",
+"identifier": "fourgospelstrans02camp",
+"title": "The four Gospels : translated from the Greek, with preliminary dissertations, and notes critical and explanatory ... with the author's last corrections ..",
+"year": 1811
+},
+{
+"creator": "Campbell, George, 1719-1796",
+"identifier": "fourgospelstrans183702camp",
+"title": "The four Gospels : translated from the Greek, with preliminary dissertations, and notes critical and explanatory ..",
+"year": 1837
+},
+{
+"creator": "Campbell, George, 1719-1796",
+"identifier": "fourgospelstrfr01campgoog",
+"title": "The four Gospels, tr. from the Greek, with preliminary dissertations, and notes critical and explanatory",
+"year": 1837
+}
+]
+},
+"baxter": {
+"query": "creator:(Baxter) AND title:(Paraphrase) AND title:(Testament)",
+"picked": {
+"creator": "Baxter, Richard, 1615-1691",
+"identifier": "baxternewtestament",
+"title": "A Paraphrase on the New Testament, with Notes, Doctrinal and Practical. By Plainness and Brevity Fitted to the Use of Religious Families, in the Daily Reading of the Scriptures; and of the Younger and Poorer Sort of Scholars and Ministers, who Want Fuller Helps. With an Advertisement of Difficulties in the Revelations.",
+"year": 1685
+},
+"candidates": [
+{
+"creator": "Baxter, Richard, 1615-1691",
+"identifier": "baxternewtestament",
+"title": "A Paraphrase on the New Testament, with Notes, Doctrinal and Practical. By Plainness and Brevity Fitted to the Use of Religious Families, in the Daily Reading of the Scriptures; and of the Younger and Poorer Sort of Scholars and Ministers, who Want Fuller Helps. With an Advertisement of Difficulties in the Revelations.",
+"year": 1685
+},
+{
+"creator": "Baxter, Richard",
+"identifier": "bim_early-english-books-1641-1700_a-paraphrase-on-the-new-_baxter-richard_1695",
+"title": "A paraphrase on the New Testament,... 1695",
+"year": 1695
+},
+{
+"creator": "Baxter, Richard",
+"identifier": "bim_early-english-books-1641-1700_a-paraphrase-on-the-new-_baxter-richard_1685",
+"title": "A paraphrase on the New Testament, ... 1685",
+"year": 1685
+}
+]
+},
+"blackmore": {
+"query": "creator:(Blackmore) AND title:(Job)",
+"picked": null,
+"candidates": []
+},
+"dawson": {
+"query": "creator:(Dawson) AND title:(Genesis)",
+"picked": {
+"creator": "Samuel G. Dawson",
+"identifier": "revelationrealiz0000samu",
+"title": "Revelation Realized: Martyr Vindication from Genesis to Revelation",
+"year": 2016
+},
+"candidates": [
+{
+"creator": "Samuel G. Dawson",
+"identifier": "revelationrealiz0000samu",
+"title": "Revelation Realized: Martyr Vindication from Genesis to Revelation",
+"year": 2016
+}
+]
+},
+"dickinson": {
+"query": "creator:(Dickinson) AND title:(\"New and Corrected Version\")",
+"picked": null,
+"candidates": []
+},
+"folsom": {
+"query": "creator:(Folsom) AND title:(Gospels)",
+"picked": {
+"creator": [
+"Folsom, Nathaniel Smith, 1806-1890, [from old catalog] tr",
+"Tischendorf, Constantin von, 1815-1874. [from old catalog]"
+],
+"identifier": "fourgospelstran00tiscgoog",
+"title": "The four Gospels:",
+"year": 1869
+},
+"candidates": [
+{
+"creator": [
+"Folsom, Nathaniel Smith, 1806-1890, [from old catalog] tr",
+"Tischendorf, Constantin von, 1815-1874. [from old catalog]"
+],
+"identifier": "fourgospelstran00tiscgoog",
+"title": "The four Gospels:",
+"year": 1869
+},
+{
+"creator": "Nathaniel Smith Folsom, Constantin von Tischendorf",
+"identifier": "fourgospelstran01tiscgoog",
+"title": "The four Gospels: translated from the Greek text of Tischendorf, with the various readings of Griesbach, Lachmann, Tischendorf, Tregelles, Meyer, Alford, and others ; and with critical and expository notes",
+"year": 1871
+},
+{
+"creator": "Nathaniel Smith Folsom, Constantin von Tischendorf",
+"identifier": "fourgospelstran02tiscgoog",
+"title": "The four Gospels: translated from the Greek text of Tischendorf, with the various readings of Griesbach, Lachmann, Tischendorf, Tregelles, Meyer, Alford, and others ; and with critical and expository notes",
+"year": 1871
+}
+]
+},
+"greenfield": {
+"query": "creator:(Greenfield) AND title:(Genesis)",
+"picked": {
+"creator": "Nancy Reuben Greenfield",
+"identifier": "isbn_9780985816155",
+"title": "Tiptoe Through Genesis: A Unique Adaptation",
+"year": 2015
+},
+"candidates": [
+{
+"creator": "Nancy Reuben Greenfield",
+"identifier": "isbn_9780985816155",
+"title": "Tiptoe Through Genesis: A Unique Adaptation",
+"year": 2015
+},
+{
+"creator": "William Greenfield",
+"identifier": "bookgenesisinen00greegoog",
+"title": "The Book of Genesis in English-Hebrew, accompanied by an interlinear translation, with notes by ...",
+"year": 1828
+},
+{
+"creator": "Greenfield, William, 1799-1831, ed",
+"identifier": "bookofgenesisine00gree",
+"title": "The book of Genesis in English-Hebrew;",
+"year": 1843
+}
+]
+},
+"conquest": {
+"query": "creator:(Conquest)",
+"picked": null,
+"candidates": [
+{
+"creator": "Sea of Conquest: Pirate War for PC",
+"identifier": "youtube-C4H88c_alyM",
+"title": "MO_00572B01 169 EN LY 20240223 36T+173T+101T \u957f\u89c6\u9891\u6df7\u526a",
+"year": 2024
+},
+{
+"creator": "Conquest, Robert",
+"identifier": "commonsenseabout00conq",
+"title": "Common sense about Russia",
+"year": 1960
+},
+{
+"creator": "Conquest, Robert",
+"identifier": "commonsenseaboutrussia",
+"title": "Common Sense About Russia"
+}
+]
+},
+"ballentine": {
+"query": "creator:(Ballentine) AND title:(Gospels)",
+"picked": null,
+"candidates": []
+},
+"wade": {
+"query": "creator:(Wade) AND title:(Genesis)",
+"picked": {
+"creator": "Wade E. Cutler",
+"identifier": "tripleyourreadin0000wade",
+"title": "Triple Your Reading Speed (Genesis Press Book)",
+"year": 1985
+},
+"candidates": [
+{
+"creator": "Wade E. Cutler",
+"identifier": "tripleyourreadin0000wade",
+"title": "Triple Your Reading Speed (Genesis Press Book)",
+"year": 1985
+},
+{
+"creator": "Wade, George Woosung, 1858-1941",
+"identifier": "bookofgenesisedi00wade",
+"title": "The book of Genesis : edited with introduction, critical analysis and notes",
+"year": 1896
+},
+{
+"creator": "G. Woosung Wade, M.A.",
+"identifier": "bwb_S0-ATO-619",
+"title": "The Book Of Genesis",
+"year": 1896
+}
+]
+},
+"thomson-wm": {
+"query": "creator:(\"Thomson, William\") AND title:(\"New Testament\")",
+"picked": null,
+"candidates": []
+},
+"ben-tehillim": {
+"query": "title:(\"Book of Psalms\") AND title:(Blank Verse)",
+"picked": {
+"creator": "Mather, Cotton, 1663-1728",
+"identifier": "psalteriumameric0000math",
+"title": "Psalterium Americanum : the book of Psalms, in a translation exactly conformed unto the original; but all in blank verse, fitted unto the tunes commonly used in our churches. Which pure offering is accomanied with illustrations, digging for hidden treasures in it; and rules to employ it upon the glorious and various intentions of it; whereto are added, some other portions of the Sacred Scripture to enrich the cantional",
+"year": 1718
+},
+"candidates": [
+{
+"creator": "Mather, Cotton, 1663-1728",
+"identifier": "psalteriumameric0000math",
+"title": "Psalterium Americanum : the book of Psalms, in a translation exactly conformed unto the original; but all in blank verse, fitted unto the tunes commonly used in our churches. Which pure offering is accomanied with illustrations, digging for hidden treasures in it; and rules to employ it upon the glorious and various intentions of it; whereto are added, some other portions of the Sacred Scripture to enrich the cantional",
+"year": 1718
+},
+{
+"identifier": "psalteriumameric00unse",
+"title": "Psalterium Americanum. : The Book of Psalms, in a translation exactly conformed unto the original; but all in blank verse, : fitted unto the tunes commonly used in our churches. Which pure offering is accompanied with illustrations, digging for hidden treasures in it; and rules to employ it upon the glorious and various intentions of it. : Whereunto are added, some other portions of the sacred Scripture, to enrich the cantional",
+"year": 1718
+},
+{
+"identifier": "bookofpsalmsinen00edin",
+"title": "The book of Psalms in English blank verse : using the verbal and lineal arrangements of the original",
+"year": 1883
+}
+]
+},
+"stewart": {
+"query": "creator:(Stewart) AND title:(Psalter)",
+"picked": {
+"creator": "Presbyterian Church in Ireland General Assembly, Robert Prescott Stewart , Presbyterian Church in Ireland, General Assembly",
+"identifier": "psalterarevised00assegoog",
+"title": "The Psalter: A Revised Edition of the Scottish Metrical Version of the Psalms, with Additional ...",
+"year": 1880
+},
+"candidates": [
+{
+"creator": "Presbyterian Church in Ireland General Assembly, Robert Prescott Stewart , Presbyterian Church in Ireland, General Assembly",
+"identifier": "psalterarevised00assegoog",
+"title": "The Psalter: A Revised Edition of the Scottish Metrical Version of the Psalms, with Additional ...",
+"year": 1880
+},
+{
+"creator": "Sir Robert Prescott Stewart",
+"identifier": "psalter0000unse_x0e1",
+"title": "the psalter",
+"year": 1880
+},
+{
+"creator": [
+"Presbyterian Church in Ireland",
+"Stewart, Robert Prescott, 1825-1894"
+],
+"identifier": "eded00pres",
+"title": "The Psalter : a revised edition of the Scottish metrical version of the Psalms, with additional Psalm-versions ; set to suitable music",
+"year": 1880
+}
+]
+},
+"summer-school": {
+"query": "title:(Malachi) AND title:(Revised Translation)",
+"picked": {
+"creator": "Class Four of the Summer School for Hebrew (Morgan Park, Chicago)",
+"identifier": "prophecymalachi00chicgoog",
+"title": "The Prophecy of Malachi: A Revised Translation in Parallel, Columns with the Authorized Version ...",
+"year": 1881
+},
+"candidates": [
+{
+"creator": "Class Four of the Summer School for Hebrew (Morgan Park, Chicago)",
+"identifier": "prophecymalachi00chicgoog",
+"title": "The Prophecy of Malachi: A Revised Translation in Parallel, Columns with the Authorized Version ...",
+"year": 1881
+},
+{
+"identifier": "prophecyofmalach00unse",
+"title": "The prophecy of Malachi : a revised translation in parallel columns with the Authorized version, together with the various renderings of the Septuagint, Targum of Jonathan, and Vulgate",
+"year": 1881
+}
+]
+},
+"wiseman": {
+"query": "creator:(Wiseman) AND title:(Psalms)",
+"picked": {
+"creator": "D.J. WISEMAN",
+"identifier": "unset0000unse_n3m0",
+"title": "PSALMS 1-72",
+"year": 1973
+},
+"candidates": [
+{
+"creator": "D.J. WISEMAN",
+"identifier": "unset0000unse_n3m0",
+"title": "PSALMS 1-72",
+"year": 1973
+}
+]
+},
+"montefiore": {
+"query": "creator:(Montefiore) AND title:(Psalms)",
+"picked": {
+"creator": "C. G. MONTEFIORE",
+"identifier": "bwb_KV-368-498_o4n0",
+"title": "THE BOOK OF PSALMS",
+"year": 1901
+},
+"candidates": [
+{
+"creator": "C. G. MONTEFIORE",
+"identifier": "bwb_KV-368-498_o4n0",
+"title": "THE BOOK OF PSALMS",
+"year": 1901
+},
+{
+"creator": "C. G. Montefiore",
+"identifier": "bookofpsalms0000cgmo",
+"title": "The book of psalms",
+"year": 1901
+},
+{
+"creator": "Montefiore, C. G.",
+"identifier": "in.ernet.dli.2015.53240",
+"title": "The Book Of Psalms",
+"year": 1901
+}
+]
+},
+"harkavy": {
+"query": "creator:(Harkavy) AND title:(Twenty-four)",
+"picked": {
+"creator": "Alexander Harkavy",
+"identifier": "twentyfourbookso0002alex_h9c0",
+"title": "THe Twenty FOur Books of the Old Testament Hebrew Text and English Version",
+"year": 1916
+},
+"candidates": [
+{
+"creator": "Alexander Harkavy",
+"identifier": "twentyfourbookso0002alex_h9c0",
+"title": "THe Twenty FOur Books of the Old Testament Hebrew Text and English Version",
+"year": 1916
+},
+{
+"creator": "Alexander Harkavy",
+"identifier": "twentyfourbookof0001alex",
+"title": "The Twenty FOur Book of the Old Testament",
+"year": 1916
+},
+{
+"creator": "Alexander Harkavy",
+"identifier": "twentyfourboksof0001alex",
+"title": "The twenty-four boks of the old testament",
+"year": 1916
+}
+]
+},
+"letteris": {
+"query": "creator:(Letteris)",
+"picked": null,
+"candidates": [
+{
+"creator": "Letteris, Meir, 1800?-1871",
+"identifier": "tanakhinidishmed03lett",
+"title": "[Tanakh in Idish] : ... meduyak hetev al pi ha-mesorah",
+"year": 1914
+},
+{
+"creator": "Letteris, Meir, 1800?-1871",
+"identifier": "maazorkolelhatef05lett",
+"title": "Maazor kolel ha-tefilot eha-piyuim le-khol moade el me-reshit ha-shanah ad aarit shanah : mesudar bi-shlemut ha-sidur uve-hanhagah mduyeet",
+"year": 1852
+},
+{
+"creator": "Meir Letteris",
+"identifier": "taanunebatyehud00lettgoog",
+"title": "Ta\u1e25anune bat Yehudah: Andachtsbuch f\u00fcr Israelitische Frauenzimmer zur ...",
+"year": 1846
+}
+]
+},
+"hadas": {
+"query": "creator:(Hadas) AND title:(Psalms)",
+"picked": {
+"creator": "Gershon Hadas",
+"identifier": "bwb_C0-BNW-480",
+"title": "The Book Of Psalms",
+"year": 1964
+},
+"candidates": [
+{
+"creator": "Gershon Hadas",
+"identifier": "bwb_C0-BNW-480",
+"title": "The Book Of Psalms",
+"year": 1964
+},
+{
+"creator": "Gershon Hadas",
+"identifier": "bookofpsalmsform0000unse_a3o7",
+"title": "The book of Psalms for the modern reader",
+"year": 1964
+}
+]
+},
+"jastrow": {
+"query": "creator:(Jastrow) AND title:(Koheleth)",
+"picked": {
+"creator": "Jastrow, Morris, 1861-1921",
+"identifier": "agentlecynicbei00jastgoog",
+"title": "A gentle cynic : being a translation of the Book of Koheleth, commonly known as Ecclesiastes, stripped of later additions : also its origin, growth, and interpretation",
+"year": 1919
+},
+"candidates": [
+{
+"creator": "Jastrow, Morris, 1861-1921",
+"identifier": "agentlecynicbei00jastgoog",
+"title": "A gentle cynic : being a translation of the Book of Koheleth, commonly known as Ecclesiastes, stripped of later additions : also its origin, growth, and interpretation",
+"year": 1919
+},
+{
+"creator": "Jastrow, Morris, 1861-1921",
+"identifier": "agentlecynicbei01unkngoog",
+"title": "A gentle cynic : being a translation of the Book of Koheleth, commonly known as Ecclesiastes, stripped of later additions : also its origin, growth, and interpretation",
+"year": 1919
+},
+{
+"creator": "Jastrow, Morris, 1861-1921. ed",
+"identifier": "gentlecynicbein00jast",
+"title": "A gentle cynic : being a translation of the Book of Koheleth, commonly known as Ecclesiastes, its origin, growth, and interpretation",
+"year": 1919
+}
+]
+},
+"mcreynolds": {
+"query": "creator:(McReynolds)",
+"picked": null,
+"candidates": [
+{
+"creator": "John O. McReynolds",
+"identifier": "LMT-1847-1849_McReynolds_0033",
+"title": "Jefferson Medical College Lecture Schedule (verso)",
+"year": 1846
+},
+{
+"creator": "McReynolds, Edwin C",
+"identifier": "seminolesciviliz00edwi",
+"title": "The Seminoles [electronic resource]",
+"year": 1957
+},
+{
+"creator": "EPIC (Josh Brown, John Haas, Scott McReynolds, Jason Soucie)",
+"identifier": "EPICJoshBrownJohnHaasScottMcReynoldsJasonSoucie_2",
+"title": "alone"
+}
+]
+},
+"abufirst-fourth": {
+"query": "title:(\"American Bible Union\") AND title:(\"New Testament\")",
+"picked": {
+"creator": "American Bible Union",
+"identifier": "newtestamentofou00amer_0",
+"title": "The New Testament of our Lord and Savior Jesus Christ : The common English version ; corrected by the final committee of the American Bible union",
+"year": 1866
+},
+"candidates": [
+{
+"creator": "American Bible Union",
+"identifier": "newtestamentofou00amer_0",
+"title": "The New Testament of our Lord and Savior Jesus Christ : The common English version ; corrected by the final committee of the American Bible union",
+"year": 1866
+},
+{
+"creator": "American Bible Union [Editor]",
+"identifier": "thenewtestamento26361gut",
+"title": "The New Testament of our Lord and Savior Jesus Christ. The common English version, corrected by the final committee of the American Bible Union."
+},
+{
+"identifier": "ENGABU_DBS_HS",
+"title": "English (1866) American Bible Union (Baptist) New Testament",
+"year": 1866
+}
+]
+},
+"arv": {
+"query": "title:(\"American Version\") AND title:(\"New Testament\")",
+"picked": null,
+"candidates": []
+},
+"five": {
+"query": "title:(\"Gospel according to St. John\") AND title:(Five Clergymen)",
+"picked": null,
+"candidates": []
+}
+}
