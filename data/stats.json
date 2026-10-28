@@ -1,0 +1,49 @@
+{
+ "modules": 96,
+ "entries": 615459,
+ "chars": 387289451,
+ "by_category": {
+  "Commentary": {
+   "modules": 30,
+   "entries": 262548,
+   "chars": 265914694
+  },
+  "Lexicon": {
+   "modules": 15,
+   "entries": 52247,
+   "chars": 7118116
+  },
+  "Dictionary": {
+   "modules": 10,
+   "entries": 249802,
+   "chars": 70900078
+  },
+  "Reference": {
+   "modules": 32,
+   "entries": 8562,
+   "chars": 37640053
+  },
+  "Topical": {
+   "modules": 9,
+   "entries": 42300,
+   "chars": 5716510
+  }
+ },
+ "languages": [
+  "de",
+  "en",
+  "fr",
+  "gez",
+  "grc",
+  "la",
+  "nl",
+  "sv",
+  "tlh",
+  "und",
+  "vi",
+  "zxx"
+ ],
+ "combined_bytes": 109376636,
+ "partitioned_bytes": 106276375,
+ "excluded_modules": 52
+}
