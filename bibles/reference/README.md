@@ -18,8 +18,7 @@ pass over the counts.
 | Works | **9,141** (8,003 Sefaria · 740 CCEL · 282 First1KGreek · 99 SWORD · 10 STEPBible · 7 datasets) |
 | Entries | **1,073,530** |
 | Characters of text | **2,369,741,291** |
-| Combined `reference.parquet` | **787.0 MB** |
-| `reference_partitioned/` (9,141 files) | **793.0 MB** (762.3 MB zip) |
+| One SQLite database per work (9,141 files) | **5.4 GB** (2.35 GB in two archives) |
 | Languages | **43** — he, en, grc, la, de, fr, ar, syr, gez, vi, ru … |
 | Licence | Public Domain 6,289 · CC0 1,289 · CC BY 977 · CC BY-SA 585 · GPL 1 |
 
@@ -35,9 +34,12 @@ Lexical 33 · Creeds 23 · Cross-Reference 12 · Morphology 11 · Apologetics 10
 Sermons 78 · Background 7 · Interlinears 5 · Maps 5 · Textual Criticism 4.
 Machine-readable counts are in `data/stats.json`.
 
-The two large files are published as **release assets**:
-<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5>
-— `reference.parquet`, `reference_partitioned.zip`, `modules.parquet`.
+The SQLite set is published as **release assets**:
+<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/reference-sqlite-rev5>
+— `reference-sqlite-part1of2.zip` and `reference-sqlite-part2of2.zip` (both
+needed; each unzips on its own), plus a SHA-256 manifest. One database per work,
+each self-contained: its own entries, its own full manifest row, its own FTS5
+index. Rebuild with `tools/reference_to_sqlite.py`.
 A **commentary-free edition** is published alongside the full one:
 [`bible-reference-v5-nocommentary`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5-nocommentary)
 — 3,795 works, 687,596 entries, 1,198,048,181 characters. See `NO_COMMENTARY.md`.
@@ -50,7 +52,7 @@ Revisions: `v1` 96 works (SWORD only) · `v2` 100 (added LSJ, BDB, STEPBible) ·
 
 ## Schema
 
-`reference.parquet` and every file in `reference_partitioned/` share one schema.
+every database shares one schema.
 It is the entry-level analogue of the verse-level schema in the bibles dataset:
 
 | column | type | meaning |
@@ -67,18 +69,21 @@ It is the entry-level analogue of the verse-level schema in the bibles dataset:
 | `char_count` | int32 | length of `entry_text` in characters |
 
 `book_id` / `chapter` / `verse` are parsed from the key, so commentaries and
-verse-keyed dictionaries can be joined to `bibles.parquet` directly:
+verse-keyed dictionaries can be joined to any translation database directly
+(`ATTACH 'CLARKE.sqlite3' AS clarke;` …):
 
 ```python
-import duckdb
-duckdb.sql("""
-  SELECT b.verse_text, c.entry_text
-  FROM 'bibles.parquet' b
-  JOIN 'reference.parquet' c
-    ON c.module_id = 'MHC' AND c.book_id = b.book_id
-   AND c.chapter = b.chapter AND c.verse = b.verse
-  WHERE b.translation_id = 'KJV' AND b.book_id = 'JHN' AND b.chapter = 3 AND b.verse = 16
-""")
+import sqlite3
+kjv = sqlite3.connect("data/AKJV.sqlite3")
+mhc = sqlite3.connect("data/MHC.sqlite3")      # Matthew Henry: its own file
+
+kjv.execute("ATTACH DATABASE ? AS mhc", ("data/MHC.sqlite3",))
+kjv.execute("""
+  SELECT b.book_name, v.chapter, v.verse, v.text, e.entry_text
+  FROM verse v JOIN book b USING(book_id)
+  JOIN mhc.entry e ON e.book_id = v.book_id
+                  AND e.chapter = v.chapter AND e.verse = v.verse
+  WHERE v.book_id='JHN' AND v.chapter=3 AND v.verse=16""").fetchall()
 ```
 
 210,522 entries carry a parsed scripture reference.
@@ -87,7 +92,8 @@ duckdb.sql("""
 
 ## Manifest
 
-`modules.parquet` (and the identical `modules.csv`) has one row per work:
+`modules.csv` has one row per work, and each database's `work` table holds that
+work's own row verbatim, so the file is self-describing:
 
 `module_id, module_name, category, sword_driver, language, license, copyright,
 source_name, source_url, download_url, module_version, sword_version_date,
@@ -148,10 +154,10 @@ public-domain-bible-reference/
 ├── QA_REPORT.md                  verification results
 ├── NOT_INCLUDED.md               excluded modules and licence reasoning
 ├── stats.json                    machine-readable counts
-├── modules.parquet / modules.csv manifest
+├── modules.csv                   manifest (one row per work)
 ├── modules_excluded.csv          excluded modules with reasons
-├── reference.parquet             combined (110 MB — delivered via release asset)
-├── reference_partitioned/        one file per work (107 MB — delivered as a zip)
+├── (the data itself: 9,141 SQLite databases, one per work — release assets on
+│    reference-sqlite-rev5; this repository carries docs, manifests and pipeline)
 └── pipeline/                     harvest + verification scripts
 ```
 
@@ -178,7 +184,8 @@ written, so peak disk is roughly one module rather than the whole corpus.
 Every work comes from the CrossWire Bible Society SWORD module archive
 (`https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/`), retrieved
 2026-10-28, with version and licence taken from each module's own `.conf`.
-Copyright and licence text for every work is carried in `modules.parquet`; read
+Copyright and licence text for every work is carried in each file's `work` table
+(and in `modules.csv`); read
 the `license`, `copyright` and `about` columns before redistributing. Public
 domain status is asserted by the module's distributor, not independently
 re-verified here.

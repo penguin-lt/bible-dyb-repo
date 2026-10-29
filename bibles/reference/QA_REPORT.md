@@ -207,3 +207,29 @@ Everything above was re-verified after the rebuild: `verify.py` passes, and
 `audit.py` passes with 800 randomly sampled partitions / 90,507 rows, no residual
 markup, entities, control bytes or template text, correct `char_count` on every
 sampled row, and no identical text across partitions.
+
+## SQLite rebuild — verification (2026-10-29)
+
+The library is now published as 9,141 self-contained SQLite databases, one per
+work (`reference-sqlite-rev5`). Losslessness was proven against the Parquet it
+replaced, not assumed:
+
+```
+9,141 files · 1,073,530 entries · Parquet total 1,073,530  -> MATCH
+per-work entry counts vs reference.parquet                 -> 0 mismatches
+random sample of 40 works, all 7 entry columns, row order   -> 40/40 identical
+all 25 modules.parquet columns + modules_nocommentary.status-> identical
+PRAGMA integrity_check                                     -> ok on every file
+```
+
+### Pre-existing data defect found and repaired
+
+268 of the 9,141 works had a **mismatched `module_id` between the two published
+files**: `reference.parquet` carried `sefaria_<Name>_en_<Title…>` while
+`modules.parquet` carried `sefaria_<Name>`. A naive conversion therefore produced
+268 files whose rows had no manifest row — the work's licence and provenance were
+silently lost. The conversion maps them by longest catalogue prefix, with a
+reverse rule for the one work that runs the other way
+(`…_on_Jerusalem_en_…` → `…_on_Jerusalem_Talmud`). All 268 are mapped, 0
+unresolvable, and the original id is preserved in each file's `note` table
+(`parquet_module_id`) so nothing was discarded by the repair.

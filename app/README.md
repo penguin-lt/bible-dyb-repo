@@ -42,15 +42,16 @@ public domain, CC0, CC BY, CC BY-SA and two CC BY-NC-ND texts.
 
 ```
 python3 app/build_searchdb.py \
-    --bibles bibles.parquet \
-    --works modules.parquet \
-    --reference reference.parquet \
+    --bibles-dir data/ \
+    --works bibles/reference/data/modules.csv \
+    --reference-dir data/ \
     --out search.db --works-out works.db
 ```
 
-`bibles.parquet` is in `bibles/text/`; `modules.parquet` and `reference.parquet`
-are on the `bible-reference-v5` release. About six minutes and ~2 GB of RAM, and
-the build streams every pass so it does not need more.
+`data/` is where the two SQLite releases unpack (`bibles-sqlite-rev9` and
+`reference-sqlite-rev5`); the manifest is `bibles/reference/data/modules.csv`.
+About six minutes and ~2 GB of RAM, and the build streams every pass so it does
+not need more.
 
 ## API
 

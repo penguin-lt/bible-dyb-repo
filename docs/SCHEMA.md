@@ -5,10 +5,15 @@ scans, (b) a partitioned folder for cheap filtering, (c) a manifest table with a
 row per translation/work carrying licence and provenance, and (d) a stats file
 with machine-readable counts.
 
-| dataset | combined file | partitions | manifest | stats |
+| dataset | the files | inside each file | manifest | stats |
 |---|---|---|---|---|
-| verse corpus | `bibles/text/bibles.parquet` | `bibles/text/bibles_partitioned/translation_id=<ID>/part-0.parquet` | `translations.parquet` (+`.csv`), `books.parquet` (+`.csv`) | per-translation counts inside `translations.csv` |
-| reference library | `reference.parquet` (release asset) | `reference_partitioned/<Module>.parquet` (zip asset) | `bibles/reference/data/modules.parquet` (+`.csv`) | `bibles/reference/data/stats.json` |
+| verse corpus | 97 databases, one per translation: `<ID>.sqlite3` (`bibles-sqlite-rev9`) | `verse`, `book`, `books`, `translation`, `verse_fts`, `note` | `bibles/text/translations.csv`, `books.csv` | per-translation counts in each file's `translation` row |
+| reference library | 9,141 databases, one per work: `<module_id>.sqlite3` (`reference-sqlite-rev5`) | `entry`, `work`, `entry_fts`, `note` | `bibles/reference/data/modules.csv` | `bibles/reference/data/stats.json` |
+
+There is no combined file and no partition column: the corpus *is* the set of
+per-item files, and every column of every former Parquet table survives inside them
+with its original name and order (verified row for row — see the QA sections of
+`bibles/text/README.md` and `bibles/reference/README.md`).
 
 ---
 

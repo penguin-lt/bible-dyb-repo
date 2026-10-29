@@ -29,12 +29,9 @@ OT-only works, and partial translations.
 
 | File | Contents |
 |---|---|
-| **`bibles.parquet`** (70.3 MB) | All 97 translations in one file, sorted by canonical book order → chapter → verse → translation (same-verse rows across translations sit together, which compresses extremely well and makes cross-translation comparison a sequential scan). |
-| **`bibles_partitioned/`** (97 files · [release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-rev8): `bibles_partitioned.zip`, 86.4 MB) | Same rows, one file per translation (`KJVA.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. `tools/make_partitions.py --partitioned` writes the Hive layout (`translation_id=KJVA/part-0.parquet`) if your tooling prefers it. |
-| **`sqbible/`** ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev8): `bibles-sqlite-rev8.zip`, 244 MB) | One SQLite database per translation, 97 files. Each is self-contained — its own verses, its own books, its own manifest row, its own FTS5 index — so nothing is duplicated across files. Rebuild with `tools/parquet_to_sqlite.py`. |
-| **`bibles_rev8_additions.parquet`** (22.5 MB) | Just the 20 translations revision 8 added — 599,273 rows. Everything already in rev7 is unchanged, so this is enough to top up an existing copy. |
-| `translations.parquet` / `.csv` | One row per translation: name, year, edition, scope, dialect, licence + evidence URL, source + retrieval date, verse/book/chapter/word counts, per-testament counts, and a SHA-256 of the cleaned text. |
-| `books.parquet` / `.csv` | The canonical book list: USFM `book_id`, standard name, testament (`OT`/`NT`/`DC`), and `book_sort`. |
+| **`sqbible/`** — one SQLite database per translation (97 files · [release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev9): `bibles-sqlite-rev9.zip`, 292 MB) | **The dataset.** Each file is self-contained — its verses, its books, its own manifest row, its own FTS5 index — so nothing is duplicated across files and no file depends on another. Carries every column of every former Parquet table verbatim: `verse` (10 columns), `translation` (all 23 manifest columns), `book`, and the whole 89-row book catalogue. Rebuild with `tools/parquet_to_sqlite.py`. |
+| `translations.csv` | One row per translation: name, year, edition, scope, dialect, licence + evidence URL, source + retrieval date, verse/book/chapter/word counts, per-testament counts, and a SHA-256 of the cleaned text. Also stored verbatim in every database's `translation` table. |
+| `books.csv` | The canonical book list: USFM `book_id`, standard name, testament (`OT`/`NT`/`DC`), `book_sort`. Also stored verbatim in every database's `books` table. |
 | `QA_REPORT.md` | Build QA: per-translation verse/book/chapter counts, cat-count differences vs source catalogues, gap analysis, and cross-edition similarity checks. |
 | `NOT_INCLUDED.md` | Significant translations that were excluded, and why (licence restrictions, or no trustworthy verse-parseable text exists). |
 > Workspace size note: the binary sources in `pipeline/sources/` are stored gzipped
@@ -44,7 +41,7 @@ OT-only works, and partial translations.
 > `pipeline/research_wikidot_text.json.gz`, and the PDFs used for the scan-quality
 > experiment were deleted (see `pipeline/experiments/MANIFEST.md` for the URLs).
 
-> Note on reproducibility: the original v1 collection pipeline (parsers for USFM, SWORD, MySword SQLite, JSON/CSV/TSV sources) is not bundled with this copy, but every translation's provenance (`source_url`, licence and `text_sha256`) is recorded in `translations.parquet`/`.csv`, so each text can be re-fetched from its origin and verified. The bundled revision-2 script (`pipeline/rebuild_dataset.py`) deduplicated the set and added the 1611 KJV from `pipeline/sources/kjv1611.ont`; the revision-3 script (`pipeline/add_data_csv_additions_rev3.py`) added ABU1865, Worrell and RIVERSIDE from the three TheWord module files kept beside it in `pipeline/sources/`; the revision-4 script (`pipeline/add_mybible_additions_rev4.py`) added MOFFATT and PANIN from the two MyBible modules there (`NTM.SQLite3`, `NumNT.SQLite3`); the revision-5 script (`pipeline/add_wikidot_additions_rev5.py`) added WHISTON after reconciling the whole Internet Bible Catalog (bibles.wikidot.com); the revision-6 script (`pipeline/add_studybible_additions_rev6.py`, plus `pipeline/studybible_fetch.py` for the scrape and `pipeline/fix_rev6.py` for one corrected Ottley verse) added MACE, SAWYER and OTTLEY from studybible.info (see `STUDYBIBLE_SOURCES.md`); the revision-7 script (`pipeline/add_bibliatodo_addition_rev7.py`, with `pipeline/biblecom_fetch.py`) added TEG, John Jones's 1830 Isaiah, after sweeping the English catalogue of bibliatodo.com and the Digital Bible Society inventory (see `BIBLIATODO_SOURCES.md` and `DBS_SOURCES.md`); the revision-8 script (`pipeline/fetch_supabase.py`) added the 20 translations below that the project's Supabase mirror carried but this dataset did not — see [Revision 8](#revision-8--the-supabase-additions).
+> Note on reproducibility: the original v1 collection pipeline (parsers for USFM, SWORD, MySword SQLite, JSON/CSV/TSV sources) is not bundled with this copy, but every translation's provenance (`source_url`, licence and `text_sha256`) is recorded in `translations.csv` and in every database's `translation` table, so each text can be re-fetched from its origin and verified. The bundled revision-2 script (`pipeline/rebuild_dataset.py`) deduplicated the set and added the 1611 KJV from `pipeline/sources/kjv1611.ont`; the revision-3 script (`pipeline/add_data_csv_additions_rev3.py`) added ABU1865, Worrell and RIVERSIDE from the three TheWord module files kept beside it in `pipeline/sources/`; the revision-4 script (`pipeline/add_mybible_additions_rev4.py`) added MOFFATT and PANIN from the two MyBible modules there (`NTM.SQLite3`, `NumNT.SQLite3`); the revision-5 script (`pipeline/add_wikidot_additions_rev5.py`) added WHISTON after reconciling the whole Internet Bible Catalog (bibles.wikidot.com); the revision-6 script (`pipeline/add_studybible_additions_rev6.py`, plus `pipeline/studybible_fetch.py` for the scrape and `pipeline/fix_rev6.py` for one corrected Ottley verse) added MACE, SAWYER and OTTLEY from studybible.info (see `STUDYBIBLE_SOURCES.md`); the revision-7 script (`pipeline/add_bibliatodo_addition_rev7.py`, with `pipeline/biblecom_fetch.py`) added TEG, John Jones's 1830 Isaiah, after sweeping the English catalogue of bibliatodo.com and the Digital Bible Society inventory (see `BIBLIATODO_SOURCES.md` and `DBS_SOURCES.md`); the revision-8 script (`pipeline/fetch_supabase.py`) added the 20 translations below that the project's Supabase mirror carried but this dataset did not — see [Revision 8](#revision-8--the-supabase-additions).
 
 ## Revision 8 — the Supabase additions
 
@@ -81,7 +78,7 @@ a reading text, so they belong with the reference corpus rather than the bibles 
 
 **How it was done.** `pipeline/fetch_supabase.py` diffs the two sets, pages the missing
 translations out of the mirror 1,000 rows at a time, maps the mirror's 108-book numbering
-onto this dataset's book list, and streams the merge into a new `bibles.parquet` without
+onto this dataset's book list, and streams the merge into a new set of databases without
 ever holding the whole table in memory. It is idempotent and reversible: `--check` reports,
 `--fetch` caches, `--merge` rebuilds.
 
@@ -98,7 +95,7 @@ inside `S3Y` and would otherwise duplicate them. Every other mirror book maps 1:
 - all 77 revision-7 translations unchanged in row count and content;
 - 0 duplicate `(translation_id, book_id, chapter, verse)` keys across 2,176,498 rows;
 - 0 empty `verse_text` values among the 599,273 added rows;
-- `translations.csv` counts match the parquet exactly, both directions, for all 97;
+- `translations.csv` counts match the verse tables exactly, both directions, for all 97;
 - `books.csv` `translations_containing` recounted from the merged file (4,852 pairs);
 - added testaments: OT 439,154 · NT 143,060 · DC 17,059.
 
@@ -111,7 +108,7 @@ numbering rather than Greek or Latin numbering.
 
 | Column | Type | Meaning |
 |---|---|---|
-| `translation_id` | string | Translation code; join key to `translations.parquet` (also the partition column in the partitioned layout). |
+| `translation_id` | string | Translation code; join key to the translation manifest (also the database filename, `KJVA.sqlite3`). |
 | `book_id` | string | USFM book code (`GEN`, `PSA`, `MAT`, `TOB`, …; `DAG` = Greek Daniel included as its own book in Septuagint-based texts). |
 | `book_name` | string | Book name as the source prints it (e.g. *"The Acts of the Apostles"*, *"Psalms [Praise]"*), else the standard name. |
 | `book_order` | int16 | Position of the book within that translation's own ordering. |
@@ -141,7 +138,7 @@ whitespace is normalised, text is Unicode-NFC. Original spellings are **not** mo
 ## Licence notes
 
 The per-translation `license`, `license_type` and `license_url` columns in
-`translations.parquet` are authoritative — check them before redistributing any
+`translations.csv` and each database's `translation` table are authoritative — check them before redistributing any
 single translation. Two jurisdiction caveats to know:
 
 - **KJV family** — public domain in most of the world, but in the United Kingdom the
@@ -156,29 +153,42 @@ offered without warranty; this file is not legal advice.
 
 ## Usage examples
 
-**DuckDB — John 1:1 in every translation that has it:**
-```sql
-SELECT translation_id, verse_text FROM 'bibles.parquet'
-WHERE book_id='JHN' AND chapter=1 AND verse=1 ORDER BY translation_id;  -- 67 rows
-```
-
-**DuckDB — one translation from the partitioned layout (reads one file):**
-```sql
-SELECT * FROM read_parquet('bibles_partitioned/*.parquet')
-WHERE translation_id='Tyndale' AND book_id='JON';
-```
-
-**Python / PyArrow:**
+**SQLite — John 1:1 from every translation:**
 ```python
-import pyarrow.dataset as ds
-bibles = ds.dataset("bibles_partitioned")   # a directory of parquet files
-psalm23 = bibles.to_table(filter=(ds.field("book_id")=="PSA") & (ds.field("chapter")==23))
+import glob, sqlite3
+for path in sorted(glob.glob("sqbible/*.sqlite3")):
+    db = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    row = db.execute("SELECT verse_text FROM verse WHERE book_id='JHN' "
+                     "AND chapter=1 AND verse=1").fetchone()
+    if row:
+        print(db.execute("SELECT translation_id FROM translation").fetchone()[0], row[0])
 ```
 
-**Pandas (single translation fits easily):**
+**SQLite — one translation, with reading order and testament intact:**
 ```python
-import pandas as pd
-kjv = pd.read_parquet("bibles_partitioned/KJVA.parquet")
+db = sqlite3.connect("sqbible/Tyndale.sqlite3")
+db.execute("""SELECT v.chapter, v.verse, v.text FROM verse v
+              JOIN book b USING(book_id)
+              WHERE v.book_id='JON' ORDER BY v.chapter, v.verse""").fetchall()
+```
+
+**SQLite — full-text search inside a translation:**
+```python
+db.execute("""SELECT book_id, chapter, verse FROM verse_fts
+              JOIN verse v ON v.rowid = verse_fts.rowid
+              WHERE verse_fts MATCH 'still small voice' LIMIT 5""").fetchall()
+```
+
+**SQLite — the manifest without opening every file:**
+```python
+db.execute("SELECT translation_name, year_first_published, edition, license,"
+           " verse_count FROM translation").fetchone()
+```
+
+Loading a whole translation into pandas:
+```python
+import pandas as pd, sqlite3
+df = pd.read_sql("SELECT * FROM verse", sqlite3.connect("sqbible/KJVA.sqlite3"))
 ```
 
 ## Known source quirks (faithful to the sources, documented not "fixed")

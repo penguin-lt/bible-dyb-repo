@@ -1,11 +1,13 @@
 # Column reference
 
-`reference.parquet` and every file in `reference_partitioned/` carry the same ten
-columns in the same order. Types are Arrow types.
+Every database carries the same ten entry columns in the same order, as the
+`entry` table, with the source's SQLite types (`TEXT` / `INTEGER`). The
+`work` table holds that work's manifest row verbatim, and `entry_fts` is an FTS5
+index over `entry_key` + `entry_text`.
 
 | # | column | Arrow type | nullable | description |
 |---|---|---|---|---|
-| 1 | `module_id` | `string` | no | Short stable identifier of the work — the SWORD module name. Examples: `Easton`, `MHC`, `StrongsHebrew`, `Webster1913`. Use this as the partition key. |
+| 0 | `module_id` | — | — | Short stable identifier of the work — the SWORD module name, and the database filename (`MHC.sqlite3`). It is the key of the single-row `work` table, not a per-entry column: one file holds one work. The id the rows carried in the original `reference.parquet` is preserved in `note` when the two published files disagreed. |
 | 2 | `module_name` | `string` | no | Human-readable title as carried by the module, e.g. `Easton's Bible Dictionary`, `Matthew Henry's Complete Commentary on the Whole Bible`. |
 | 3 | `category` | `string` | no | One of `Lexicon`, `Dictionary`, `Commentary`, `Topical`, `Reference`. Derived from the SWORD driver plus the title (see `pipeline/harvest.py:category_of`). |
 | 4 | `entry_key` | `string` | no | The work's own addressing key, preserved verbatim: a headword (`AARON`, `ACCESS TO GOD`), a Strong's number (`00026`, `H0430`), a verse key (`Genesis 1:1`), or a book/chapter path for general books (`/summa/FP`). |
@@ -27,12 +29,12 @@ columns in the same order. Types are Arrow types.
 * **Repeated headwords.** Where a work genuinely defines the same headword twice
   with different text (Smith's `ADAM`, `BAAL`, `EPHRAIM`), both rows are kept and
   the later ones are keyed `ADAM (2)`, `ADAM (3)`. Exact duplicate entries were
-  dropped and counted in `duplicate_entries_dropped`.
+  dropped and counted in `duplicate_entries_dropped` (a column of `work`).
 * **Scripture linkage.** 210,522 entries carry a parsed `book_id`. They join
-  directly to `bibles.parquet` on `(book_id, chapter, verse)`.
+  directly to any translation database on `(book_id, chapter, verse)`.
 * **Versification** is the module's own; nothing was re-mapped.
 
-## Manifest columns (`modules.parquet` / `modules.csv`)
+## Manifest columns (`work` table / `modules.csv`)
 
 | column | description |
 |---|---|

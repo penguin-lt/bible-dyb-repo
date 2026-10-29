@@ -11,11 +11,13 @@ Released as **`bible-reference-v5-nocommentary`**:
 | Works | 9,141 | **3,795** |
 | Entries | 1,073,530 | **687,596** |
 | Characters | 2,369,741,291 | **1,198,048,181** |
-| `reference.parquet` | 787.0 MB | **385.6 MB** |
-| Partitioned zip | 762.3 MB | **377.1 MB** |
+| SQLite databases | 9,141 files, 5.4 GB | **3,795 files, 2.6 GB** |
 
 Schema, column names and the `join on (book_id, chapter, verse)` convention are
 byte-for-byte the same, so any query written for the full release works here.
+This edition is a *selection*, not a separate build: every file in it is one of
+the 9,141, and each `work` table carries its `status` (`ok`) column so the
+subset is self-identifying.
 
 ## What was removed — 5,346 works
 

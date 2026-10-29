@@ -3,8 +3,9 @@
 A single, reproducible, queryable database of public-domain Bible material:
 **the text** (97 translations: English, the source languages, and the historic
 Bibles of continental Europe, verse-segmented) and **the reference works that explain it** (96 lexicons,
-dictionaries, topical indexes and commentaries, entry by entry), all as plain
-Apache Parquet with full provenance.
+dictionaries, topical indexes and commentaries, entry by entry), all as
+self-contained SQLite databases with full provenance — one file per translation,
+one file per reference work.
 
 This repository *is* the workspace. Every artefact lives here; there is no
 other copy that matters.
@@ -15,9 +16,8 @@ other copy that matters.
 
 | area | path | contents | size |
 |---|---|---|---|
-| Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 70.3 MB combined + 97 partitions (release asset) |
-| Bibles in SQLite | `tools/parquet_to_sqlite.py` | one database per translation, self-contained | 97 files, 604 MB ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev8)) |
-| Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | release assets (1.5 GB) |
+| Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 97 databases, 605 MB ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev9)) |
+| Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | 9,141 databases, 5.4 GB, two archives ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/reference-sqlite-rev5)) |
 | App | `app/` | free offline reader: verses, passage guide, lexicon, interlinear, search | SQLite databases on the [bible-search-rev1](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-search-rev1) release |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
@@ -25,10 +25,11 @@ other copy that matters.
 **Totals: 3,249,734 rows of text, 9,218 works, ~2.42 billion characters, 43 languages,
 covering all twenty requested subject areas.**
 
-Two datasets, one schema philosophy: one combined Parquet file for whole-corpus
-scans, one Parquet file per translation/work for cheap filtering, a manifest table
-with licence and provenance for every row, plain reading text with markup
-stripped, and an independent verification pass over the counts.
+Two datasets, one schema philosophy: **one SQLite file per thing** — a translation
+or a reference work — each self-contained, each carrying its own manifest row with
+licence and provenance, plain reading text with markup stripped, and an FTS5 index
+over its own text. Concatenate all 9,141 with `ATTACH` when you want a whole-corpus
+scan; otherwise you open exactly the one file you need and nothing else.
 
 ---
 
@@ -38,32 +39,37 @@ stripped, and an independent verification pass over the counts.
 git clone https://github.com/penguin-lt/bible-dyb-repo.git bible-db
 cd bible-db
 
-# the verse corpus is small enough to live in git
-python3 -c "import duckdb; print(duckdb.sql('''
-  SELECT translation_id, count(*) v FROM 'bibles/text/bibles.parquet'
-  GROUP BY 1 ORDER BY 2 DESC LIMIT 5'''))"
-
-# the reference library is a release asset — fetch it once
-curl -L -O https://github.com/penguin-lt/bible-dyb-repo/releases/download/bible-reference-v1/reference.parquet
+# fetch the two SQLite sets (release assets — combined they are 315 MB + 2.35 GB)
+curl -L -O https://github.com/penguin-lt/bible-dyb-repo/releases/download/bibles-sqlite-rev9/bibles-sqlite-rev9.zip
+curl -L -O https://github.com/penguin-lt/bible-dyb-repo/releases/download/reference-sqlite-rev5/reference-sqlite-part1of2.zip
+curl -L -O https://github.com/penguin-lt/bible-dyb-repo/releases/download/reference-sqlite-rev5/reference-sqlite-part2of2.zip
+unzip -q '*.zip' -d data/
 ```
 
 ```python
-import duckdb
-# what does Matthew Henry say about John 3:16, next to the verse itself?
-duckdb.sql("""
-  SELECT b.verse_text AS verse, c.entry_text AS commentary
-  FROM 'bibles/text/bibles.parquet' b
-  JOIN 'reference.parquet' c
-    ON c.module_id = 'MHC' AND c.book_id = b.book_id
-   AND c.chapter = b.chapter AND c.verse = b.verse
-  WHERE b.translation_id = 'AKJV' AND b.book_id = 'JHN'
-    AND b.chapter = 3 AND b.verse = 16
-""").show()
+import sqlite3
+
+# one translation, no setup
+db = sqlite3.connect("data/AKJV.sqlite3")
+db.execute("SELECT verse_text FROM verse WHERE book_id='JHN' AND chapter=3 AND verse=16").fetchone()
+
+# what does Matthew Henry say about it? open that work's file, nothing else
+mh = sqlite3.connect("data/MHC.sqlite3")
+mh.execute("""SELECT entry_text FROM entry
+              WHERE book_id='JHN' AND chapter=3 AND verse=16""").fetchall()
 ```
 
-More recipes: [`docs/QUERIES.md`](docs/QUERIES.md) · column reference:
-[`docs/SCHEMA.md`](docs/SCHEMA.md) · the full list of works:
-[`tools/catalog.py`](tools/catalog.py).
+```sql
+-- or attach just the two files and join them in one query
+ATTACH 'data/AKJV.sqlite3' AS kjv;
+ATTACH 'data/MHC.sqlite3'  AS mhc;
+SELECT kjv.verse.verse_text, mhc.entry.entry_text
+FROM kjv.verse JOIN mhc.entry
+  ON mhc.entry.book_id = kjv.verse.book_id
+ AND mhc.entry.chapter  = kjv.verse.chapter
+ AND mhc.entry.verse    = kjv.verse.verse
+WHERE kjv.verse.book_id='JHN' AND kjv.verse.chapter=3 AND kjv.verse.verse=16;
+```
 
 ---
 
@@ -94,10 +100,10 @@ three parts (1.7 GB, the whole corpus). `app/make_release.py` produces them,
 
 Two builds of the reference library are published from the same pipeline:
 
-| edition | works | entries | characters | parquet |
+| edition | works | entries | characters | SQLite |
 |---|---|---|---|---|
-| [`bible-reference-v5`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5) — everything | 9,141 | 1,073,530 | 2,369,741,291 | 787.0 MB |
-| [`bible-reference-v5-nocommentary`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5-nocommentary) — commentaries removed | 3,795 | 687,596 | 1,198,048,181 | 385.6 MB |
+| [`reference-sqlite-rev5`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/reference-sqlite-rev5) — everything | 9,141 | 1,073,530 | 2,369,741,291 | 9,141 files, 5.4 GB |
+| [`bible-reference-v5-nocommentary`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5-nocommentary) — commentaries removed | 3,795 | 687,596 | 1,198,048,181 | subset of the above; every file carries its `status` |
 
 Both share the schema and the join convention exactly. The narrower build removes
 5,346 works: 162 SWORD commentary modules and 5,184 Sefaria works that Sefaria
@@ -114,12 +120,9 @@ words, 88 book codes, native versification preserved. Revision 8 added the 20
 translations the project's Supabase mirror carried but this dataset did not —
 Hebrew, Greek, Latin, German, French, Spanish, Italian, Dutch, Russian, Arabic,
 Korean, Chinese, Malayalam and four more English texts, plus 1 Enoch as a new
-book code. See `bibles/text/README.md#revision-8--the-supabase-additions`. One combined
-`bibles.parquet` plus one file per translation in `bibles_partitioned/` (`KJVA.parquet`, …),
-which ships as a release asset and regenerates with `tools/make_partitions.py`. A SQLite
-edition — one self-contained database per translation, 97 files with no duplication between
-them — is on the [`bibles-sqlite-rev8`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev8)
-release and rebuilds with `tools/parquet_to_sqlite.py` in 16 seconds.
+book code. See `bibles/text/README.md#revision-8--the-supabase-additions`. The dataset is published as 97 self-contained SQLite databases, one per translation,
+with no duplication between them: [`bibles-sqlite-rev9`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev9),
+rebuilt by `tools/parquet_to_sqlite.py` in about 20 seconds.
 
 | column | type |
 |---|---|
@@ -129,7 +132,7 @@ release and rebuilds with `tools/parquet_to_sqlite.py` in 16 seconds.
 | `verse_text` | string |
 
 Licences: 48 expired-copyright, 12 dedicated to the public domain, 5 CC0,
-10 CC BY-SA, 2 CC BY. Provenance per translation in `translations.parquet`
+10 CC BY-SA, 2 CC BY. Provenance per translation in `translations.csv` and each file's `translation` table
 (including `source_url`, `text_sha256`, `word_count`, `notes`).
 Details: [`bibles/text/README.md`](bibles/text/README.md).
 
@@ -158,8 +161,8 @@ Parquet: one row per headword, verse or section, keyed by the work's own key.
 | `chapter`, `verse` | int16 |
 | `entry_text`, `char_count` | string / int32 |
 
-210,522 entries carry a parsed scripture reference and join straight to
-`bibles/text/bibles.parquet` on `(book_id, chapter, verse)`.
+210,522 entries carry a parsed scripture reference and join straight to any
+translation database on `(book_id, chapter, verse)`.
 Licences: Public Domain 6,289 · CC0 1,289 · CC BY 977 · CC BY-SA 585 · GPL 1. No non-commercial licence is present anywhere in the output.
 Details: [`bibles/reference/README.md`](bibles/reference/README.md) — plus
 `SOURCES.md`, `NOT_INCLUDED.md` (52 modules rejected, all on licence) and
@@ -170,17 +173,25 @@ Details: [`bibles/reference/README.md`](bibles/reference/README.md) — plus
 ## The one join that makes this a database
 
 ```sql
--- every verse of the Authorised Version with Matthew Henry, Barnes and the Treasury of Scripture Knowledge
-SELECT b.book_name, b.chapter, b.verse, b.verse_text,
-       max(CASE WHEN c.module_id='MHC'   THEN c.entry_text END) AS henry,
-       max(CASE WHEN c.module_id='Barnes' THEN c.entry_text END) AS barnes,
-       max(CASE WHEN c.module_id='TSK'   THEN c.entry_text END) AS cross_refs
-FROM 'bibles/text/bibles.parquet' b
-LEFT JOIN 'reference.parquet' c
-  ON c.book_id = b.book_id AND c.chapter = b.chapter AND c.verse = b.verse
-WHERE b.translation_id = 'AKJV' AND b.book_id = 'ROM' AND b.chapter = 8
-GROUP BY ALL ORDER BY b.verse;
+-- every verse of Romans 8 in the Authorised Version, with Matthew Henry,
+-- Barnes and the Treasury of Scripture Knowledge alongside it: three files
+ATTACH 'data/AKJV.sqlite3'   AS kjv;
+ATTACH 'data/MHC.sqlite3'    AS mhc;
+ATTACH 'data/Barnes.sqlite3' AS barnes;
+ATTACH 'data/TSK.sqlite3'    AS tsk;
+
+SELECT v.book_name, v.chapter, v.verse, v.text,
+       (SELECT entry_text FROM mhc.entry    e WHERE e.book_id=v.book_id AND e.chapter=v.chapter AND e.verse=v.verse) AS henry,
+       (SELECT entry_text FROM barnes.entry e WHERE e.book_id=v.book_id AND e.chapter=v.chapter AND e.verse=v.verse) AS barnes,
+       (SELECT entry_text FROM tsk.entry    e WHERE e.book_id=v.book_id AND e.chapter=v.chapter AND e.verse=v.verse) AS cross_refs
+FROM (SELECT b.book_name, v.chapter, v.verse, v.text, v.book_id
+      FROM kjv.verse v JOIN kjv.book b USING(book_id)) v
+WHERE v.book_id='ROM' AND v.chapter=8 ORDER BY v.verse;
 ```
+
+Every file is a plain SQLite database, so `ATTACH`, `sqlite3`, pandas, DuckDB
+(`INSTALL sqlite; LOAD sqlite;`), DB Browser and the `sqlite3` CLI all read it
+without conversion.
 
 ---
 
@@ -192,17 +203,17 @@ studybible.info, Wikisource and bible.com (text). Every manifest row names the
 exact URL, retrieval date, licence and version. Public-domain status is the
 distributor's assertion, carried verbatim; nothing was OCR'd.
 
-The reference library is too large for a git checkout alongside the verse data,
-so it is published as release assets while its docs, manifests and pipeline stay
-in the repository:
-
-**<https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-reference-v5>**
+The data is published as release assets — 9,238 SQLite databases, one per
+translation and one per reference work — while its docs, manifests and pipeline
+stay in the repository. **No Parquet file remains**: it was the intermediate
+format, and every column of it now lives in the SQLite files (verified row for
+row, see `bibles/text/README.md` and `bibles/reference/README.md`).
 
 | asset | size | contents |
 |---|---|---|
-| `reference.parquet` | 787.0 MB | all 9,141 works, 1,073,530 entries |
-| `reference_partitioned.zip` | 762.3 MB | one Parquet file per work |
-| `modules.parquet` | 30 KB | manifest (also in `bibles/reference/data/`) |
+| [`bibles-sqlite-rev9`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev9) → `bibles-sqlite-rev9.zip` | 292 MB | 97 translation databases |
+| [`reference-sqlite-rev5`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/reference-sqlite-rev5) → `reference-sqlite-part1of2.zip` + `-part2of2.zip` | 1.25 + 1.10 GB | 9,141 work databases (both parts needed; each unzips on its own) |
+| SHA-256 manifests on both releases | — | one checksum per database |
 
 ## Working on it
 
@@ -225,5 +236,5 @@ and QA pass. See [`docs/REPRODUCE.md`](docs/REPRODUCE.md).
 
 The database structure, documentation and pipeline code here are free to use.
 The *content* is public domain or explicitly free-licensed per work: read
-`translations.parquet` and `modules.parquet` before redistributing, and keep the
+each database's `translation` / `work` row before redistributing, and keep the
 attribution for the CC BY / CC BY-SA works.
