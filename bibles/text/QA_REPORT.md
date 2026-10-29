@@ -114,3 +114,39 @@ was read for inventory only and is not kept in the workspace.
 | Worsley | 7,958 | 27 | 260 |
 | WYCLIFFE | 36,227 | 76 | 1345 |
 | YLT | 31,102 | 66 | 1189 |
+
+---
+
+# Revision 8 — Supabase additions (2026-10-29)
+
+Revision 7 carried 77 translations. The project's Supabase mirror carries 94. Comparing the
+two by content — not by slug — left 20 translations the mirror had and this dataset did not;
+all 20 are now here. Revision 7 is recoverable from git (`ca48d7d`) and from the bibles
+release assets, so this is reversible.
+
+| check | result |
+|---|---|
+| Parquet schema identical to revision 7 | pass — same 10 columns, same order, same types |
+| Revision-7 rows unchanged | pass — row count identical for all 77, content compared per translation |
+| Duplicate `(translation_id, book_id, chapter, verse)` | 0 across 2,176,498 rows |
+| Empty or whitespace-only `verse_text` in added rows | 0 of 599,273 |
+| Source rows vs stored rows | equal for every translation (the mirror pages contain 0 duplicate verse keys) |
+| `translations.csv` ↔ parquet agreement | exact, both directions, all 97 translations |
+| `books.csv` `translations_containing` | recounted from the merged file (4,852 translation-book pairs) |
+| Added testaments | OT 439,154 · NT 143,060 · Deuterocanon 17,059 |
+| Books dropped | 14 rows only: the mirror's separate Prayer of Manasseh (`PRM`), whose text is carried inside the Prayer of Azariah (`S3Y`) |
+
+**Book numbering.** Two different orderings are stored and they are not interchangeable:
+`book_order` is the reading order *within* a translation (KJVA numbers Genesis 1 and
+Revelation 80, the deuterocanon interleaved), while `book_sort` is the global position in
+`books.csv`. The merge derives `book_order` from the rank of each mirror book id within the
+translation, and takes `book_sort` from `books.csv`.
+
+**One new book code.** 1 Enoch (`1EN`, Deuterocanon, `book_sort` 89) enters the canonical
+list because the 2001 Translation carries it and no existing code covered it.
+
+Known limitation, unchanged from earlier revisions: the mirror's versification is the English
+one, so the deuterocanonical books in `VULGATE`, `LXX` and `WYCMS` keep the mirror's
+chapter/verse numbering rather than Greek or Latin numbering. This is recorded in
+`translations.csv` under `versification` and matches the convention used elsewhere in the
+dataset.

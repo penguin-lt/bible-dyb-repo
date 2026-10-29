@@ -1,9 +1,13 @@
-# Public Domain & Freely-Licensed English Bibles — Parquet Dataset
+# Public Domain & Freely-Licensed Bibles — Parquet Dataset
 
-**77 English Bible translations · 1,577,225 verses · 39.9 million words · one Parquet schema**
+**97 Bible translations · 2,176,498 verses · 51.2 million words · one Parquet schema**
 
-Every public-domain or freely-licensed English Bible translation for which a reliable,
+Every public-domain or freely-licensed Bible translation for which a reliable,
 verse-segmented machine-readable text could be found, normalised to a single structure.
+The core of the set is English; revision 8 adds the source languages (Hebrew Westminster
+Leningrad Codex, Greek Textus Receptus and Septuagint, 1 Enoch in the 2001 Translation) and
+the historic translations of continental Europe, plus Malayalam, Arabic, Korean and Chinese
+— 20 translations that the project's Supabase mirror carried and this dataset did not.
 Coverage runs from the Wycliffe Bible (c. 1389) and Tyndale (1526–1534) through the historic
 printed Bibles (Coverdale, Matthew's, the Great Bible, Geneva 1560/1599, Bishops', Douay-Rheims–Challoner,
 the KJV in its 1611 first edition and the standard 1769 text) to modern public-domain releases
@@ -13,20 +17,20 @@ OT-only works, and partial translations.
 
 | | Count |
 |---|---:|
-| Translations | 77 |
-| Verse rows | 1,577,225 (OT 994,856 · NT 525,473 · Deuterocanon 56,896) |
-| Books covered | 87 book codes in use (canonical list: 88, incl. Odes — currently in no translation) |
-| Words | 39,909,848 |
-| Strictly public domain / CC0 | 65 translations (48 copyright-expired, 12 dedicated, 5 CC0) |
-| Other free licences (flagged per translation) | 12 (2× CC BY 4.0, 10× CC BY-SA 4.0) |
-| Scopes | 28 complete Bibles, 7 complete with deuterocanon, 26 New Testaments, 4 NT with OT portions, 2 Tanakh/OT-only, 1 Septuagint OT, 1 Targum Pentateuch, 5 partial/portions, 1 single book, 2 OT portions (Isaiah) |
+| Translations | 97 (77 English + 20 added in revision 8) |
+| Verse rows | 2,176,498 (OT 1,434,010 · NT 668,533 · Deuterocanon 73,955) |
+| Books covered | 88 book codes in use (canonical list: 89 — 1 Enoch is new in revision 8; Odes is still in no translation) |
+| Words | 51,153,830 |
+| Strictly public domain / CC0 | 73 translations (58 copyright-expired, 12 dedicated, 5 CC0, 3 PD) |
+| Other free licences (flagged per translation) | 19 (3× CC BY 4.0, 14× CC BY-SA 4.0, 2× CC BY-NC-ND 4.0) |
+| Scopes | 45 complete Bibles, 7 complete with deuterocanon, 27 New Testaments, 4 NT with OT portions, 2 Tanakh/OT-only, 1 Septuagint OT, 1 Targum Pentateuch, 7 partial/portions, 1 single book, 2 OT portions (Isaiah) |
 
 ## Files
 
 | File | Contents |
 |---|---|
-| **`bibles.parquet`** (28.2 MB) | All 76 translations in one file, sorted by canonical book order → chapter → verse → translation (same-verse rows across translations sit together, which compresses extremely well and makes cross-translation comparison a sequential scan). |
-| **`bibles_partitioned/`** (55.0 MB, 76 files) | Same rows, Hive-partitioned by `translation_id` (`translation_id=KJVA/part-0.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. |
+| **`bibles.parquet`** (70.3 MB) | All 97 translations in one file, sorted by canonical book order → chapter → verse → translation (same-verse rows across translations sit together, which compresses extremely well and makes cross-translation comparison a sequential scan). |
+| **`bibles_partitioned/`** (97 files, release asset — regenerate with `tools/make_partitions.py`) | Same rows, Hive-partitioned by `translation_id` (`translation_id=KJVA/part-0.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. |
 | `translations.parquet` / `.csv` | One row per translation: name, year, edition, scope, dialect, licence + evidence URL, source + retrieval date, verse/book/chapter/word counts, per-testament counts, and a SHA-256 of the cleaned text. |
 | `books.parquet` / `.csv` | The canonical book list: USFM `book_id`, standard name, testament (`OT`/`NT`/`DC`), and `book_sort`. |
 | `QA_REPORT.md` | Build QA: per-translation verse/book/chapter counts, cat-count differences vs source catalogues, gap analysis, and cross-edition similarity checks. |
@@ -38,7 +42,68 @@ OT-only works, and partial translations.
 > `pipeline/research_wikidot_text.json.gz`, and the PDFs used for the scan-quality
 > experiment were deleted (see `pipeline/experiments/MANIFEST.md` for the URLs).
 
-> Note on reproducibility: the original v1 collection pipeline (parsers for USFM, SWORD, MySword SQLite, JSON/CSV/TSV sources) is not bundled with this copy, but every translation's provenance (`source_url`, licence and `text_sha256`) is recorded in `translations.parquet`/`.csv`, so each text can be re-fetched from its origin and verified. The bundled revision-2 script (`pipeline/rebuild_dataset.py`) deduplicated the set and added the 1611 KJV from `pipeline/sources/kjv1611.ont`; the revision-3 script (`pipeline/add_data_csv_additions_rev3.py`) added ABU1865, Worrell and RIVERSIDE from the three TheWord module files kept beside it in `pipeline/sources/`; the revision-4 script (`pipeline/add_mybible_additions_rev4.py`) added MOFFATT and PANIN from the two MyBible modules there (`NTM.SQLite3`, `NumNT.SQLite3`); the revision-5 script (`pipeline/add_wikidot_additions_rev5.py`) added WHISTON after reconciling the whole Internet Bible Catalog (bibles.wikidot.com); the revision-6 script (`pipeline/add_studybible_additions_rev6.py`, plus `pipeline/studybible_fetch.py` for the scrape and `pipeline/fix_rev6.py` for one corrected Ottley verse) added MACE, SAWYER and OTTLEY from studybible.info (see `STUDYBIBLE_SOURCES.md`); the revision-7 script (`pipeline/add_bibliatodo_addition_rev7.py`, with `pipeline/biblecom_fetch.py`) added TEG, John Jones's 1830 Isaiah, after sweeping the English catalogue of bibliatodo.com and the Digital Bible Society inventory (see `BIBLIATODO_SOURCES.md` and `DBS_SOURCES.md`).
+> Note on reproducibility: the original v1 collection pipeline (parsers for USFM, SWORD, MySword SQLite, JSON/CSV/TSV sources) is not bundled with this copy, but every translation's provenance (`source_url`, licence and `text_sha256`) is recorded in `translations.parquet`/`.csv`, so each text can be re-fetched from its origin and verified. The bundled revision-2 script (`pipeline/rebuild_dataset.py`) deduplicated the set and added the 1611 KJV from `pipeline/sources/kjv1611.ont`; the revision-3 script (`pipeline/add_data_csv_additions_rev3.py`) added ABU1865, Worrell and RIVERSIDE from the three TheWord module files kept beside it in `pipeline/sources/`; the revision-4 script (`pipeline/add_mybible_additions_rev4.py`) added MOFFATT and PANIN from the two MyBible modules there (`NTM.SQLite3`, `NumNT.SQLite3`); the revision-5 script (`pipeline/add_wikidot_additions_rev5.py`) added WHISTON after reconciling the whole Internet Bible Catalog (bibles.wikidot.com); the revision-6 script (`pipeline/add_studybible_additions_rev6.py`, plus `pipeline/studybible_fetch.py` for the scrape and `pipeline/fix_rev6.py` for one corrected Ottley verse) added MACE, SAWYER and OTTLEY from studybible.info (see `STUDYBIBLE_SOURCES.md`); the revision-7 script (`pipeline/add_bibliatodo_addition_rev7.py`, with `pipeline/biblecom_fetch.py`) added TEG, John Jones's 1830 Isaiah, after sweeping the English catalogue of bibliatodo.com and the Digital Bible Society inventory (see `BIBLIATODO_SOURCES.md` and `DBS_SOURCES.md`); the revision-8 script (`pipeline/fetch_supabase.py`) added the 20 translations below that the project's Supabase mirror carried but this dataset did not — see [Revision 8](#revision-8--the-supabase-additions).
+
+## Revision 8 — the Supabase additions
+
+The project's Supabase mirror (`translations` / `books` / `verses`) carries 94 translations;
+revision 7 of this dataset carried 77. Comparing the two by content — not by slug — left 20
+translations that the mirror had and this dataset did not. All 20 are here, so the mirror
+and the dataset now agree on every text the mirror holds.
+
+| Supabase code | `translation_id` | Verses | Licence |
+|---|---|---:|---|
+| `he-wlc` | `WLC` | 23,213 | public domain |
+| `grc-tr` | `TR` | 7,957 | public domain |
+| `grc-lxx` | `LXX` | 27,722 | public domain |
+| `la-vulgate` | `VULGATE` | 35,809 | public domain (copyright expired) |
+| `de-luther1912` | `LUT1912` | 31,102 | public domain (copyright expired) |
+| `fr-lsg1910` | `LSG1910` | 31,170 | public domain (copyright expired) |
+| `es-rv1909` | `RV1909` | 31,084 | public domain (copyright expired) |
+| `it-diodati` | `DIODATI` | 31,095 | public domain (copyright expired) |
+| `nl-1917` | `NLD1917` | 31,102 | public domain (copyright expired) |
+| `ru-synodal` | `SYNODAL` | 31,169 | public domain (copyright expired) |
+| `ar-vandyck` | `VANDYCK` | 31,104 | public domain (copyright expired) |
+| `ko-1910` | `KOR1910` | 30,991 | public domain (copyright expired) |
+| `zh-cuv` | `CUV` | 31,021 | public domain (copyright expired) |
+| `mal-irv` | `MALIRV` | 31,102 | CC BY-SA 4.0 |
+| `mal-svp1910` | `MALSVP` | 31,098 | CC BY-SA 4.0 (as distributed) |
+| `mal-mcv` | `MALMCV` | 30,940 | CC BY-SA 4.0 |
+| `en-otb` | `OTB` | 31,103 | CC BY-SA 4.0 |
+| `en-osen` | `OSEN` | 31,167 | CC BY 4.0 |
+| `en-2001` | `T2001` | 33,328 | CC BY-NC-ND 4.0 |
+| `en-wyc-ms` | `WYCMS` | 35,996 | CC BY-NC-ND 4.0 |
+
+**Not added:** `en-step-gloss` — STEPBible interlinear glosses are a word-by-word gloss, not
+a reading text, so they belong with the reference corpus rather than the bibles table.
+
+**How it was done.** `pipeline/fetch_supabase.py` diffs the two sets, pages the missing
+translations out of the mirror 1,000 rows at a time, maps the mirror's 108-book numbering
+onto this dataset's book list, and streams the merge into a new `bibles.parquet` without
+ever holding the whole table in memory. It is idempotent and reversible: `--check` reports,
+`--fetch` caches, `--merge` rebuilds.
+
+**One new book code.** The 2001 Translation carries 1 Enoch, which this dataset had no code
+for; it is now `1EN` (Deuterocanon, `book_sort` 89, 356 verses). The mirror also splits out
+the Letter of Jeremiah (`EPJ`), the Prayer of Azariah (`PRA`), Greek Daniel (`DNG`), Greek
+2 Esdras (`4ES`) and the Prayer of Manasseh (`PRM`). The first four are mapped onto this
+dataset's `LJE`, `S3Y`, `DAG` and `2ES`; `PRM` is dropped because its 14 verses are carried
+inside `S3Y` and would otherwise duplicate them. Every other mirror book maps 1:1.
+
+**Verification after the merge** — all checks pass:
+
+- identical Parquet schema; no column added, removed or retyped;
+- all 77 revision-7 translations unchanged in row count and content;
+- 0 duplicate `(translation_id, book_id, chapter, verse)` keys across 2,176,498 rows;
+- 0 empty `verse_text` values among the 599,273 added rows;
+- `translations.csv` counts match the parquet exactly, both directions, for all 97;
+- `books.csv` `translations_containing` recounted from the merged file (4,852 pairs);
+- added testaments: OT 439,154 · NT 143,060 · DC 17,059.
+
+Known limitation, unchanged: `book_order` is the reading order *within* a translation while
+`book_sort` is the global books.csv position, and the mirror's versification is the English
+one, so deuterocanonical books in `VULGATE`, `LXX` and `WYCMS` keep English chapter/verse
+numbering rather than Greek or Latin numbering.
 
 ## Schema (identical in both layouts)
 
@@ -199,75 +264,99 @@ exclusions are in `NOT_INCLUDED.md`.
 | translation_id | Translation | First published | Books | Verses | Licence type |
 |---|---|---|---|---|---|
 | `ABU1865` | American Bible Union New Testament | 1865 | 27 | 7,953 | public_domain_expired |
-| `ACV` | A Conservative Version | — | 66 | 31,102 | public_domain_dedicated |
+| `ACV` | A Conservative Version |  | 66 | 31,102 | public_domain_dedicated |
 | `AKJV` | American King James Version | 1999 | 66 | 31,102 | public_domain_dedicated |
-| `Anderson` | Anderson's New Testament | 1864 | 27 | 7,946 | public_domain_expired |
 | `ASV` | American Standard Version | 1901 | 66 | 31,086 | public_domain_expired |
 | `ASVBT` | American Standard Version Byzantine Text | 1901 | 84 | 37,761 | public_domain_dedicated |
+| `Anderson` | Anderson's New Testament | 1864 | 27 | 7,946 | public_domain_expired |
 | `BBE` | Bible in Basic English | 1949 | 66 | 31,102 | public_domain_expired |
 | `BISHOPS` | Bishops' Bible | 1568 | 66 | 31,102 | public_domain_expired |
 | `BLB` | Berean Literal Bible | 2016 | 27 | 7,941 | cc0 |
-| `Brenton` | Brenton Septuagint Translation | 1844 | 53 | 28,690 | public_domain_expired |
 | `BSB` | Berean Standard Bible | 2016 | 66 | 31,086 | cc0 |
-| `Coverdale` | Coverdale Bible | 1535 | 66 | 31,089 | public_domain_expired |
+| `Brenton` | Brenton Septuagint Translation | 1844 | 53 | 28,690 | public_domain_expired |
 | `CPDV` | Catholic Public Domain Version | 2009 | 73 | 35,812 | public_domain_dedicated |
+| `CUV` | Chinese Union Version (simplified) | 1919 | 66 | 31,021 | public_domain_expired |
+| `Coverdale` | Coverdale Bible | 1535 | 66 | 31,089 | public_domain_expired |
 | `DBY` | Darby Translation | 1890 | 66 | 31,099 | public_domain_expired |
 | `DIAGLOTT` | The Emphatic Diaglott (Benjamin Wilson Emphatic Version) | 1864 | 27 | 7,910 | public_domain_expired |
+| `DIODATI` | Diodati Bible (1885, Italian) | 1885 | 66 | 31,095 | public_domain_expired |
 | `DRA` | Douay-Rheims Bible (American Edition) | 1899 | 73 | 35,811 | public_domain_expired |
 | `E2T` | Easy to Translate English Jonah | 2025 | 1 | 47 | cc_by_sa_4.0 |
 | `Etheridge` | Etheridge's Peshitta New Testament | 1849 | 27 | 7,940 | public_domain_expired |
 | `F35` | Family 35 New Testament (Wilbur Pickering) | 2016 | 27 | 7,953 | cc_by_sa_4.0 |
 | `FBV` | Free Bible Version | 2018 | 66 | 31,087 | cc_by_sa_4.0 |
-| `GHT` | Garth's Hyper-literal Translation | — | 27 | 7,956 | public_domain_dedicated |
+| `GHT` | Garth's Hyper-literal Translation |  | 27 | 7,956 | public_domain_dedicated |
 | `GNV1560` | Geneva Bible (1560) | 1560 | 66 | 31,102 | public_domain_expired |
 | `GNV1599` | Geneva Bible (1599) | 1599 | 66 | 31,090 | public_domain_expired |
-| `Godbey` | Godbey New Testament | 1902 | 27 | 7,913 | public_domain_expired |
 | `GREAT` | Great Bible | 1539 | 66 | 31,095 | public_domain_expired |
+| `Godbey` | Godbey New Testament | 1902 | 27 | 7,913 | public_domain_expired |
 | `HAWEIS` | Haweis New Testament | 1795 | 27 | 7,957 | public_domain_expired |
 | `JPS1917` | JPS TaNaKH (Jewish Publication Society) | 1917 | 39 | 23,145 | public_domain_expired |
 | `JST` | Joseph Smith Translation (Inspired Version) | 1867 | 65 | 30,829 | public_domain_expired |
 | `KJV1611` | King James Bible (1611 First Edition) | 1611 | 66 | 31,102 | public_domain_expired |
 | `KJVA` | King James Version with Apocrypha | 1611 | 80 | 36,822 | public_domain_expired |
-| `Leeser` | Leeser Tanakh | 1853 | 39 | 23,143 | public_domain_expired |
+| `KOR1910` | Korean Bible (1910) | 1910 | 66 | 30,991 | public_domain_expired |
 | `LIVINGORACLES` | The Living Oracles | 1826 | 27 | 7,955 | public_domain_expired |
+| `LSG1910` | Louis Segond 1910 (French) | 1910 | 66 | 31,170 | public_domain_expired |
 | `LSV` | Literal Standard Version | 2020 | 66 | 31,104 | cc_by_sa_4.0 |
+| `LUT1912` | Lutherbibel 1912 (German) | 1912 | 66 | 31,102 | public_domain_expired |
+| `LXX` | Septuagint (Greek Old Testament) | -250 | 52 | 27,722 | public_domain |
 | `LXX2012` | LXX2012: Septuagint in American English | 2012 | 54 | 28,324 | public_domain_dedicated |
 | `LXXUP` | Updated Brenton English Septuagint | 2020 | 52 | 28,349 | cc0 |
-| `Matthew` | Matthew Bible | 1537 | 66 | 31,092 | public_domain_expired |
+| `Leeser` | Leeser Tanakh | 1853 | 39 | 23,143 | public_domain_expired |
+| `MACE` | Mace New Testament | 1729 | 27 | 7,957 | public_domain_expired |
+| `MALIRV` | Indian Revised Version (Malayalam) | 2019 | 66 | 31,102 | cc_by_sa_4.0 |
+| `MALMCV` | Biblica Open Malayalam Contemporary Version | 2021 | 66 | 30,940 | cc_by_sa_4.0 |
+| `MALSVP` | Sathyavedapusthakam (1910, Malayalam) | 1910 | 66 | 31,098 | cc_by_sa_4.0 |
 | `MOFFATT` | Moffatt New Testament | 1913 | 27 | 7,940 | public_domain_expired |
 | `MONTGOMERY` | Montgomery New Testament (Centenary Translation) | 1924 | 27 | 7,927 | public_domain_expired |
 | `MSB` | Majority Standard Bible | 2022 | 66 | 31,098 | cc0 |
+| `Matthew` | Matthew Bible | 1537 | 66 | 31,092 | public_domain_expired |
 | `Murdock` | Murdock's Peshitta New Testament | 1852 | 27 | 7,947 | public_domain_expired |
-| `NHEB` | New Heart English Bible | — | 66 | 31,097 | public_domain_dedicated |
+| `NHEB` | New Heart English Bible |  | 66 | 31,097 | public_domain_dedicated |
+| `NLD1917` | Dutch Bible (Statenvertaling revision, 1917) | 1917 | 66 | 31,102 | public_domain_expired |
 | `Noyes` | Noyes Bible | 1869 | 49 | 18,213 | public_domain_expired |
 | `OEBUS` | Open English Bible (US Spelling) | 2010 | 44 | 13,894 | cc0 |
 | `OJB` | Orthodox Jewish Bible | 2002 | 66 | 31,165 | cc_by_4.0 |
-| `OnkelosETHERIDGE` | Targum Onkelos Etheridge (English) | 1862 | 5 | 5,848 | public_domain_expired |
+| `OSEN` | Open Source English Bible | 2023 | 66 | 31,167 | cc_by_4.0 |
+| `OTB` | Open Translation Bible (British English) | 2020 | 66 | 31,103 | cc_by_sa_4.0 |
+| `OTTLEY` | Ottley Isaiah (from the Septuagint) | 1904 | 1 | 1,286 | public_domain_expired |
 | `OURB` | One Unity Resource Bible | 2016 | 14 | 15,230 | cc_by_sa_4.0 |
+| `OnkelosETHERIDGE` | Targum Onkelos Etheridge (English) | 1862 | 5 | 5,848 | public_domain_expired |
 | `PANIN` | Panin Numeric New Testament | 1914 | 27 | 7,937 | public_domain_expired |
 | `PEV` | Plain English Version | 2024 | 30 | 7,374 | cc_by_sa_4.0 |
 | `RIVERSIDE` | Riverside New Testament | 1923 | 27 | 7,932 | public_domain_expired |
 | `RKJNT` | Revised King James New Testament | 2000 | 27 | 7,956 | public_domain_dedicated |
-| `RNKJV` | Restored Name King James Version | — | 66 | 31,102 | public_domain_dedicated |
-| `Rotherham` | Rotherham's Emphasised Bible | 1902 | 66 | 31,086 | public_domain_expired |
+| `RNKJV` | Restored Name King James Version |  | 66 | 31,102 | public_domain_dedicated |
 | `RV1895` | Revised Version with Apocrypha | 1885 | 80 | 36,836 | public_domain_expired |
+| `RV1909` | Reina-Valera 1909 (Spanish) | 1909 | 66 | 31,084 | public_domain_expired |
+| `Rotherham` | Rotherham's Emphasised Bible | 1902 | 66 | 31,086 | public_domain_expired |
+| `SAWYER` | Sawyer New Testament (chronological) | 1858 | 27 | 7,957 | public_domain_expired |
 | `SLT` | Smith's Literal Translation (Julia E. Smith Parker) | 1876 | 66 | 31,102 | public_domain_expired |
+| `SYNODAL` | Russian Synodal Bible | 1876 | 66 | 31,169 | public_domain_expired |
+| `T2001` | 2001 Translation of the Holy Bible (2001) | 2001 | 70 | 33,328 | cc_by_nc_nd_4.0 |
 | `T4T` | Translation for Translators | 2008 | 66 | 30,640 | cc_by_sa_4.0 |
 | `TCENT` | Text-Critical English New Testament | 2022 | 27 | 7,954 | cc_by_4.0 |
 | `TCNT` | Twentieth Century New Testament | 1904 | 27 | 7,940 | public_domain_expired |
+| `TEG` | Tegid Isaiah (John Jones, from the Hebrew) | 1830 | 1 | 1,292 | public_domain_expired |
 | `THOMSON` | Charles Thomson Septuagint (transcribed books) | 1808 | 11 | 3,599 | public_domain_expired |
 | `TNT` | Tyndale New Testament (eBible.org edition) | 1534 | 27 | 7,954 | public_domain_expired |
+| `TR` | Greek New Testament (Textus Receptus) | 1550 | 27 | 7,957 | public_domain |
 | `Tyndale` | William Tyndale Bible (surviving corpus) | 1526 | 33 | 13,852 | public_domain_expired |
-| `UKJV` | Updated King James Version | — | 66 | 31,102 | public_domain_dedicated |
-| `ULT` | unfoldingWord Literal Text | — | 66 | 31,103 | cc_by_sa_4.0 |
-| `UST` | unfoldingWord Simplified Text | — | 66 | 30,975 | cc_by_sa_4.0 |
+| `UKJV` | Updated King James Version |  | 66 | 31,102 | public_domain_dedicated |
+| `ULT` | unfoldingWord Literal Text |  | 66 | 31,103 | cc_by_sa_4.0 |
+| `UST` | unfoldingWord Simplified Text |  | 66 | 30,975 | cc_by_sa_4.0 |
+| `VANDYCK` | Arabic Van Dyck Bible | 1865 | 66 | 31,104 | public_domain_expired |
+| `VULGATE` | Clementine Vulgate (1598, Latin) | 1598 | 73 | 35,809 | public_domain_expired |
 | `WEB` | World English Bible Classic | 2020 | 81 | 38,029 | public_domain_dedicated |
+| `WHISTON` | Whiston Primitive New Testament | 1745 | 27 | 7,957 | public_domain_expired |
+| `WLC` | Westminster Leningrad Codex (Hebrew Bible) | 1008 | 39 | 23,213 | public_domain |
+| `WMB` | World Messianic Bible | 2011 | 66 | 31,098 | public_domain_dedicated |
+| `WYCLIFFE` | Wycliffe Bible (Later Version, c. 1395) | 1395 | 76 | 36,227 | cc_by_sa_4.0 |
+| `WYCMS` | Wycliffe Bible with Modern Spelling | 2015 | 79 | 35,996 | cc_by_nc_nd_4.0 |
 | `Webster` | Webster Bible | 1833 | 66 | 31,102 | public_domain_expired |
 | `Wesley` | Wesley New Testament | 1755 | 27 | 7,957 | public_domain_expired |
 | `Weymouth` | Weymouth New Testament | 1903 | 27 | 7,957 | public_domain_expired |
-| `WHISTON` | Whiston Primitive New Testament | 1745 | 27 | 7,957 | public_domain_expired |
-| `WMB` | World Messianic Bible | 2011 | 66 | 31,098 | public_domain_dedicated |
 | `Worrell` | Worrell New Testament | 1904 | 27 | 7,946 | public_domain_expired |
 | `Worsley` | Worsley New Testament | 1770 | 27 | 7,958 | public_domain_expired |
-| `WYCLIFFE` | Wycliffe Bible (Later Version, c. 1395) | 1395 | 76 | 36,227 | cc_by_sa_4.0 |
 | `YLT` | Young's Literal Translation | 1862 | 66 | 31,102 | public_domain_expired |

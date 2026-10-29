@@ -1,8 +1,8 @@
 # Public-domain Bible database
 
 A single, reproducible, queryable database of public-domain Bible material:
-**the text** (77 translations in the original languages of the English tradition,
-verse-segmented) and **the reference works that explain it** (96 lexicons,
+**the text** (97 translations: English, the source languages, and the historic
+Bibles of continental Europe, verse-segmented) and **the reference works that explain it** (96 lexicons,
 dictionaries, topical indexes and commentaries, entry by entry), all as plain
 Apache Parquet with full provenance.
 
@@ -15,12 +15,12 @@ other copy that matters.
 
 | area | path | contents | size |
 |---|---|---|---|
-| Bible text | `bibles/text/` | 77 translations · **1,577,225 verses** · 10 columns | 28.2 MB combined + 55.1 MB partitioned |
+| Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 70.3 MB combined + 97 partitions (release asset) |
 | Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | release assets (1.5 GB) |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
 
-**Totals: 2,650,755 rows of text, 9,218 works, ~2.41 billion characters, 43 languages,
+**Totals: 3,249,734 rows of text, 9,218 works, ~2.42 billion characters, 43 languages,
 covering all twenty requested subject areas.**
 
 Two datasets, one schema philosophy: one combined Parquet file for whole-corpus
@@ -87,8 +87,12 @@ Produce it yourself with `pipeline/exclude_category.py --what commentaries --app
 
 ### `bibles/text/` — the verse corpus
 
-77 public-domain or explicitly free translations, 1,577,225 verses, 39,909,848
-words, 87 book codes, native versification preserved. One combined
+97 public-domain or explicitly free translations, 2,176,498 verses, 51,153,830
+words, 88 book codes, native versification preserved. Revision 8 added the 20
+translations the project's Supabase mirror carried but this dataset did not —
+Hebrew, Greek, Latin, German, French, Spanish, Italian, Dutch, Russian, Arabic,
+Korean, Chinese, Malayalam and four more English texts, plus 1 Enoch as a new
+book code. See `bibles/text/README.md#revision-8--the-supabase-additions`. One combined
 `bibles.parquet` plus `bibles_partitioned/translation_id=<ID>/part-0.parquet`.
 
 | column | type |

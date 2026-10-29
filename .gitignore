@@ -4,3 +4,9 @@ __pycache__/
 .venv/
 /tmp/
 *.imp
+
+# bibles_partitioned/ is derived from bibles.parquet in seconds
+# (tools/make_partitions.py) and is published as a release asset instead of
+# being committed, so the repository stays a reasonable size.
+bibles/text/bibles_partitioned/
+bibles/text/bibles_partitioned.zip

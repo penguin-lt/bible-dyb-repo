@@ -12,7 +12,7 @@ with machine-readable counts.
 
 ---
 
-## Verse corpus — 10 columns, 1,577,225 rows
+## Verse corpus — 10 columns, 2,176,498 rows
 
 | column | Arrow type | notes |
 |---|---|---|
