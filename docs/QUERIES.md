@@ -12,7 +12,7 @@ python3 -c "import duckdb; duckdb.sql('SELECT 1').show()"
 Throughout, `bibles/text/bibles.parquet` is the verse corpus and
 `reference.parquet` is the reference library. To work per translation without
 loading 1.5 M rows, point at the partitioned folder instead:
-`read_parquet('bibles/text/bibles_partitioned/*/*.parquet', hive_partitioning=true)`,
+`read_parquet('bibles/text/bibles_partitioned/*.parquet')`,
 or a single one: `'bibles/text/bibles_partitioned/translation_id=AKJV/part-0.parquet'`.
 
 > **There is no `KJV` translation in this corpus.** The King James text is

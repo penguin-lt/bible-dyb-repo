@@ -30,7 +30,7 @@ OT-only works, and partial translations.
 | File | Contents |
 |---|---|
 | **`bibles.parquet`** (70.3 MB) | All 97 translations in one file, sorted by canonical book order → chapter → verse → translation (same-verse rows across translations sit together, which compresses extremely well and makes cross-translation comparison a sequential scan). |
-| **`bibles_partitioned/`** (97 files · [release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-rev8): `bibles_partitioned.zip`, 86.4 MB) | Same rows, Hive-partitioned by `translation_id` (`translation_id=KJVA/part-0.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. |
+| **`bibles_partitioned/`** (97 files · [release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-rev8): `bibles_partitioned.zip`, 86.4 MB) | Same rows, one file per translation (`KJVA.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. `tools/make_partitions.py --partitioned` writes the Hive layout (`translation_id=KJVA/part-0.parquet`) if your tooling prefers it. |
 | **`bibles_rev8_additions.parquet`** (22.5 MB) | Just the 20 translations revision 8 added — 599,273 rows. Everything already in rev7 is unchanged, so this is enough to top up an existing copy. |
 | `translations.parquet` / `.csv` | One row per translation: name, year, edition, scope, dialect, licence + evidence URL, source + retrieval date, verse/book/chapter/word counts, per-testament counts, and a SHA-256 of the cleaned text. |
 | `books.parquet` / `.csv` | The canonical book list: USFM `book_id`, standard name, testament (`OT`/`NT`/`DC`), and `book_sort`. |
@@ -163,21 +163,21 @@ WHERE book_id='JHN' AND chapter=1 AND verse=1 ORDER BY translation_id;  -- 67 ro
 
 **DuckDB — one translation from the partitioned layout (reads one file):**
 ```sql
-SELECT * FROM read_parquet('bibles_partitioned/**/*.parquet', hive_partitioning=true)
+SELECT * FROM read_parquet('bibles_partitioned/*.parquet')
 WHERE translation_id='Tyndale' AND book_id='JON';
 ```
 
 **Python / PyArrow:**
 ```python
 import pyarrow.dataset as ds
-bibles = ds.dataset("bibles_partitioned", partitioning="hive")
+bibles = ds.dataset("bibles_partitioned")   # a directory of parquet files
 psalm23 = bibles.to_table(filter=(ds.field("book_id")=="PSA") & (ds.field("chapter")==23))
 ```
 
 **Pandas (single translation fits easily):**
 ```python
 import pandas as pd
-kjv = pd.read_parquet("bibles_partitioned/translation_id=KJVA/part-0.parquet")
+kjv = pd.read_parquet("bibles_partitioned/KJVA.parquet")
 ```
 
 ## Known source quirks (faithful to the sources, documented not "fixed")

@@ -17,6 +17,7 @@ other copy that matters.
 |---|---|---|---|
 | Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 70.3 MB combined + 97 partitions (release asset) |
 | Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | release assets (1.5 GB) |
+| App | `app/` | free offline reader: verses, passage guide, lexicon, interlinear, search | SQLite databases on the [bible-search-rev1](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-search-rev1) release |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
 
@@ -65,6 +66,26 @@ More recipes: [`docs/QUERIES.md`](docs/QUERIES.md) · column reference:
 
 ---
 
+## The app
+
+`app/` turns the database into something you can actually read. One Python file,
+standard library only, no server and no account:
+
+```
+python3 app/app.py --db search.db.zst
+```
+
+Read any chapter in 97 translations, click a verse for its commentaries,
+cross-references, interlinear and lexicon, search verses or the whole reference
+library, and browse all 9,141 works by topic — with the licence of every work
+shown in the panel that quotes it.
+
+The databases it needs are release assets, not repository files: `search.db.zst`
+(312 MB, everything except full-library search) and `works.db.zst` split into
+three parts (1.7 GB, the whole corpus). `app/make_release.py` produces them,
+`app/build_searchdb.py` rebuilds them from the Parquet in about six minutes, and
+[`app/README.md`](app/README.md) has the details.
+
 ## The two datasets
 
 
@@ -93,7 +114,8 @@ translations the project's Supabase mirror carried but this dataset did not —
 Hebrew, Greek, Latin, German, French, Spanish, Italian, Dutch, Russian, Arabic,
 Korean, Chinese, Malayalam and four more English texts, plus 1 Enoch as a new
 book code. See `bibles/text/README.md#revision-8--the-supabase-additions`. One combined
-`bibles.parquet` plus `bibles_partitioned/translation_id=<ID>/part-0.parquet`.
+`bibles.parquet` plus one file per translation in `bibles_partitioned/` (`KJVA.parquet`, …),
+which ships as a release asset and regenerates with `tools/make_partitions.py`.
 
 | column | type |
 |---|---|

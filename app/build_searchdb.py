@@ -112,6 +112,7 @@ CREATE VIRTUAL TABLE entry_fts USING fts5(
 """
 
 BATCH = 4000
+FTS_BATCH = 800          # smaller: entry texts in the full corpus are long
 LEX_WORKS = {"BDB", "TBESG", "TBESH", "LSJ", "AbbottSmith", "AbbottSmithStrongs",
              "StrongsGreek", "StrongsHebrew", "Thayer", "Vine", "Webster1828",
              "Webster1913", "Smith", "Easton", "ISBE", "BDBGlosses_Strongs",
@@ -159,32 +160,35 @@ def core_db(bibles, works, reference, out):
     db.commit()
     print(f"works             {len(w):>9,}", flush=True)
 
-    # ---- verses
-    b = pq.read_table(bibles, columns=["translation_id", "book_id", "book_name",
-                                       "book_order", "Testament", "chapter", "verse",
-                                       "verse_end", "verse_text"])
-    d = b.to_pydict()
-    rows = list(zip(d["translation_id"], d["book_id"], d["chapter"], d["verse"],
-                    d["verse_end"], d["verse_text"]))
-    db.executemany("INSERT INTO verse(translation_id,book_id,chapter,verse,verse_end,"
-                   "verse_text) VALUES (?,?,?,?,?,?)", rows)
-    books = {}
-    for bid, bn, bo, te in zip(d["book_id"], d["book_name"], d["book_order"], d["Testament"]):
-        books.setdefault(bid, (bn, bo, te))
+    # ---- verses (streamed: 2.18 M rows will not fit in a 2 GB sandbox)
+    books, tot, n_verse = {}, {}, 0
+    ins_v = ("INSERT INTO verse(translation_id,book_id,chapter,verse,verse_end,"
+             "verse_text) VALUES (?,?,?,?,?,?)")
+    for batch in pq.ParquetFile(bibles).iter_batches(
+            batch_size=100_000,
+            columns=["translation_id", "book_id", "book_name", "book_order",
+                     "Testament", "chapter", "verse", "verse_end", "verse_text"]):
+        d = batch.to_pydict()
+        db.executemany(ins_v, zip(d["translation_id"], d["book_id"], d["chapter"],
+                                  d["verse"], d["verse_end"], d["verse_text"]))
+        for bid, bn, bo, te in zip(d["book_id"], d["book_name"],
+                                   d["book_order"], d["Testament"]):
+            books.setdefault(bid, (bn, bo, te))
+        for tid, txt in zip(d["translation_id"], d["verse_text"]):
+            a = tot.setdefault(tid, [0, 0])
+            a[0] += 1
+            a[1] += len(txt or "")
+        n_verse += len(d["translation_id"])
+        del d, batch
+        trim()
     db.executemany("INSERT INTO book VALUES (?,?,?,?)",
-                   [(k, v[0], v[1], v[2]) for k, v in books.items()])
-    tot = {}
-    for tid, txt in zip(d["translation_id"], d["verse_text"]):
-        a = tot.setdefault(tid, [0, 0])
-        a[0] += 1
-        a[1] += len(txt or "")
+                   [(k, v[0], v[1], v[2]) for k, v in sorted(books.items())])
     db.executemany("INSERT INTO translation VALUES (?,?,?)",
-                   [(k, v[0], v[1]) for k, v in tot.items()])
-    n_verse = len(rows)
+                   [(k, v[0], v[1]) for k, v in sorted(tot.items())])
     db.commit()
     print(f"verses            {n_verse:>9,}", flush=True)
     print(f"translations      {len(tot):>9,}", flush=True)
-    del d, b, rows, tot, books
+    del books
     trim()
 
     # ---- reference entries (streamed; never buffered)
@@ -244,11 +248,14 @@ def core_db(bibles, works, reference, out):
     # ---- verse search index (small: 1.5 M short rows)
     db.execute("INSERT INTO verse_fts(verse_fts) VALUES('rebuild')")
     db.commit()
-    db.executemany("INSERT INTO note VALUES (?,?)", [
+    counts = {k: v for k, v in db.execute("SELECT k, v FROM note")}
+    db.executemany("INSERT OR REPLACE INTO note VALUES (?,?)", [
         ("built", time.strftime("%Y-%m-%d")),
-        ("bibles_source", "penguin-lt/bible-dyb-repo bibles/text (rev7)"),
+        ("bibles_source", "penguin-lt/bible-dyb-repo bibles/text (rev8)"),
         ("reference_source", "bible-reference-v5"),
-        ("verses", str(n_verse)), ("translations", str(len(tot) if 'tot' in dir() else 77)),
+        ("schema", "1"),
+        ("verses", str(n_verse)), ("translations", str(len(tot))),
+        ("books", str(len(books))),
         ("works", str(len(w))), ("entries", str(n_entry)),
         ("lexicon_entries", str(n_lex)), ("interlinear_rows", str(n_int)),
     ])
@@ -274,7 +281,7 @@ def fts_db(works, reference, out):
     ins = ("INSERT INTO entry(work_n,entry_key,book_id,chapter,verse,entry_text)"
            " VALUES (?,?,?,?,?,?)")
     n = 0
-    for batch in pf.iter_batches(batch_size=BATCH, columns=[
+    for batch in pf.iter_batches(batch_size=FTS_BATCH, columns=[
             "module_id", "entry_key", "book_id", "chapter", "verse", "entry_text"]):
         d = batch.to_pydict()
         pending = [(by_id[m], k, bid, ch, vs, t) for m, k, bid, ch, vs, t in
@@ -285,10 +292,12 @@ def fts_db(works, reference, out):
         n += len(pending)
         del pending, d, batch
         trim()
-        if n % 100000 < BATCH:
+        if (n // 100000) != ((n - FTS_BATCH) // 100000):
+            db.execute("PRAGMA shrink_memory")
             print(f"  {n:,} entries  rss {rss():.0f} MB", flush=True)
     db.commit()
-    print(f"entries           {n:>9,}", flush=True)
+    db.execute("PRAGMA shrink_memory")
+    print(f"entries           {n:>9,}  rss {rss():.0f} MB", flush=True)
     print("building FTS index…", flush=True)
     db.execute("INSERT INTO entry_fts(entry_fts) VALUES('rebuild')")
     db.commit()

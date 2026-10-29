@@ -24,6 +24,36 @@ DB = None
 WDB = None
 
 
+def open_db(path, tmpdir=None):
+    """Open a SQLite file, decompressing a .zst or .gz on first use.
+
+    The published databases are zstd-compressed release assets (search.db.zst is
+    327 MB; decompressed it is 1.16 GB). Decompressing once into a cache and then
+    serving from the plain file keeps startup fast on every later run.
+    """
+    if path.endswith(".zst") or path.endswith(".gz"):
+        import gzip
+        cache = (tmpdir or os.environ.get("OBS_CACHE")
+                 or os.path.join(os.path.dirname(os.path.abspath(path)), ".obs-cache"))
+        os.makedirs(cache, exist_ok=True)
+        plain = os.path.join(cache, os.path.basename(path)[:-4])
+        if not os.path.exists(plain):
+            print(f"decompressing {path} -> {plain} (first run only)", flush=True)
+            if path.endswith(".zst"):
+                import zstandard
+                with open(path, "rb") as i, open(plain, "wb") as o:
+                    zstandard.ZstdDecompressor().copy_stream(i, o)
+            else:
+                with gzip.open(path, "rb") as i, open(plain, "wb") as o:
+                    while True:
+                        chunk = i.read(1 << 22)
+                        if not chunk:
+                            break
+                        o.write(chunk)
+        path = plain
+    return conn(path)
+
+
 def conn(path):
     c = sqlite3.connect(f"file:{path}?mode=ro", uri=True, check_same_thread=False)
     c.row_factory = sqlite3.Row
@@ -576,12 +606,15 @@ def main():
     ap.add_argument("--works", default="")
     ap.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8080)))
     ap.add_argument("--host", default="0.0.0.0")
+    ap.add_argument("--cache", default="",
+                    help="where to decompress .zst databases (default .obs-cache)")
     a = ap.parse_args()
     if not os.path.exists(a.db):
-        raise SystemExit(f"{a.db} not found — build it with build_searchdb.py")
-    DB = conn(a.db)
+        raise SystemExit(f"{a.db} not found — download it (see app/README.md) "
+                         "or build it with build_searchdb.py")
+    DB = open_db(a.db, a.cache)
     if a.works and os.path.exists(a.works):
-        WDB = conn(a.works)
+        WDB = open_db(a.works, a.cache)
     print(f"Open Bible Study on http://{a.host}:{a.port}  db={a.db}"
           f"{'  works=' + a.works if WDB else '  (no works.db: verse-only search)'}")
     ThreadingHTTPServer((a.host, a.port), Handler).serve_forever()
