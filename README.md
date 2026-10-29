@@ -16,6 +16,7 @@ other copy that matters.
 | area | path | contents | size |
 |---|---|---|---|
 | Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 70.3 MB combined + 97 partitions (release asset) |
+| Bibles in SQLite | `tools/parquet_to_sqlite.py` | one database per translation, self-contained | 97 files, 604 MB ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev8)) |
 | Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | release assets (1.5 GB) |
 | App | `app/` | free offline reader: verses, passage guide, lexicon, interlinear, search | SQLite databases on the [bible-search-rev1](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-search-rev1) release |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
@@ -115,7 +116,10 @@ Hebrew, Greek, Latin, German, French, Spanish, Italian, Dutch, Russian, Arabic,
 Korean, Chinese, Malayalam and four more English texts, plus 1 Enoch as a new
 book code. See `bibles/text/README.md#revision-8--the-supabase-additions`. One combined
 `bibles.parquet` plus one file per translation in `bibles_partitioned/` (`KJVA.parquet`, …),
-which ships as a release asset and regenerates with `tools/make_partitions.py`.
+which ships as a release asset and regenerates with `tools/make_partitions.py`. A SQLite
+edition — one self-contained database per translation, 97 files with no duplication between
+them — is on the [`bibles-sqlite-rev8`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev8)
+release and rebuilds with `tools/parquet_to_sqlite.py` in 16 seconds.
 
 | column | type |
 |---|---|
