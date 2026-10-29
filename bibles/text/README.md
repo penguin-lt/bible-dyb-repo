@@ -30,7 +30,8 @@ OT-only works, and partial translations.
 | File | Contents |
 |---|---|
 | **`bibles.parquet`** (70.3 MB) | All 97 translations in one file, sorted by canonical book order → chapter → verse → translation (same-verse rows across translations sit together, which compresses extremely well and makes cross-translation comparison a sequential scan). |
-| **`bibles_partitioned/`** (97 files, release asset — regenerate with `tools/make_partitions.py`) | Same rows, Hive-partitioned by `translation_id` (`translation_id=KJVA/part-0.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. |
+| **`bibles_partitioned/`** (97 files · [release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-rev8): `bibles_partitioned.zip`, 86.4 MB) | Same rows, Hive-partitioned by `translation_id` (`translation_id=KJVA/part-0.parquet`, …). Read it as a dataset and your engine will prune to one small file per translation. |
+| **`bibles_rev8_additions.parquet`** (22.5 MB) | Just the 20 translations revision 8 added — 599,273 rows. Everything already in rev7 is unchanged, so this is enough to top up an existing copy. |
 | `translations.parquet` / `.csv` | One row per translation: name, year, edition, scope, dialect, licence + evidence URL, source + retrieval date, verse/book/chapter/word counts, per-testament counts, and a SHA-256 of the cleaned text. |
 | `books.parquet` / `.csv` | The canonical book list: USFM `book_id`, standard name, testament (`OT`/`NT`/`DC`), and `book_sort`. |
 | `QA_REPORT.md` | Build QA: per-translation verse/book/chapter counts, cat-count differences vs source catalogues, gap analysis, and cross-edition similarity checks. |
