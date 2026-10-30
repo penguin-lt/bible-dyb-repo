@@ -1,0 +1,13 @@
+edition_id,full_name,file,language,year,scope,license,source_url
+grcbyz,"Patriarchal Greek New Testament (1904, Antoniades)","Patriarchal Greek New Testament (1904, Antoniades).sqlite3",grc,1904,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grcbyz
+grcmt,"Greek New Testament, Majority Text (Robinson-Pierpont)","Greek New Testament, Majority Text (Robinson-Pierpont).sqlite3",grc,2018,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grcmt
+grcsr,Solid Rock Greek New Testament (Scholar's Edition),Solid Rock Greek New Testament (Scholar's Edition).sqlite3,grc,2020,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grcsr
+grctcgnt,Text-Critical Greek New Testament,Text-Critical Greek New Testament.sqlite3,grc,2021,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grctcgnt
+grctr,"Greek Textus Receptus (Stephanus, Elzevir, Scrivener)","Greek Textus Receptus (Stephanus, Elzevir, Scrivener).sqlite3",grc,1550,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grctr
+grc-tisch,Tischendorf Greek New Testament (8th edition),Tischendorf Greek New Testament (8th edition).sqlite3,grc,1872,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grc-tisch
+grclxx,Septuagint (Greek Old Testament),Septuagint (Greek Old Testament).sqlite3,grc,1930,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grclxx
+grcbrent,Brenton's Greek Text of the Septuagint,Brenton's Greek Text of the Septuagint.sqlite3,grc,1844,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=grcbrent
+hbo,Hebrew Masoretic Text (Westminster Leningrad Codex),Hebrew Masoretic Text (Westminster Leningrad Codex).sqlite3,hbo,1008,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=hbo
+hboWLC,Westminster Leningrad Codex with Strong's and morphology,Westminster Leningrad Codex with Strong's and morphology.sqlite3,hbo,1008,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=hboWLC
+copbhc,"Coptic New Testament, Bohairic","Coptic New Testament, Bohairic.sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copbhc
+copcnt,"Coptic New Testament (Bohairic, narrative form)","Coptic New Testament (Bohairic, narrative form).sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copcnt

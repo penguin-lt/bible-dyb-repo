@@ -3,7 +3,9 @@
 `bibles/core/` defines a focused subset of the two datasets: 85 Scripture
 databases and 25 lexical databases, published together as the
 [`bibles-lexicons-core`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)
-release. The full library is unchanged and still on `bibles-sqlite-rev9` and
+release, plus **12 further critical editions** added separately as
+[`critical-editions`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/critical-editions)
+(see `editions/`). The full library is unchanged and still on `bibles-sqlite-rev9` and
 `reference-sqlite-rev5`.
 
 This directory holds the **selection rules and the manifests**, not the data.

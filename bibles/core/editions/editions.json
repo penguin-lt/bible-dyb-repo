@@ -1,0 +1,110 @@
+[
+ {
+  "id": "grcbyz",
+  "file": "Patriarchal Greek New Testament (1904, Antoniades).sqlite3",
+  "name": "Patriarchal Greek New Testament (1904, Antoniades)",
+  "language": "grc",
+  "year": 1904,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grcbyz"
+ },
+ {
+  "id": "grcmt",
+  "file": "Greek New Testament, Majority Text (Robinson-Pierpont).sqlite3",
+  "name": "Greek New Testament, Majority Text (Robinson-Pierpont)",
+  "language": "grc",
+  "year": 2018,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grcmt"
+ },
+ {
+  "id": "grcsr",
+  "file": "Solid Rock Greek New Testament (Scholar's Edition).sqlite3",
+  "name": "Solid Rock Greek New Testament (Scholar's Edition)",
+  "language": "grc",
+  "year": 2020,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grcsr"
+ },
+ {
+  "id": "grctcgnt",
+  "file": "Text-Critical Greek New Testament.sqlite3",
+  "name": "Text-Critical Greek New Testament",
+  "language": "grc",
+  "year": 2021,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grctcgnt"
+ },
+ {
+  "id": "grctr",
+  "file": "Greek Textus Receptus (Stephanus, Elzevir, Scrivener).sqlite3",
+  "name": "Greek Textus Receptus (Stephanus, Elzevir, Scrivener)",
+  "language": "grc",
+  "year": 1550,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grctr"
+ },
+ {
+  "id": "grc-tisch",
+  "file": "Tischendorf Greek New Testament (8th edition).sqlite3",
+  "name": "Tischendorf Greek New Testament (8th edition)",
+  "language": "grc",
+  "year": 1872,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grc-tisch"
+ },
+ {
+  "id": "grclxx",
+  "file": "Septuagint (Greek Old Testament).sqlite3",
+  "name": "Septuagint (Greek Old Testament)",
+  "language": "grc",
+  "year": 1930,
+  "scope": "Old Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grclxx"
+ },
+ {
+  "id": "grcbrent",
+  "file": "Brenton's Greek Text of the Septuagint.sqlite3",
+  "name": "Brenton's Greek Text of the Septuagint",
+  "language": "grc",
+  "year": 1844,
+  "scope": "Old Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=grcbrent"
+ },
+ {
+  "id": "hbo",
+  "file": "Hebrew Masoretic Text (Westminster Leningrad Codex).sqlite3",
+  "name": "Hebrew Masoretic Text (Westminster Leningrad Codex)",
+  "language": "hbo",
+  "year": 1008,
+  "scope": "Old Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=hbo"
+ },
+ {
+  "id": "hboWLC",
+  "file": "Westminster Leningrad Codex with Strong's and morphology.sqlite3",
+  "name": "Westminster Leningrad Codex with Strong's and morphology",
+  "language": "hbo",
+  "year": 1008,
+  "scope": "Old Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=hboWLC"
+ },
+ {
+  "id": "copbhc",
+  "file": "Coptic New Testament, Bohairic.sqlite3",
+  "name": "Coptic New Testament, Bohairic",
+  "language": "cop",
+  "year": 1905,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=copbhc"
+ },
+ {
+  "id": "copcnt",
+  "file": "Coptic New Testament (Bohairic, narrative form).sqlite3",
+  "name": "Coptic New Testament (Bohairic, narrative form)",
+  "language": "cop",
+  "year": 1905,
+  "scope": "New Testament",
+  "source": "https://ebible.org/Scriptures/details.php?id=copcnt"
+ }
+]
