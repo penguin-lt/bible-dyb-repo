@@ -19,6 +19,7 @@ other copy that matters.
 | Bible text | `bibles/text/` | 97 translations · **2,176,498 verses** · 10 columns | 97 databases, 605 MB ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-sqlite-rev9)) |
 | Reference works | `bibles/reference/` | **9,141 works** · **1,073,530 entries** · 2,369,741,291 characters | 9,141 databases, 5.4 GB, two archives ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/reference-sqlite-rev5)) |
 | App | `app/` | free offline reader: verses, passage guide, lexicon, interlinear, search | SQLite databases on the [bible-search-rev1](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bible-search-rev1) release |
+| Curated subset | `bibles/core/` | English Bibles + critical editions + lexicons: **85 translations · 25 lexical works** ([release asset](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)) | 110 files, 275 MB |
 | Tools | `tools/` | workspace client, schema catalog, query examples | — |
 | Docs | `docs/` | cross-dataset guide, join recipes, licence policy | — |
 
