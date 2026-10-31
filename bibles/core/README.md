@@ -74,3 +74,41 @@ python3 tools/reference_to_sqlite.py --reference reference.parquet \
 ```
 
 The `file` column in each manifest is the exact filename to use.
+
+## Modern translations in this collection
+
+"Modern" is a licence problem before it is a search problem: nearly every
+translation made after 1950 is copyrighted, and the free ones cluster around
+2016-2026. This collection now holds the free modern English translations that
+exist and are not near-duplicates of each other:
+
+| translation | year | note |
+|---|---|---|
+| `World English Bible Updated.sqlite3` | 2026 | LORD/GOD for the divine name; otherwise the Classic text plus typo fixes |
+| `World English Bible, Catholic Edition.sqlite3` | 2026 | deuterocanon in Catholic order |
+| `Majority Standard Bible.sqlite3` | 2022 | |
+| `Literal Standard Version.sqlite3` | 2020 | |
+| `Berean Standard Bible.sqlite3` | 2016 | |
+| `Berean Literal Bible.sqlite3` | 2016 | |
+| `Plain English Version.sqlite3` | 2024 | |
+| `Free Bible Version.sqlite3` | 2018 | |
+| `Open English Bible (US Spelling).sqlite3` | 2010 | |
+| `unfoldingWord Literal Text.sqlite3` | - | |
+| `King James Version, Cambridge Paragraph Bible.sqlite3` | 1873 | Scrivener's critical revision of the AV: 57% of verses differ from the 1611 text |
+
+### Sought and not included, with reasons
+
+- **NET Bible** - copyrighted, Biblical Studies Press. eBible.org hosts a USFM
+  edition but it is not free to redistribute.
+- **Modern Literal Version (MLV)** - copyrighted, and the permission forbids
+  selling it in any form, including with handling or shipping fees: not
+  public domain and not open-licensed.
+- **Analytical-Literal Translation (ALT)** - quoting limited to 500 verses
+  without written permission. Not redistributable.
+- **Amplified, GOD'S WORD, NASB, ERV** - marked non-redistributable on
+  eBible.org.
+- **World English Bible British Edition / British with Deuterocanon** - 72-84%
+  of verses identical to the Classic edition already held. Spelling variants of
+  a text we already have, so not added.
+- **Revised Version 1895** - public domain but 19th century, and 40% verse
+  overlap with the ASV already held.
