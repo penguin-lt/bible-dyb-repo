@@ -51,14 +51,33 @@ The beta code was converted to Unicode Greek. Its encoding inverts TLG beta code
 in two letters: `q` is psi and `y` is theta (`egraqa` → ἔγραψα, `yeov` → θεός).
 No accents were invented; bracketed doubtful readings are kept as printed.
 
-## The Vulgate duplicate
+## This release is the single home for these texts
 
-`Vulgate (Clementine, 1598).sqlite3` here is the **same text** already shipped as
-`VULGATE.sqlite3` in `bibles-sqlite-rev8` and as
-`Clementine Vulgate (1598, Latin).sqlite3` in `bibles-lexicons-core`: verified
-verse for verse, all 35,809 verses and the same 73 books. It is included so this
-release is a complete set in one place and because the earlier copy has no
-full-text index. Nothing new was added to the library's content.
+Four texts used to exist twice: here and in `bibles-lexicons-core`. They have
+been **removed from `bibles-lexicons-core`** (which keeps its 82 English
+translations and lexicons) so that each text now lives in exactly one place:
+
+| text | was also in | dropped from there |
+|---|---|---|
+| `Greek Textus Receptus (Stephanus, Elzevir, Scrivener).sqlite3` | `bibles-core-english.zip` | yes |
+| `Hebrew Masoretic Text (Westminster Leningrad Codex).sqlite3` | `bibles-core-english.zip` | yes |
+| `Septuagint (Greek Old Testament).sqlite3` | `bibles-core-english.zip` | yes |
+| `Vulgate (Clementine, 1598).sqlite3` | `bibles-core-english.zip` | yes |
+
+Nothing was lost. The copies kept here are the better formation: identical or
+fuller text, full-text search, and recorded provenance.
+
+The Vulgate is the same text the older copies held - verified verse for verse,
+all 35,809 verses and the same 73 books - so this release adds no Vulgate
+content to the library, only a single canonical home for it.
+
+One further stale copy exists and is **deliberately left alone**:
+`bibles-sqlite-rev8` (superseded by `bibles-sqlite-rev9`) still carries
+`TR`, `WLC`, `LXX` and `VULGATE` under their old acronyms, along with 94 other
+acronym-named files. That release is the previous generation of the whole
+library, not a separate copy of these four texts, and pruning it piecemeal
+would leave it neither one thing nor the other. Retire it wholesale or keep it;
+do not cannibalise it.
 
 ## Two editions with approximate verse boundaries
 

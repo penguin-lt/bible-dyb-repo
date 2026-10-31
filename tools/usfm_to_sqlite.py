@@ -253,6 +253,7 @@ def parse_book(text, book_id, state):
     verse_end = None
     buf = []
     front = True
+    pending = []          # text seen before any verse is open (a \\d title)
 
     def flush():
         nonlocal buf, verse_end
@@ -271,6 +272,10 @@ def parse_book(text, book_id, state):
             continue
         if re.match(r'^\\c\s', line):
             flush()
+            # a chapter boundary closes the previous verse, so text arriving
+            # before the next \\v (a \\d subscription, say) cannot be
+            # attributed to the last verse number of the old chapter
+            verse = verse_key = verse_end = None
             m = re.match(r'\\c\s+(\d+)', line)
             if m:
                 chapter = int(m.group(1))
@@ -283,11 +288,25 @@ def parse_book(text, book_id, state):
             verse_end = (m.group(3) + m.group(4)) if m.group(3) else None
             rest = m.group(5)
             # a new verse can also start mid-line
-            buf = [rest]
+            buf = pending + [rest]
+            pending = []
             continue
+        if verse is None:
+            pd = re.match(r'^\\d\s+(.*)$', line)
+            if pd:
+                pending.append(pd.group(1))
+                continue
         if verse is not None:
             if line.startswith('\\'):
-                if re.match(r'^\\(?:s|ms|mr|sr|r|d|sp|qa|qac|qm\d?|lit|cl|cp|cd|'
+                # \d subscription: the printed note at the end of an epistle
+                # ("written to the Romans from Corinth by Phoebe..."). It is
+                # part of the edition's text, so it is appended to the verse it
+                # follows rather than dropped.
+                sub_d = re.match(r'^\\d\s+(.*)$', line)
+                if sub_d:
+                    buf.append(sub_d.group(1))
+                    continue
+                if re.match(r'^\\(?:s|ms|mr|sr|r|sp|qa|qac|qm\d?|lit|cl|cp|cd|'
                             r'fig|bk|ef|ex|imt|imte|iex|ip|ipr|ib|iq|ili|iot|io)\b',
                             line):
                     continue          # headings, titles, intros: not verse text
