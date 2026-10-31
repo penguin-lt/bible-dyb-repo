@@ -22,12 +22,17 @@ verse text is invented.
         --id grcbyz --name "Patriarchal Greek New Testament (1904)" \\
         --language grc --year 1904 --license "Public Domain" \\
         --source "https://ebible.org/Scriptures/details.php?id=grcbyz"
+
+Also reads the verse-per-line beta code layout used by the byztxt texts
+(--format betacode), and converts beta code to Unicode Greek on the way in
+(--transliterate), so those editions match the rest of the library.
 """
 import argparse
 import os
 import re
 import sqlite3
 import time
+import unicodedata
 import zipfile
 
 SCHEMA = """
@@ -54,7 +59,6 @@ CREATE TABLE note (k TEXT PRIMARY KEY, v TEXT);
 """
 
 # \w word|strong="G1234"\w*  ->  word      (also \+w, \nd, \qt ... variants)
-W_MARKUP = re.compile(r'\\\+?w\*?')
 WORD_TAG = re.compile(r'\\\+?w ([^|\\]*)(\|[^\\]*)?\\\+?w\*')
 NOTE = re.compile(r'\\f\b.*?\\f\*', re.S)
 XREF = re.compile(r'\\x\b.*?\\x\*', re.S)
@@ -97,6 +101,70 @@ def clean(text):
     return re.sub(r'\s+', ' ', text).strip()
 
 
+# ---------------------------------------------------------------- beta code
+# Robinson / Sandborg-Petersen beta code as used by the byztxt texts:
+#   q ps   y th   c ch   f ph   v sigma
+#   h eta (word-initial h = rough breathing)   w omega   x ksi   u/y? ...
+#   v = final sigma (written for sigma everywhere in this encoding)
+BETA_BASE = {'a': 'α', 'b': 'β', 'g': 'γ', 'd': 'δ', 'e': 'ε', 'z': 'ζ',
+             'h': 'η', 'q': 'θ', 'i': 'ι', 'k': 'κ', 'l': 'λ', 'm': 'μ',
+             'n': 'ν', 'x': 'ξ', 'o': 'ο', 'p': 'π', 'r': 'ρ', 's': 'σ',
+             't': 'τ', 'u': 'υ', 'f': 'φ', 'c': 'χ', 'y': 'ψ', 'w': 'ω'}
+VOWELS = set('aehiouw')
+
+
+def beta_word(word):
+    """Convert one beta-code word to Unicode Greek.
+
+    Robinson's encoding is *unaccented*: it marks rough breathing on a
+    word-initial h but carries no accents, so the output is unaccented too.
+    Nothing is invented. Prepositions and other words that begin with a vowel
+    keep a smooth breathing where Greek orthography requires one.
+    """
+    if not word:
+        return word
+    out = []
+    n = len(word)
+    for i, ch in enumerate(word):
+        low = ch.lower()
+        if low == 'q':
+            out.append('ψ')
+        elif low == 'y':
+            out.append('θ')
+        elif low == 'c':
+            out.append('χ')
+        elif low == 'f':
+            out.append('φ')
+        elif low in ('s', 'v'):
+            out.append('ς' if i == n - 1 else 'σ')
+        elif low == 'h':
+            # h is simply eta: this encoding marks no breathings, so none are
+            # invented here either
+            out.append('η')
+        elif low in BETA_BASE:
+            out.append(BETA_BASE[low])
+        else:
+            out.append(ch)
+    return ''.join(out)
+
+
+def beta_line(line):
+    """Convert a beta-code verse line, leaving punctuation and numbers alone."""
+    return re.sub(r'[a-zA-Z]+', lambda m: beta_word(m.group(0)), line)
+
+
+def transliterate(text):
+    """Convert beta code to Unicode Greek.
+
+    A few verses carry marginal apparatus after a bare '|' (the text, then the
+    alternatives). The reading itself is everything before the first separator;
+    the marginal notes are not verse text and are dropped.
+    """
+    text = text.split(' | ')[0]
+    return beta_line(text)
+
+
+# ---------------------------------------------------------------- readers
 def read_usfm_dir(path):
     """Yield (usfm_filename, text) for every book file, in canonical order."""
     if path.endswith('.zip'):
@@ -108,6 +176,52 @@ def read_usfm_dir(path):
     for n in sorted(os.listdir(path)):
         if n.lower().endswith('.usfm'):
             yield n, open(os.path.join(path, n), encoding='utf-8-sig').read()
+
+
+BETA_LINE = re.compile(r'^\s*(\d+):(\d+)(?:-(\d+))?\s+(.*)$')
+BETA_FILE = re.compile(r'^([1-3]?[A-Z]{2,4})\.WH$')
+
+
+# the byztxt files use their own short book codes; map them to USFM
+BETA_BOOKS = {'MT': 'MAT', 'MR': 'MRK', 'LU': 'LUK', 'JOH': 'JHN',
+              'AC': 'ACT', 'RO': 'ROM', 'RE': 'REV', 'JUDE': 'JUD',
+              'GA': 'GAL', '1JO': '1JN', '2JO': '2JN', '3JO': '3JN'}
+
+
+def read_beta_dir(path):
+    """Yield (book_id, [(chapter, verse, verse_end, text)]) for byztxt texts.
+
+    Layout: one file per book (JOH.WH), verses starting "1:1 " but wrapping
+    across several physical lines, so every line that does not open a new verse
+    continues the one before it.
+    """
+    for n in sorted(os.listdir(path)):
+        m = BETA_FILE.match(n)
+        if not m:
+            continue
+        bid = BETA_BOOKS.get(m.group(1), m.group(1))
+        rows = []
+        cur = None          # (chapter, verse, verse_end, [parts])
+        with open(os.path.join(path, n), encoding='utf-8', errors='replace') as f:
+            for line in f:
+                vm = BETA_LINE.match(line)
+                if vm:
+                    if cur:
+                        rows.append(cur)
+                    c, v = int(vm.group(1)), int(vm.group(2))
+                    ve = int(vm.group(3)) if vm.group(3) else v
+                    cur = (c, v, ve, [vm.group(4)])
+                elif cur is not None and line.strip():
+                    cur[3].append(line.strip())
+        if cur:
+            rows.append(cur)
+        out = []
+        for c, v, ve, parts in rows:
+            body = transliterate(re.sub(r'\s+', ' ', ' '.join(parts)).strip())
+            if body:
+                out.append((c, v, ve, body))
+        if out:
+            yield bid, out
 
 
 def parse_book(text, book_id, state):
@@ -125,8 +239,6 @@ def parse_book(text, book_id, state):
         if verse is not None:
             body = clean(' '.join(buf))
             if body:
-                # sub-lettered verses (3a, 3b — the LXX and some editions print
-                # extra material this way) keep distinct keys: 3a -> 3003
                 out.append((chapter, sub_number(verse_key),
                             sub_number(verse_end or verse_key), body))
         buf, verse_end = [], None
@@ -172,7 +284,9 @@ def parse_book(text, book_id, state):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--usfm-dir', required=True,
-                    help='directory of .usfm files, or a zip of them')
+                    help='directory of .usfm files, a zip of them, or (with '
+                         '--format betacode) a directory of *.WH files')
+    ap.add_argument('--format', choices=['usfm', 'betacode'], default='usfm')
     ap.add_argument('--out-dir', required=True)
     ap.add_argument('--filename', required=True, help='output .sqlite3 name')
     ap.add_argument('--id', required=True, help='translation_id, e.g. grcbyz')
@@ -183,6 +297,7 @@ def main():
     ap.add_argument('--license', default='Public Domain')
     ap.add_argument('--license-url', default='')
     ap.add_argument('--source', default='')
+    ap.add_argument('--source-name', default='eBible.org')
     ap.add_argument('--edition', default='')
     ap.add_argument('--dialect', default='')
     ap.add_argument('--books-csv', default='', help='book catalogue to embed')
@@ -199,24 +314,32 @@ def main():
                             int(r['translations_containing'])
                             if r.get('translations_containing') else None))
 
-    # group the files by book, keeping the order they appear in
     books = {}          # book_id -> [(chapter, verse, verse_end, text)]
     order = []
     titles = {}
-    for fname, text in read_usfm_dir(a.usfm_dir):
-        m = re.search(r'\\id\s+([A-Z0-9]{3})', text)
-        if not m:
-            continue
-        bid = m.group(1)
-        rows = parse_book(text, bid, None)
-        if not rows:
-            continue
-        if bid not in books:
-            books[bid] = []
-            order.append(bid)
-            hm = re.search(r'\\h\s+(.+)', text) or re.search(r'\\toc2\s+(.+)', text)
-            titles[bid] = hm.group(1).strip() if hm else bid
-        books[bid].extend(rows)
+
+    if a.format == 'betacode':
+        for bid, rows in read_beta_dir(a.usfm_dir):
+            if bid not in books:
+                books[bid] = []
+                order.append(bid)
+                titles[bid] = bid
+            books[bid].extend(rows)
+    else:
+        for fname, text in read_usfm_dir(a.usfm_dir):
+            m = re.search(r'\\id\s+([A-Z0-9]{3})', text)
+            if not m:
+                continue
+            bid = m.group(1)
+            rows = parse_book(text, bid, None)
+            if not rows:
+                continue
+            if bid not in books:
+                books[bid] = []
+                order.append(bid)
+                hm = re.search(r'\\h\s+(.+)', text) or re.search(r'\\toc2\s+(.+)', text)
+                titles[bid] = hm.group(1).strip() if hm else bid
+            books[bid].extend(rows)
 
     path = os.path.join(a.out_dir, a.filename)
     if os.path.exists(path):
@@ -227,6 +350,9 @@ def main():
     sort_of = {c[0]: c[3] for c in catalog}
     test_of = {c[0]: c[2] for c in catalog}
     name_of = {c[0]: c[1] for c in catalog}
+
+    # canonical book order where the catalogue knows the book, source order else
+    order.sort(key=lambda b: (sort_of.get(b) is None, sort_of.get(b) or 0, b))
 
     db.executemany('INSERT INTO book VALUES (?,?,?,?,?)',
                    [(bid, titles[bid] or name_of.get(bid, bid), i + 1,
@@ -258,7 +384,7 @@ def main():
                (a.name, a.name, int(a.year) if a.year.isdigit() else None,
                 a.edition, a.scope, '', '', a.dialect, a.license,
                 'Public Domain' if 'public domain' in a.license.lower() else '',
-                a.license_url, 'eBible.org', a.source, '', total, len(order),
+                a.license_url, a.source_name, a.source, '', total, len(order),
                 len(chapters), words, nv.get('OT', 0), nv.get('NT', 0),
                 nv.get('DC', 0), '', ''))
     db.execute("INSERT INTO verse_fts(verse_fts) VALUES('rebuild')")
@@ -269,7 +395,8 @@ def main():
         ('generator', 'tools/usfm_to_sqlite.py'),
         ('source_translation_id', a.id),
         ('translation_name', a.name),
-        ('format', 'USFM (eBible.org)'),
+        ('format', 'USFM (eBible.org)' if a.format == 'usfm'
+         else 'beta code, converted to unaccented Unicode Greek'),
     ])
     db.commit()
     db.execute('ANALYZE')

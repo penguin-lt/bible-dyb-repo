@@ -106,5 +106,14 @@
   "year": 1905,
   "scope": "New Testament",
   "source": "https://ebible.org/Scriptures/details.php?id=copcnt"
+ },
+ {
+  "id": "grcwh",
+  "file": "Westcott and Hort Greek New Testament (1881).sqlite3",
+  "name": "Westcott and Hort Greek New Testament (1881)",
+  "language": "grc",
+  "year": 1881,
+  "scope": "New Testament",
+  "source": "https://github.com/byztxt/greektext-westcott-hort"
  }
 ]

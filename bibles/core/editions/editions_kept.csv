@@ -11,3 +11,4 @@ hbo,Hebrew Masoretic Text (Westminster Leningrad Codex),Hebrew Masoretic Text (W
 hboWLC,Westminster Leningrad Codex with Strong's and morphology,Westminster Leningrad Codex with Strong's and morphology.sqlite3,hbo,1008,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=hboWLC
 copbhc,"Coptic New Testament, Bohairic","Coptic New Testament, Bohairic.sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copbhc
 copcnt,"Coptic New Testament (Bohairic, narrative form)","Coptic New Testament (Bohairic, narrative form).sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copcnt
+grcwh,Westcott and Hort Greek New Testament (1881),Westcott and Hort Greek New Testament (1881).sqlite3,grc,1881,New Testament,Public Domain,https://github.com/byztxt/greektext-westcott-hort
