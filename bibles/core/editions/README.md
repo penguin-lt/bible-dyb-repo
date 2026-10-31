@@ -51,6 +51,15 @@ The beta code was converted to Unicode Greek. Its encoding inverts TLG beta code
 in two letters: `q` is psi and `y` is theta (`egraqa` → ἔγραψα, `yeov` → θεός).
 No accents were invented; bracketed doubtful readings are kept as printed.
 
+## The Vulgate duplicate
+
+`Vulgate (Clementine, 1598).sqlite3` here is the **same text** already shipped as
+`VULGATE.sqlite3` in `bibles-sqlite-rev8` and as
+`Clementine Vulgate (1598, Latin).sqlite3` in `bibles-lexicons-core`: verified
+verse for verse, all 35,809 verses and the same 73 books. It is included so this
+release is a complete set in one place and because the earlier copy has no
+full-text index. Nothing new was added to the library's content.
+
 ## Two editions with approximate verse boundaries
 
 The Sahidic Coptic text of Horner (1911) is the only public-domain Sahidic New
