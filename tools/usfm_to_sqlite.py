@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One SQLite database per critical edition, from eBible.org USFM.
+r"""One SQLite database per critical edition, from eBible.org USFM.
 
 Third source next to parquet_to_sqlite.py (verse corpus) and
 reference_to_sqlite.py (reference works). Produces the same schema as a
@@ -28,12 +28,32 @@ Also reads the verse-per-line beta code layout used by the byztxt texts
 (--transliterate), so those editions match the rest of the library.
 """
 import argparse
+import csv
+import json
 import os
 import re
 import sqlite3
 import time
 import unicodedata
 import zipfile
+
+BOOKS_CSV = None      # set from --books-csv; holds the shared book catalogue
+
+
+def verse_counts(path):
+    """{book_id: [verse count per chapter]} from the shared reference data.
+
+    Used only where a source gives continuous chapter text with no verse
+    divisions: the chapter is then split into one row per reference verse.
+    """
+    if not path or not os.path.exists(path):
+        return {}
+    counts = {}
+    with open(path, encoding='utf-8-sig') as f:
+        for row in csv.DictReader(f):
+            counts[row['book_id']] = [int(x) for x in row['verses_per_chapter'].split()]
+    return counts
+
 
 SCHEMA = """
 PRAGMA page_size = 4096;
@@ -281,12 +301,221 @@ def parse_book(text, book_id, state):
     return out
 
 
+
+# ------------------------------------------------------- other source formats
+# Three of the editions are not USFM: Nestle 1904 ships as one tab-separated
+# row per word, the Clementine Vulgate as OSIS-flavoured XML inside a compressed
+# SWORD module, and Letteris as one row per verse with a simple book code. Each
+# gets a small reader that returns the same shape the USFM reader returns:
+# [(book_id, [(chapter, verse, verse_end, text)])].
+
+BETA_USFM = {
+    'MT': 'MAT', 'MR': 'MRK', 'LU': 'LUK', 'JOH': 'JHN', 'AC': 'ACT',
+    'RO': 'ROM', '1CO': '1CO', '2CO': '2CO', 'GA': 'GAL', 'EP': 'EPH',
+    'PHP': 'PHP', 'COL': 'COL', '1TH': '1TH', '2TH': '2TH', '1TI': '1TI',
+    '2TI': '2TI', 'TIT': 'TIT', 'PHM': 'PHM', 'HE': 'HEB', 'JA': 'JAS',
+    '1PE': '1PE', '2PE': '2PE', '1JO': '1JN', '2JO': '2JN', '3JO': '3JN',
+    'JUDE': 'JUD', 'RE': 'REV',
+}
+OSIS_BOOK = {
+    'Gen': 'GEN', 'Exod': 'EXO', 'Lev': 'LEV', 'Num': 'NUM', 'Deut': 'DEU',
+    'Josh': 'JOS', 'Judg': 'JDG', 'Ruth': 'RUT', '1Sam': '1SA', '2Sam': '2SA',
+    '1Kgs': '1KI', '2Kgs': '2KI', '1Chr': '1CH', '2Chr': '2CH', 'Ezra': 'EZR',
+    'Neh': 'NEH', 'Esth': 'EST', 'Job': 'JOB', 'Ps': 'PSA', 'Prov': 'PRO',
+    'Eccl': 'ECC', 'Song': 'SNG', 'Isa': 'ISA', 'Jer': 'JER', 'Lam': 'LAM',
+    'Ezek': 'EZK', 'Dan': 'DAN', 'Hos': 'HOS', 'Joel': 'JOL', 'Amos': 'AMO',
+    'Obad': 'OBA', 'Jonah': 'JON', 'Mic': 'MIC', 'Nah': 'NAM', 'Hab': 'HAB',
+    'Zeph': 'ZEP', 'Hag': 'HAG', 'Zech': 'ZEC', 'Mal': 'MAL',
+    'Tob': 'TOB', 'Jdt': 'JDT', 'AddEsth': 'ADE', 'Wis': 'WIS', 'Sir': 'SIR',
+    'Bar': 'BAR', 'PrAzar': 'S3Y', 'Sus': 'SUS', 'Bel': 'BEL', 'EpJer': 'LJE',
+    '1Macc': '1MA', '2Macc': '2MA', '3Macc': '3MA', '4Macc': '4MA',
+    'Matt': 'MAT', 'Mark': 'MRK', 'Luke': 'LUK', 'John': 'JHN', 'Acts': 'ACT',
+    'Rom': 'ROM', '1Cor': '1CO', '2Cor': '2CO', 'Gal': 'GAL', 'Eph': 'EPH',
+    'Phil': 'PHP', 'Col': 'COL', '1Thess': '1TH', '2Thess': '2TH',
+    '1Tim': '1TI', '2Tim': '2TI', 'Titus': 'TIT', 'Phlm': 'PHM', 'Heb': 'HEB',
+    'Jas': 'JAS', '1Pet': '1PE', '2Pet': '2PE', '1John': '1JN', '2John': '2JN',
+    '3John': '3JN', 'Jude': 'JUD', 'Rev': 'REV',
+}
+
+
+def chunk_verses(text, n):
+    """Split a chunk of continuous text into n pieces at word boundaries."""
+    words = text.split()
+    if n <= 1 or len(words) <= n:
+        return [' '.join(words)] if words else []
+    target = max(1, round(len(words) / n))
+    out, cur = [], []
+    for w in words:
+        cur.append(w)
+        if len(cur) >= target and len(out) < n - 1:
+            out.append(' '.join(cur))
+            cur = []
+    if cur:
+        out.append(' '.join(cur))
+    return out
+
+
+def read_sword_module(srcdir):
+    """Read a SWORD zText module: the .bzs index lists (offset, compressed,
+    uncompressed) size triplets into the .bzz data file, one block per book."""
+    import struct
+    import zlib
+    base = os.path.join(srcdir, 'modules', 'texts', 'ztext')
+    moddir = os.path.join(base, os.listdir(base)[0])
+    zs = open(os.path.join(moddir, 'nt.bzs'), 'rb').read()
+    zz = open(os.path.join(moddir, 'nt.bzz'), 'rb').read()
+    if zs[:1] == b'x':
+        zs = zlib.decompress(zs)
+    if len(zs) % 12:
+        raise SystemExit(f'{zs!r:.40}: unexpected block index size')
+    out, start = [], 0
+    for i in range(len(zs) // 12):
+        off, csize, usize = struct.unpack('<iii', zs[i * 12:(i + 1) * 12])
+        if off != start:
+            raise SystemExit(f'block {i}: offset {off} != {start}')
+        chunk = zlib.decompress(zz[off:off + csize])
+        if len(chunk) != usize:
+            raise SystemExit(f'block {i}: {len(chunk)} != {usize}')
+        out.append(chunk.decode('utf-8'))
+        start = off + csize
+    return '\n'.join(out)
+
+
+def read_osis(path):
+    """OSIS-flavoured XML -> [(osis_book, [(chapter, verse, end, text)])].
+
+    Handles <verse sID="Matt.1.1"/> markers and <verse>...</verse> spans. When a
+    source divides chapters but not verses, the whole chapter is returned with
+    verse 1 as a placeholder; the caller splits it.
+    """
+    import html
+    xml = open(path, encoding='utf-8').read() if os.path.exists(path) else path
+    tokens = re.split(r'(<[^>]+>)', xml)
+    books, order = {}, []
+    book = chapter = verse = None
+    buf = []
+
+    def flush():
+        nonlocal buf
+        if book is not None and chapter is not None and buf:
+            body = html.unescape(re.sub(r'\s+', ' ', ''.join(buf))).strip()
+            if body:
+                books[book].append((chapter, verse or 1, verse or 1, body))
+        buf = []
+
+    for tok in tokens:
+        if tok.startswith('<'):
+            if tok.startswith(('<milestone', '<lb')):
+                continue
+            om = re.search(r'osisID="([^"]+)"', tok)
+            if om:
+                oid = om.group(1)
+                if tok.startswith('<div'):
+                    if '.' not in oid:
+                        flush()
+                        book, chapter, verse = oid, None, None
+                        if oid not in books:
+                            books[oid] = []
+                            order.append(oid)
+                elif tok.startswith('<chapter'):
+                    flush()
+                    parts = oid.split('.')
+                    chapter = int(parts[1])
+                    verse = None
+                elif tok.startswith('<verse'):
+                    if 'eID' in tok:
+                        flush()
+                        verse = None
+                    else:
+                        flush()
+                        parts = oid.split('.')
+                        if len(parts) >= 3:
+                            chapter = int(parts[1])
+                            verse = int(re.match(r'\d+', parts[2]).group(0))
+            continue
+        if chapter is not None:
+            buf.append(tok)
+    flush()
+    return [(b, books[b]) for b in order if books[b]]
+
+
+def read_nestle_tsv(path):
+    """Nestle 1904: one row per word, BCV column like 'Matt 1:1'."""
+    assert_ = 'BCV'
+    books, order = {}, []
+    verse_key = None
+    buf = []
+    book = chap = None
+
+    def flush():
+        if verse_key and buf:
+            body = re.sub(r'\s+', ' ', ' '.join(buf)).strip()
+            body = re.sub(r'\s+([,.;·])', r'\1', body)
+            books[book].append((chap, verse, verse, body))
+        buf.clear()
+
+    for line in open(path, encoding='utf-8-sig'):
+        parts = line.rstrip('\r\n').split('\t')
+        if not parts or not parts[0] or parts[0] == assert_:
+            continue
+        ref = parts[0].strip()          # e.g. 'Matt 1:1' or '1Cor 13:4a'
+        word = parts[1] if len(parts) > 1 else ''
+        m = re.match(r'^(\S+)\s+(\d+):(\d+)([a-z]?)$', ref)
+        if not m:
+            continue
+        obook, c, v, letter = m.group(1), int(m.group(2)), int(m.group(3)), m.group(4)
+        bid = OSIS_BOOK.get(obook)
+        if not bid:
+            raise SystemExit(f'unknown book code in Nestle CSV: {obook!r}')
+        key = (bid, c, v, letter)
+        if key != verse_key:
+            flush()
+            verse_key = key
+            book, chap, verse = bid, c, (v * 1000 + ord(letter)) if letter else v
+            if bid not in books:
+                books[bid] = []
+                order.append(bid)
+        buf.append(word)
+    flush()
+    return [(b, books[b]) for b in order]
+
+
+MASORETIC_ORDER = [
+    'GEN', 'EXO', 'LEV', 'NUM', 'DEU', 'JOS', 'JDG', 'RUT', '1SA', '2SA',
+    '1KI', '2KI', '1CH', '2CH', 'EZR', 'NEH', 'EST', 'JOB', 'PSA', 'PRO',
+    'ECC', 'SNG', 'ISA', 'JER', 'LAM', 'EZK', 'DAN', 'HOS', 'JOL', 'AMO',
+    'OBA', 'JON', 'MIC', 'NAM', 'HAB', 'ZEP', 'HAG', 'ZEC', 'MAL']
+
+
+def read_letteris_tsv(paths):
+    """Letteris: 'NNx<TAB>chapter<TAB>verse<TAB>flag<TAB>n<TAB>text' where the
+    book is a 1-based index into the Masoretic order (01O = Genesis)."""
+    books, order = {}, []
+    for path in sorted(paths):
+        for line in open(path, encoding='utf-8-sig'):
+            parts = line.rstrip('\r\n').split('\t')
+            if len(parts) < 6:
+                continue
+            code, c, v, text = parts[0].strip(), parts[1], parts[2], parts[5].strip()
+            if not re.fullmatch(r'\d{2}O', code) or not c.isdigit() or not v.isdigit():
+                continue
+            bid = MASORETIC_ORDER[int(code[:2]) - 1]
+            if bid not in books:
+                books[bid] = []
+                order.append(bid)
+            books[bid].append((int(c), int(v), int(v),
+                               re.sub(r'\s+', ' ', text).strip()))
+    return [(b, books[b]) for b in order]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--usfm-dir', required=True,
                     help='directory of .usfm files, a zip of them, or (with '
                          '--format betacode) a directory of *.WH files')
-    ap.add_argument('--format', choices=['usfm', 'betacode'], default='usfm')
+    ap.add_argument('--format', default='usfm',
+                    choices=['usfm', 'betacode', 'nestle', 'sword', 'letteris'],
+                    help='source format of --usfm-dir')
     ap.add_argument('--out-dir', required=True)
     ap.add_argument('--filename', required=True, help='output .sqlite3 name')
     ap.add_argument('--id', required=True, help='translation_id, e.g. grcbyz')
@@ -314,12 +543,54 @@ def main():
                             int(r['translations_containing'])
                             if r.get('translations_containing') else None))
 
+    global VERSE_COUNTS
+    VERSE_COUNTS = json.load(open(os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'data',
+        'verse_counts.json'), encoding='utf-8'))['verses_per_chapter']
+
     books = {}          # book_id -> [(chapter, verse, verse_end, text)]
     order = []
     titles = {}
 
-    if a.format == 'betacode':
-        for bid, rows in read_beta_dir(a.usfm_dir):
+    if a.format in ('betacode', 'nestle', 'sword', 'letteris'):
+        if a.format == 'betacode':
+            pairs = read_beta_dir(a.usfm_dir)
+            a.format_note = 'beta code, converted to unaccented Unicode Greek'
+        elif a.format == 'nestle':
+            pairs = read_nestle_tsv(os.path.join(a.usfm_dir, 'nestle1904.csv'))
+            a.format_note = ('one row per word (BCV/text/morphology), joined into '
+                             'verses; case and accents as published')
+        elif a.format == 'sword':
+            xml = read_sword_module(a.usfm_dir)
+            pairs = []
+            for obid, rows in read_osis(xml):
+                bid = OSIS_BOOK.get(obid, obid)
+                per_chapter = {}
+                for c, v, _, t in rows:
+                    per_chapter[c] = per_chapter.get(c, '') + ' ' + t
+                wanted = VERSE_COUNTS.get(bid)
+                out = []
+                for c in sorted(per_chapter):
+                    want = wanted[c - 1] if wanted and c - 1 < len(wanted) else 1
+                    parts = chunk_verses(per_chapter[c].strip(), want)
+                    out.extend((c, i + 1, i + 1, t) for i, t in enumerate(parts))
+                pairs.append((bid, out))
+            a.format_note = (
+                'SWORD zText module, block-decompressed to OSIS. The source '
+                'divides chapters but not verses, so chapter text was split into '
+                'one row per reference verse by word count: verse boundaries are '
+                'approximate, and this edition is for reading and full-text '
+                'search, not for citation at verse level')
+            a.approx = 1
+        else:
+            skip = {'Editornotes.utf8_txt', 'letteris.utf8_txt',
+                    'wlc_utf8.utf8_txt', 'Psalms_151.utf8_txt'}
+            paths = [os.path.join(a.usfm_dir, f) for f in os.listdir(a.usfm_dir)
+                     if f.endswith('.utf8_txt') and f not in skip
+                     and not f.endswith('_hebrew.utf8_txt')]
+            pairs = read_letteris_tsv(paths)
+            a.format_note = 'tab-separated verse rows, Masoretic book order'
+        for bid, rows in pairs:
             if bid not in books:
                 books[bid] = []
                 order.append(bid)
@@ -395,8 +666,10 @@ def main():
         ('generator', 'tools/usfm_to_sqlite.py'),
         ('source_translation_id', a.id),
         ('translation_name', a.name),
-        ('format', 'USFM (eBible.org)' if a.format == 'usfm'
-         else 'beta code, converted to unaccented Unicode Greek'),
+        ('format', getattr(a, 'format_note', '') if a.format != 'usfm'
+         else 'USFM (eBible.org)'),
+        ('verse_references', 'approximate' if getattr(a, 'approx', 0)
+         else 'exact'),
     ])
     db.commit()
     db.execute('ANALYZE')

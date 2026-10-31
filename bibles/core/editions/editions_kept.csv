@@ -11,4 +11,8 @@ hbo,Hebrew Masoretic Text (Westminster Leningrad Codex),Hebrew Masoretic Text (W
 hboWLC,Westminster Leningrad Codex with Strong's and morphology,Westminster Leningrad Codex with Strong's and morphology.sqlite3,hbo,1008,Old Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=hboWLC
 copbhc,"Coptic New Testament, Bohairic","Coptic New Testament, Bohairic.sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copbhc
 copcnt,"Coptic New Testament (Bohairic, narrative form)","Coptic New Testament (Bohairic, narrative form).sqlite3",cop,1905,New Testament,Public Domain,https://ebible.org/Scriptures/details.php?id=copcnt
+latVUC,"Vulgate (Clementine, 1598)","Vulgate (Clementine, 1598).sqlite3",lat,1598,Old and New Testaments,Public Domain,https://ebible.org/Scriptures/details.php?id=latVUC
 grcwh,Westcott and Hort Greek New Testament (1881),Westcott and Hort Greek New Testament (1881).sqlite3,grc,1881,New Testament,Public Domain,https://github.com/byztxt/greektext-westcott-hort
+grcnestle,Nestle Greek New Testament (1904),Nestle Greek New Testament (1904).sqlite3,grc,1904,New Testament,Public Domain,https://github.com/biblicalhumanities/Nestle1904
+copsahh,"Sahidic Coptic New Testament (Horner, 1911)","Sahidic Coptic New Testament (Horner, 1911).sqlite3",cop,1911,New Testament,Public Domain,https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=CopSahHorner
+hbolet,"Hebrew Bible (Letteris, 1866)","Hebrew Bible (Letteris, 1866).sqlite3",hbo,1866,Old Testament,Public Domain,https://github.com/benemanuel/letteris

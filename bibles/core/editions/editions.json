@@ -108,6 +108,15 @@
   "source": "https://ebible.org/Scriptures/details.php?id=copcnt"
  },
  {
+  "id": "latVUC",
+  "file": "Vulgate (Clementine, 1598).sqlite3",
+  "name": "Vulgate (Clementine, 1598)",
+  "language": "lat",
+  "year": 1598,
+  "scope": "Old and New Testaments",
+  "source": "https://ebible.org/Scriptures/details.php?id=latVUC"
+ },
+ {
   "id": "grcwh",
   "file": "Westcott and Hort Greek New Testament (1881).sqlite3",
   "name": "Westcott and Hort Greek New Testament (1881)",
@@ -115,5 +124,32 @@
   "year": 1881,
   "scope": "New Testament",
   "source": "https://github.com/byztxt/greektext-westcott-hort"
+ },
+ {
+  "id": "grcnestle",
+  "file": "Nestle Greek New Testament (1904).sqlite3",
+  "name": "Nestle Greek New Testament (1904)",
+  "language": "grc",
+  "year": 1904,
+  "scope": "New Testament",
+  "source": "https://github.com/biblicalhumanities/Nestle1904"
+ },
+ {
+  "id": "copsahh",
+  "file": "Sahidic Coptic New Testament (Horner, 1911).sqlite3",
+  "name": "Sahidic Coptic New Testament (Horner, 1911)",
+  "language": "cop",
+  "year": 1911,
+  "scope": "New Testament",
+  "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=CopSahHorner"
+ },
+ {
+  "id": "hbolet",
+  "file": "Hebrew Bible (Letteris, 1866).sqlite3",
+  "name": "Hebrew Bible (Letteris, 1866)",
+  "language": "hbo",
+  "year": 1866,
+  "scope": "Old Testament",
+  "source": "https://github.com/benemanuel/letteris"
  }
 ]

@@ -1,6 +1,6 @@
 # Critical editions
 
-Thirteen public-domain editions of the biblical text in the original languages,
+Seventeen public-domain editions of the biblical text in the original languages,
 published as the
 [`critical-editions`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/critical-editions)
 release. Same schema as every other translation database, so they sit in the same
@@ -9,6 +9,10 @@ folder and join on `(book_id, chapter, verse)`.
 | file | language | scope |
 |---|---|---|
 | `Westcott and Hort Greek New Testament (1881).sqlite3` | grc | New Testament |
+| `Nestle Greek New Testament (1904).sqlite3` | grc | New Testament |
+| `Hebrew Bible (Letteris, 1866).sqlite3` | hbo | Old Testament |
+| `Vulgate (Clementine, 1598).sqlite3` | lat | Old and New Testaments |
+| `Sahidic Coptic New Testament (Horner, 1911).sqlite3` | cop | New Testament |
 | `Patriarchal Greek New Testament (1904, Antoniades).sqlite3` | grc | New Testament |
 | `Greek New Testament, Majority Text (Robinson-Pierpont).sqlite3` | grc | New Testament |
 | `Solid Rock Greek New Testament (Scholar's Edition).sqlite3` | grc | New Testament |
@@ -47,12 +51,37 @@ The beta code was converted to Unicode Greek. Its encoding inverts TLG beta code
 in two letters: `q` is psi and `y` is theta (`egraqa` → ἔγραψα, `yeov` → θεός).
 No accents were invented; bracketed doubtful readings are kept as printed.
 
+## Two editions with approximate verse boundaries
+
+The Sahidic Coptic text of Horner (1911) is the only public-domain Sahidic New
+Testament in digital form, and it divides chapters but not verses. Its chapters
+are split into one row per reference verse by word count, so the text is
+continuous and complete but verse boundaries are approximate; the `note` table
+records `verse_references = approximate`. The two verse-level Sahidic editions
+(Sahidica and the Sahidica Manuscripts) are copyrighted.
+
+All other editions give exact verse references.
+
+## Sources that are not USFM
+
+Four editions do not come from eBible.org USFM and need their own readers, all
+in `tools/usfm_to_sqlite.py`:
+
+| edition | format | reader |
+|---|---|---|
+| Westcott and Hort | Robinson beta code, verse per line | `--format betacode` |
+| Nestle 1904 | one row per word, tab-separated | `--format nestle` |
+| Sahidic (Horner) | SWORD zText module | `--format sword` |
+| Letteris 1866 | tab-separated verse rows | `--format letteris` |
+
 ## Excluded, and why
 
 SBLGNT (© SBL/Logos), Family 35 (© Pickering) and Sahidica (© Wells) are
-copyrighted. Rahlfs, NA28/UBS5 and BHS/BHQ are in copyright too. Nestle 1904 is public domain but is not distributed as
-USFM by eBible.org — it is available as XML/CSV from biblicalhumanities and would
-need its own converter. Westcott–Hort has been added from the byztxt text.
+copyrighted. Rahlfs, NA28/UBS5 and BHS/BHQ are in copyright too. Still missing, and why:
+
+- **A verse-level Sahidic text** — the public-domain one (Horner) is chapter-level; the verse-level ones (Sahidica, Sahidica Manuscripts) are copyrighted.
+- **Swete's Septuagint** — public domain, but the digital transcriptions (First1KGreek, lxx-swete) are CC BY-SA.
+- **A Syriac Peshitta** — no public-domain digitisation with a clear licence was found.
 
 The two public-domain Coptic texts are both **Bohairic**; no public-domain
 Sahidic edition exists, so there is no Sahidic file.
