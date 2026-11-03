@@ -113,3 +113,13 @@ copyrighted. Rahlfs, NA28/UBS5 and BHS/BHQ are in copyright too. Still missing, 
 
 The two public-domain Coptic texts are both **Bohairic**; no public-domain
 Sahidic edition exists, so there is no Sahidic file.
+
+## Plain-text and EPUB editions
+
+Every database in `critical-editions.zip` is also published as readable files,
+generated from the same SQLite sources by `tools/export_formats.py`:
+
+- **`critical-editions.txt.zip`** - 17 plain-text files
+- **`critical-editions.epub.zip`** - 17 EPUB 3 files
+
+Matching `*-SHA256SUMS.txt` files are published alongside each zip.

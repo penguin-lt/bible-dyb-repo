@@ -112,3 +112,17 @@ exist and are not near-duplicates of each other:
   a text we already have, so not added.
 - **Revised Version 1895** - public domain but 19th century, and 40% verse
   overlap with the ASV already held.
+
+## Plain-text and EPUB editions
+
+Every database in `bibles-core-english.zip` is also published as readable
+files, generated directly from the SQLite source of truth by
+`tools/export_formats.py`:
+
+- **`bibles-core-english.txt.zip`** - 84 plain-text files (one per translation)
+- **`bibles-core-english.epub.zip`** - 84 EPUB 3 files (one per translation)
+
+Each `.txt` begins with the title, edition note, licence and source URL, then
+books as banners, chapters as `--- Chapter N ---`, and verses as `N  text`.
+Each `.epub` is a valid EPUB 3 with a table of contents and one XHTML file per
+book. Matching `*-SHA256SUMS.txt` files are published alongside each zip.
