@@ -67,3 +67,14 @@ fi
 
 echo "sources ready under $RAW"
 du -sh "$RAW"
+
+# --- NT critical additions (public domain) ---
+# Tregelles GNT 1864: verse-per-line transcription of the 1864 London print
+[ -f "$RAW/tregelles/TNT2.txt" ] || curl -sL -o "$RAW/tregelles/TNT2.txt" \
+  "https://raw.githubusercontent.com/mrgreekgeek/tregelles-greek-nt/main/verse-per-line/TNT2.txt"
+# CrossWire SWORD zText modules (public domain), NT portions:
+for M in Peshitta VulgSistine CSlElizabeth; do
+  [ -f "/tmp/$M.zip" ] || curl -sL -o "/tmp/$M.zip" \
+    "https://www.crosswire.org/ftpmirror/pub/sword/packages/rawzip/$M.zip"
+done
+# built with tools/build_nt_critical.py

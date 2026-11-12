@@ -151,5 +151,41 @@
   "year": 1866,
   "scope": "Old Testament",
   "source": "https://github.com/benemanuel/letteris"
+ },
+ {
+  "id": "grctreg",
+  "file": "Tregelles Greek New Testament 1864.sqlite3",
+  "name": "Tregelles Greek New Testament 1864",
+  "language": "grc",
+  "year": 1864,
+  "scope": "New Testament",
+  "source": "https://github.com/mrgreekgeek/tregelles-greek-nt (CSNTM/Tyndale House digitisation of the 1864 London print; the print is public domain)"
+ },
+ {
+  "id": "syrpesh",
+  "file": "Syriac Peshitta New Testament (BFBS 1905).sqlite3",
+  "name": "Syriac Peshitta New Testament (BFBS 1905)",
+  "language": "syr",
+  "year": 1905,
+  "scope": "New Testament",
+  "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=Peshitta (BFBS 1905 print of the ancient Peshitta; public domain)"
+ },
+ {
+  "id": "latVulSist",
+  "file": "Vulgate, Sixtine Edition 1590, New Testament.sqlite3",
+  "name": "Vulgate, Sixtine Edition 1590, New Testament",
+  "language": "la",
+  "year": 1590,
+  "scope": "New Testament",
+  "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=VulgSistine (Sixtine Vulgate 1590; public domain)"
+ },
+ {
+  "id": "chuEliz",
+  "file": "Church Slavonic Elizabeth Bible 1757, New Testament.sqlite3",
+  "name": "Church Slavonic Elizabeth Bible 1757, New Testament",
+  "language": "chu",
+  "year": 1757,
+  "scope": "New Testament",
+  "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=CSlElizabeth (1757 Elizabeth Bible via rusbible.ru; underlying 16th-century Slavonic version is public domain)"
  }
 ]

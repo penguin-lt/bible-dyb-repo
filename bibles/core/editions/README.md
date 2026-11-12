@@ -123,3 +123,35 @@ generated from the same SQLite sources by `tools/export_formats.py`:
 - **`critical-editions.epub.zip`** - 17 EPUB 3 files
 
 Matching `*-SHA256SUMS.txt` files are published alongside each zip.
+
+## New Testament critical editions added 2026-11-03 (21 total)
+
+Four further legally obtainable NT editions, all public domain, were added
+after surveying eBible's Greek catalogue (only copyrighted grcf35 and grcsbl
+were new there) and the CrossWire module library:
+
+| file | what it is | source |
+|---|---|---|
+| `Tregelles Greek New Testament 1864.sqlite3` | Tregelles' 1864 Greek critical edition, 27 books, 7,947 verses, exact verse refs | CSNTM/Tyndale House digitisation of the 1864 London print (the print is PD) |
+| `Syriac Peshitta New Testament (BFBS 1905).sqlite3` | Syriac Peshitta NT, BFBS 1905 print, 27 books | CrossWire `Peshitta` module |
+| `Vulgate, Sixtine Edition 1590, New Testament.sqlite3` | Sixtine Vulgate 1590 NT (distinct from the Clementine 1598 already held), 27 books | CrossWire `VulgSistine` module |
+| `Church Slavonic Elizabeth Bible 1757, New Testament.sqlite3` | Church Slavonic NT, 1757 Elizabeth Bible print, 27 books | CrossWire `CSlElizabeth` module |
+
+The three SWORD-module editions divide chapters but not verses, so verse rows
+were reconstructed by word count and are marked `verse_references =
+approximate` (same treatment as the Sahidic NT already held).
+
+### Sought and not added, with reasons
+
+- **SBLGNT, NA28, UBS4/UBS5** - copyrighted (SBL / Nestle-Aland / UBS).
+- **Statistical Restoration GNT** - CC BY 4.0, not public domain.
+- **VulgConte (2009) and VulgHetzenauer (1914)** - reprints of the Sixtine /
+  Clementine Vulgate text now held; near-duplicates.
+- **Wulfila Gothic NT and Western Armenian NT 1853** - public domain, but the
+  machine-readable CrossWire modules carry no chapter/verse structure, so
+  building them would have meant inventing verse boundaries; not added rather
+  than shipped with fabricated references.
+- **Lachmann, Griesbach, Scholz, Souter, Wordsworth-White, von Soden** -
+  public-domain editions, but only available as poor-quality OCR scans
+  (archive.org) without reliable verse alignment.
+- **grcf35 (Pickering)** - (c) 2020 Wilbur N. Pickering.
