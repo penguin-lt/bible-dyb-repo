@@ -126,3 +126,34 @@ Each `.txt` begins with the title, edition note, licence and source URL, then
 books as banners, chapters as `--- Chapter N ---`, and verses as `N  text`.
 Each `.epub` is a valid EPUB 3 with a table of contents and one XHTML file per
 book. Matching `*-SHA256SUMS.txt` files are published alongside each zip.
+
+## Creative Commons translations
+
+The public-domain gate was widened on 2026-11-12 to include Creative Commons
+licences (BY / BY-SA / CC0), per request. Three CC BY-SA 4.0 English editions
+were added (84 -> 87 databases):
+
+- **Open English Translation, Readers' Version** (OET-RV) - modern open-licensed
+  translation, includes the deuterocanon. CC BY-SA 4.0.
+- **Open English Translation, Literal Version** (OET-LV) - NT literal companion.
+  CC BY-SA 4.0.
+- **Unlocked Dynamic Bible** (UDB v12) - dynamic paraphrase (Door43/Wycliffe).
+  CC BY-SA 4.0. Verified distinct: 0.6% of verses word-identical to the T4T
+  already held.
+
+Already-held works whose licence is in fact CC: LSV (CC BY-SA 4.0), PEV
+(CC BY-SA 4.0), ULT/UST/ULB (CC BY-SA 4.0), OEB (CC0 public-domain dedication),
+FBV (CC BY-ND 4.0).
+
+### Checked and NOT added
+
+- **Lexham English Bible (LEB)** - despite some web claims of CC BY-SA, its own
+  USFM front matter (v20230701) states a custom non-CC licence (free to give
+  away, not to sell standalone, annual reporting above 1,000 verses). Not a
+  Creative Commons work.
+- **Dynamic English Bible (DEB2020, BibleCorps)** - CC BY-SA family, but marked
+  "Checking (not ready)" - draft.
+- **AFINT (African International NT)** - CC BY-SA English NTs exist on
+  open.bible, but no clean machine-readable full-text download was reachable.
+- NC/ND-licensed English works (e.g. FBV is ND) are kept only where already
+  held; nothing new with NC/ND terms was added.
