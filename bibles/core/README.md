@@ -1,6 +1,6 @@
 # The curated edition — English Bibles, critical editions, lexicons
 
-`bibles/core/` defines a focused subset of the two datasets: 85 Scripture
+`bibles/core/` defines a focused subset of the two datasets: 90 Scripture
 databases and 25 lexical databases, published together as the
 [`bibles-lexicons-core`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)
 release, plus **12 further critical editions** added separately as
@@ -119,8 +119,8 @@ Every database in `bibles-core-english.zip` is also published as readable
 files, generated directly from the SQLite source of truth by
 `tools/export_formats.py`:
 
-- **`bibles-core-english.txt.zip`** - 84 plain-text files (one per translation)
-- **`bibles-core-english.epub.zip`** - 84 EPUB 3 files (one per translation)
+- **`bibles-core-english.txt.zip`** - 90 plain-text files (one per translation)
+- **`bibles-core-english.epub.zip`** - 90 EPUB 3 files (one per translation)
 
 Each `.txt` begins with the title, edition note, licence and source URL, then
 books as banners, chapters as `--- Chapter N ---`, and verses as `N  text`.
@@ -157,3 +157,33 @@ FBV (CC BY-ND 4.0).
   open.bible, but no clean machine-readable full-text download was reachable.
 - NC/ND-licensed English works (e.g. FBV is ND) are kept only where already
   held; nothing new with NC/ND terms was added.
+
+## Malayalam translations
+
+Added 2026-10-29 (87 -> 90 databases), per request, under the same
+PD / CC BY-SA / CC0 / Unlicense gate:
+
+- **Sathyavedapusthakam 1910 (Malayalam Bible)** - the 1910 BFBS Malayalam
+  Bible in its original orthography, 66 books / 31,098 verses. Public domain
+  (TFBF digitization marked Public Domain; CrossWire module Mal1910 states
+  "Distribution License Public Domain"). CC0/Public Domain Mark 1.0.
+- **Malayalam Sathyavedapusthakam 1910, Contemporary Orthography (2015)** -
+  the same 1910 text re-spelled in contemporary Malayalam orthography by the
+  Free Bible Foundation (eBible `mal2015`); its details page states CC BY-SA
+  4.0. 31,098 verses. Verified distinct from the 1910 original: only 58.9% of
+  verses are identical (orthographic modernization only) - both are kept as
+  separately licensed editions.
+- **Bailey's Malayalam New Testament 1829** - Benjamin Bailey's 1829 NT, the
+  first Malayalam Bible translation, NT only (27 books / 7,739 verses).
+  GitHub repo licensed under the Unlicense (public domain). The 1829 print
+  repeats some verse numbers within chapters (section numbering); the repeats
+  were merged into single rows, no text lost. 125 verses still carry
+  unconverted .SFM markup (`<lb/>`, `<lg ...>`), preserved verbatim.
+
+### Malayalam works checked and NOT added
+
+- **Indian Revised Version (eBible `mal`)** - copyright Bridge Communication
+  Systems. Not PD, not CC.
+- **Biblica Open Malayalam Contemporary Version (eBible `malc`)** - copyright
+  Biblica.
+- **SanskritBible Malayalam (eBible `sanmal`)** - copyright SanskritBible.in.

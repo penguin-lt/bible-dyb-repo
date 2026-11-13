@@ -21,6 +21,13 @@ is row-for-row identical to its counterpart in the full releases.
 | `SYNODAL` | Russian Synodal Bible | Russian |
 | `VANDYCK` | Arabic Van Dyck Bible | Arabic |
 
+Note (2026-10-29): three **qualifying Malayalam translations were added back** to
+this edition (see `README.md`): `malsvp1910` (Sathyavedapusthakam 1910, public
+domain), `mal2015` (1910 text in contemporary orthography, CC BY-SA 4.0) and
+`malbailey1829` (Bailey NT 1829, Unlicense). The three Malayalam modules listed
+above stay dropped: `MALIRV` and `MALMCV` are plain copyright, and `MALSVP` is
+superseded by the open-licensed `mal2015` / `malsvp1910` builds.
+
 ## Translations kept (85)
 
 81 English-dialect translations, plus the critical editions:
