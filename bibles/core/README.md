@@ -1,7 +1,7 @@
 # The curated edition — English Bibles, critical editions, lexicons
 
-`bibles/core/` defines a focused subset of the two datasets: 90 Scripture
-databases and 25 lexical databases, published together as the
+`bibles/core/` defines a focused subset of the two datasets: 126 Scripture
+databases and 25 lexical databases. The original English+Malayalam set is published as the
 [`bibles-lexicons-core`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)
 release, plus **12 further critical editions** added separately as
 [`critical-editions`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/critical-editions)
@@ -119,8 +119,8 @@ Every database in `bibles-core-english.zip` is also published as readable
 files, generated directly from the SQLite source of truth by
 `tools/export_formats.py`:
 
-- **`bibles-core-english.txt.zip`** - 90 plain-text files (one per translation)
-- **`bibles-core-english.epub.zip`** - 90 EPUB 3 files (one per translation)
+- **`bibles-core-english.txt.zip`** - 90 plain-text files (one per translation in that release)
+- **`bibles-core-english.epub.zip`** - 90 EPUB 3 files (one per translation in that release)
 
 Each `.txt` begins with the title, edition note, licence and source URL, then
 books as banners, chapters as `--- Chapter N ---`, and verses as `N  text`.
@@ -187,3 +187,62 @@ PD / CC BY-SA / CC0 / Unlicense gate:
 - **Biblica Open Malayalam Contemporary Version (eBible `malc`)** - copyright
   Biblica.
 - **SanskritBible Malayalam (eBible `sanmal`)** - copyright SanskritBible.in.
+
+## Major Latin-script languages
+
+Added 2026-10-29 (90 -> 126 databases), per request, restricted to languages
+written in the **Latin script** and under the same PD / CC BY / CC BY-SA /
+CC0 / Unlicense gate. 36 editions in 26 languages, 1,000,383 verses:
+
+| language | editions added |
+|---|---|
+| Spanish | Reina-Valera 1909 (PD); ULB es-419 (CC BY-SA 4.0) |
+| French | Louis Segond 1910 (PD); ULB fr (CC BY-SA 4.0) |
+| Portuguese | NVA (CC BY-SA 4.0, CrossWire); ULB pt-BR (CC BY-SA 4.0) |
+| German | Lutherbibel 1912 (PD); Elberfelder 1905 (PD) |
+| Italian | Diodati 1885 (PD); Riveduta 1927 (PD) |
+| Dutch | Statenvertaling 1917 (PD); Petrus Canisius 1939, Catholic canon (PD) |
+| Romanian | Biblia Liberă, NT, Latin script (PD; upstream draft note kept) |
+| Czech | Bible Kralická 1613 (PD) |
+| Croatian | Sveta Biblija (Šarić), Catholic canon (PD) |
+| Hungarian | Károli 1908 (PD, CrossWire) |
+| Finnish | Biblia 1776 with apocrypha (PD, CrossWire) |
+| Swedish | Svenska Bibeln 1917 with apocrypha (PD, CrossWire) |
+| Norwegian | Bibelen på Norsk 1930 (PD, CrossWire) |
+| Danish | OT 1871 + NT 1907, original orthography (PD, CrossWire) |
+| Polish | Biblia Gdańska 1881 (PD, CrossWire) |
+| Latvian | Glück 8th edition (PD, CrossWire) |
+| Slovenian | Stritar 1882, NT + Psalms text in a 73-book module (PD, CrossWire) |
+| Albanian | Bibla Shqiptare (PD, CrossWire) |
+| Vietnamese | Kinh Thánh 1934 (PD); ULB vi (CC BY-SA 4.0) |
+| Indonesian | ULB id (CC BY-SA 4.0); covers the Malay language family |
+| Tagalog/Filipino | Ang Biblia 1905 (PD, CrossWire); ULB tl (CC BY-SA 4.0) |
+| Cebuano | ULB ceb (CC BY-SA 4.0) |
+| Ilocano | ULB ilo (CC BY-SA 4.0) |
+| Swahili | Krapf 1850 NT portions (PD); ULB sw (CC BY-SA 4.0) |
+| Hausa | ULB ha (CC BY-SA 4.0) |
+| Esperanto | Londona Biblio 1910 (PD) |
+| Haitian Creole | Bib La 1985 (PD: 1985 notice without US renewal) |
+
+Sources: eBible.org USFM (details page states Public Domain for each), CrossWire
+SWORD modules via scrollmapper/bible_databases JSON (ModInfo.jsp states
+"Distribution License Public Domain" / "CC BY-SA 4.0"), Door43-Catalog ULB
+repos (LICENSE.md = CC BY-SA 4.0). Empty verse rows present in some SWORD
+modules are absent rows and are not stored. All 126 databases are also
+published together with clean asset names on the
+[`bibles-core-multilingual`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-core-multilingual)
+release (`bibles-core.zip`); the earlier `bibles-lexicons-core` release is
+untouched.
+
+### Latin-script languages checked with NO qualifying edition (not added)
+
+Turkish, Malay (zlmKSZI is ©), Lithuanian (LtKBB ©), Estonian, Slovak,
+Catalan, Galician, Basque, Afrikaans (Afr1953 ©), Somali (SomKQA ©),
+Yoruba, Igbo, Zulu, Xhosa, Shona/Ndebele (GFDL only - outside the gate),
+and all non-Latin-script languages (Arabic, Greek, Hebrew, Russian, Ukrainian,
+Chinese, Japanese, Korean, Hindi, Bengali, Tamil, ... - Greek/Hebrew/Latin
+critical editions are already in `editions/`). CrossWire modules marked
+"Copyrighted; permission to distribute granted to CrossWire" (e.g. SpaRV1909,
+FreSegond1910, RomCor) are NOT redistributable by us and were not used; where
+the same text is PD at the source (eBible details page) the eBible copy was
+used instead.
