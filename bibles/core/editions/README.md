@@ -1,6 +1,6 @@
 # Critical editions
 
-Seventeen public-domain editions of the biblical text in the original languages,
+Twenty-two public-domain editions of the biblical text in the original languages,
 published as the
 [`critical-editions`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/critical-editions)
 release. Same schema as every other translation database, so they sit in the same
@@ -25,6 +25,7 @@ folder and join on `(book_id, chapter, verse)`.
 | `Westminster Leningrad Codex with Strong's and morphology.sqlite3` | hbo | Old Testament |
 | `Coptic New Testament, Bohairic.sqlite3` | cop | New Testament |
 | `Coptic New Testament (Bohairic, narrative form).sqlite3` | cop | New Testament |
+| `Elizabeth Bible 1751 (Church Slavonic).sqlite3` | chu | OT+NT+deuterocanon (78 books) |
 
 `editions_kept.csv` is the machine-readable manifest; `editions.json` records how
 each was built. The builder is `tools/usfm_to_sqlite.py`, which reads USFM from
@@ -155,3 +156,14 @@ approximate` (same treatment as the Sahidic NT already held).
   public-domain editions, but only available as poor-quality OCR scans
   (archive.org) without reliable verse alignment.
 - **grcf35 (Pickering)** - (c) 2020 Wilbur N. Pickering.
+
+## Elizabeth Bible (Church Slavonic, 1751)
+
+Added 2026-10-29: the **full** Elizabeth Bible (Елизаветинская Библия) from
+CrossWire module `CSlElizabeth` ("Distribution License Public Domain" on
+ModInfo), read via scrollmapper/bible_databases JSON so verse references are
+exact — 78 books / 36,000 verses, including the 10 deuterocanonical books
+(Prayer of Manasseh, 1-2 Esdras, Tobit, Judith, Wisdom, Sirach, Baruch,
+Epistle of Jeremiah, 1-3 Maccabees). The NT-only `chuEliz` edition already in
+this set (built earlier from the same module's NT part) has word-count-
+reconstructed, approximate verse boundaries and is kept for continuity.

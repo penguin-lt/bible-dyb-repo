@@ -187,5 +187,16 @@
   "year": 1757,
   "scope": "New Testament",
   "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=CSlElizabeth (1757 Elizabeth Bible via rusbible.ru; underlying 16th-century Slavonic version is public domain)"
+ },
+ {
+  "id": "chuEliz1751",
+  "file": "Elizabeth Bible 1751 (Church Slavonic).sqlite3",
+  "name": "Elizabeth Bible 1751 (Church Slavonic)",
+  "language": "chu",
+  "year": 1751,
+  "scope": "Old and New Testaments + deuterocanon (78 books)",
+  "source": "https://www.crosswire.org/sword/modules/ModInfo.jsp?modName=CSlElizabeth (full 78-book module via scrollmapper/bible_databases JSON; exact verse indexes; 'Distribution License Public Domain')",
+  "built_with": "tools/json_to_sqlite.py",
+  "note": "Full Elizabeth Bible (Елизаветинская Библия 1751). The NT-only chuEliz edition already held was built from the same module's NT part with word-count-reconstructed (approximate) verse boundaries; this edition has exact verse references."
  }
 ]
