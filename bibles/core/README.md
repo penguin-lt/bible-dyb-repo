@@ -1,6 +1,6 @@
 # The curated edition — English Bibles, critical editions, lexicons
 
-`bibles/core/` defines a focused subset of the two datasets: 126 Scripture
+`bibles/core/` defines a focused subset of the two datasets: 130 Scripture
 databases and 25 lexical databases. The original English+Malayalam set is published as the
 [`bibles-lexicons-core`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)
 release, plus **12 further critical editions** added separately as
@@ -246,3 +246,33 @@ critical editions are already in `editions/`). CrossWire modules marked
 FreSegond1910, RomCor) are NOT redistributable by us and were not used; where
 the same text is PD at the source (eBible details page) the eBible copy was
 used instead.
+
+## Catholic Bibles in the public domain
+
+Added 2026-10-29 (126 -> 130 databases), per request. All are CrossWire SWORD
+modules whose ModInfo page states "Distribution License Public Domain"
+(read via scrollmapper/bible_databases JSON):
+
+- **La Bible Crampon 1923** (French Catholic) - 73 books incl. the
+  deuterocanon (Tobit, Judith, Wisdom, Sirach, Baruch, Greek Esther,
+  1-2 Maccabees, ...). 35,486 verses.
+- **Biblia Platense (Straubinger) 1958** (Spanish Catholic, La Plata) -
+  78 books incl. deuterocanon. 35,791 verses.
+- **Statenvertaling met apocriefen** (Dutch Catholic) - the 1917
+  Statenvertaling with the 15 deuterocanonical books, 83 books.
+  36,939 verses. Same base text as the Protestant-canon `nld` edition
+  already held, plus the apocrypha.
+- **Katholische Bibelübersetzung Rießler-Storr (Grünewaldbibel 1924)**
+  (German Catholic) - ModInfo notes "Katholische Bibelübersetzung";
+  the module carries the 66-book canon. 30,956 verses.
+
+Catholic-canon works already in the collection: Douay-Rheims 1899 and the
+Catholic Public Domain Version (English), World English Bible Catholic
+Edition, Riveduta 1927 (Italian), Petrus Canisiusvertaling 1939 (Dutch),
+Sveta Biblija Šarić (Croatian), OET-RV (CC BY-SA 4.0, Catholic order),
+and the Clementine Vulgate among the critical editions.
+
+Checked and not added: PorCap (Capuchinhos, © non-commercial CrossWire-only
+permission), FrePGR (PD but the module has no deuterocanon), FreBA /
+FreVulgGlaire / SpaScioNT (no machine-readable mirror with verse indexes),
+KJVA (GPL, outside the gate), HunKNB Káldi-Neovulgáta (©).
