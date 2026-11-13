@@ -318,3 +318,87 @@ Bible 1751 (Church Slavonic)** is in `editions/`.
   text is already held (Swe1917).
 - **NorBroed, RusSynodalLIO, RusCARS, ukr1996, dan1931, fin (1976), isl** -
   copyrighted or CrossWire-only permission.
+
+## Greek New Testament manuscripts and editions (added 2026-10-29)
+
+978 manuscript transcriptions (132 papyri, 158 uncials, 591 minuscules,
+55 lectionaries, 42 other) plus 3 Greek NT editions, all legally acquirable
+with a verified licence statement, published as the
+[`nt-manuscripts`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/nt-manuscripts)
+release (separate from the older releases, which are untouched). Per-witness
+manifest: `manuscripts_kept.csv` (one row per witness, with sha256); the 3
+editions are appended to `translations_kept.csv`.
+
+- **INTF Liste transcriptions** (Institut für neutestamentliche Textforschung,
+  Münster), 571 witnesses, via gntcollations.com v2.0.0
+  (`normansimonr/gntcollations`, `raw_data/manuscripts/*.xml`) — each XML header
+  and the repo README state **CC BY 4.0**. 5,470 further Liste entries have no
+  published digital transcription ("No Transcription Available") and are not
+  acquirable as text.
+- **IGNTP transcriptions** (International Greek New Testament Project, Univ. of
+  Birmingham), 1,426 files / 608 sigla (John, Romans, 1 Cor, Gal, Eph, Phil,
+  Col, Phlm in individual witnesses), bulk zips from
+  itseeweb.cal.bham.ac.uk — the IGNTP transcriptions page states **CC BY 4.0**.
+  180 files whose own header says CC BY-**NC**-SA and 3 NA-basetext files are
+  excluded. Where a siglum also exists in the INTF set, the IGNTP verses were
+  merged into the same DB (INTF reading wins on conflict).
+- **Robinson–Pierpont Byzantine Textform 2018** (`byztxt/byzantine-majority-text`,
+  Unlicense; BYZ.xml header "This file is in the Public Domain") — PD.
+- **Tischendorf 8th ed. 1869–72** (`morphgnt/tischendorf-data` OSIS, header
+  "Public Domain. Copy freely.") — PD.
+- **SBLGNT 2010** (`morphgnt/sblgnt`) — the SBLGNT EULA page (sblgnt.com/license)
+  is the full text of **CC BY 4.0** (morphology CC BY-SA).
+
+### Greek NT material checked and NOT added
+
+- CrossWire Greek modules WHNU / TR / Byz are now `CC BY-NC-SA 4.0` and LXX
+  `Copyrighted; free non-commercial` in their SWORD confs — NC, excluded.
+- Codex Sinaiticus Project transcription (codexsinaiticus.org) is
+  CC BY-NC-SA 3.0 — excluded (its NT is covered by the INTF/IGNTP uncial 01
+  transcriptions above).
+- Nestle–Aland NA27/NA28 and UBS texts — copyrighted. IGNTP files with CC
+  BY-NC-SA headers (180) — NC, excluded. IGNTP ECM apparatus data — not open.
+- papyri.info / idp.data (CC BY 3.0) holds diplomatic transcriptions of many
+  more papyri, but all NT papyri are already covered by the INTF set above.
+
+## Greek New Testament manuscripts and editions (added 2026-10-29)
+
+978 manuscript transcriptions (132 papyri, 158 uncials, 591 minuscules,
+55 lectionaries, 42 other) plus 3 Greek NT editions, all legally acquirable
+with a verified licence statement, published as the
+[`nt-manuscripts`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/nt-manuscripts)
+release (separate from the older releases, which are untouched). Per-witness
+manifest: `manuscripts_kept.csv` (one row per witness, with sha256); the 3
+editions are appended to `translations_kept.csv`.
+
+- **INTF Liste transcriptions** (Institut für neutestamentliche Textforschung,
+  Münster), 571 witnesses, via gntcollations.com v2.0.0
+  (`normansimonr/gntcollations`, `raw_data/manuscripts/*.xml`) — each XML header
+  and the repo README state **CC BY 4.0**. 5,470 further Liste entries have no
+  published digital transcription ("No Transcription Available") and are not
+  acquirable as text.
+- **IGNTP transcriptions** (International Greek New Testament Project, Univ. of
+  Birmingham), 1,426 files / 608 sigla (John, Romans, 1 Cor, Gal, Eph, Phil,
+  Col, Phlm in individual witnesses), bulk zips from
+  itseeweb.cal.bham.ac.uk — the IGNTP transcriptions page states **CC BY 4.0**.
+  180 files whose own header says CC BY-**NC**-SA and 3 NA-basetext files are
+  excluded. Where a siglum also exists in the INTF set, the IGNTP verses were
+  merged into the same DB (INTF reading wins on conflict).
+- **Robinson–Pierpont Byzantine Textform 2018** (`byztxt/byzantine-majority-text`,
+  Unlicense; BYZ.xml header "This file is in the Public Domain") — PD.
+- **Tischendorf 8th ed. 1869–72** (`morphgnt/tischendorf-data` OSIS, header
+  "Public Domain. Copy freely.") — PD.
+- **SBLGNT 2010** (`morphgnt/sblgnt`) — the SBLGNT EULA page (sblgnt.com/license)
+  is the full text of **CC BY 4.0** (morphology CC BY-SA).
+
+### Greek NT material checked and NOT added
+
+- CrossWire Greek modules WHNU / TR / Byz are now `CC BY-NC-SA 4.0` and LXX
+  `Copyrighted; free non-commercial` in their SWORD confs — NC, excluded.
+- Codex Sinaiticus Project transcription (codexsinaiticus.org) is
+  CC BY-NC-SA 3.0 — excluded (its NT is covered by the INTF/IGNTP uncial 01
+  transcriptions above).
+- Nestle–Aland NA27/NA28 and UBS texts — copyrighted. IGNTP files with CC
+  BY-NC-SA headers (180) — NC, excluded. IGNTP ECM apparatus data — not open.
+- papyri.info / idp.data (CC BY 3.0) holds diplomatic transcriptions of many
+  more papyri, but all NT papyri are already covered by the INTF set above.
