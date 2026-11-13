@@ -1,6 +1,6 @@
 # The curated edition — English Bibles, critical editions, lexicons
 
-`bibles/core/` defines a focused subset of the two datasets: 130 Scripture
+`bibles/core/` defines a focused subset of the two datasets: 137 Scripture
 databases and 25 lexical databases. The original English+Malayalam set is published as the
 [`bibles-lexicons-core`](https://github.com/penguin-lt/bible-dyb-repo/releases/tag/bibles-lexicons-core)
 release, plus **12 further critical editions** added separately as
@@ -276,3 +276,45 @@ Checked and not added: PorCap (Capuchinhos, © non-commercial CrossWire-only
 permission), FrePGR (PD but the module has no deuterocanon), FreBA /
 FreVulgGlaire / SpaScioNT (no machine-readable mirror with verse indexes),
 KJVA (GPL, outside the gate), HunKNB Káldi-Neovulgáta (©).
+
+## Slavic and Nordic languages
+
+Added 2026-10-29 (130 -> 137 databases), per request — this extends the
+earlier Latin-script-only rule to the Slavic family. All licences verified at
+the source (eBible details page states "public domain"; Door43 LICENSE.md =
+CC BY-SA 4.0):
+
+- **Russian Synodal Bible** (`russyn`, PD) - full 66-book Bible, the Russian
+  Orthodox standard text. 31,169 verses.
+- **Russian Freedom Bible** (`rusfb`, PD) - modern open Russian Bible;
+  47 books in this digital edition (all prophets, Esther and Song of Solomon
+  are absent). 25,324 verses.
+- **ULB Russian NT** (`ruulb`, CC BY-SA 4.0, Door43) - 27 books, 7,954 verses.
+- **Ukrainian Bible, Kulish 1905** (`ukr1871`, PD) - full 66-book Bible.
+  31,082 verses.
+- **Ukrainian Freedom Bible** (`ukrfb`, PD) - modern open Ukrainian Bible,
+  full 66 books. 31,082 verses.
+- **Serbian Bible, Vuk Karadžić, Latin script 1865** (`srp1865`, PD) - full
+  Bible. 31,111 verses.
+- **Serbian Bible, Daničić-Karadžić, Cyrillic 1868** (`srp1868`, PD) - full
+  Bible. 31,111 verses.
+
+Nordic languages were added with the Latin-script batch: **Swedish 1917**
+(Swe1917, PD, 83 books), **Norwegian 1930** (Norsk, PD), **Danish OT 1871 +
+NT 1907** (PD), **Finnish 1776** (FinBiblia, PD, 83 books). The **Elizabeth
+Bible 1751 (Church Slavonic)** is in `editions/`.
+
+### Slavic/Nordic works checked and NOT added
+
+- **Belarusian** (Bela / eBible `bel`) - © / CrossWire-only permission.
+- **Bulgarian** (BulCarigradNT) - CrossWire-only distribution permission.
+- **Macedonian, Slovak, Icelandic (modern), Faroese, Sami** - no qualifying
+  PD/CC edition found.
+- **UkrOgienko and FinPR 1933/38** - CrossWire marks them "Public Domain",
+  but both are generally treated as copyrighted by their rights holders; not
+  added to stay on the safe side of the gate.
+- **SweKarlXII (1703)** - PD on CrossWire, but the only verse-indexed mirror
+  (scrollmapper JSON) is incomplete (23 OT books); the full modern Swedish
+  text is already held (Swe1917).
+- **NorBroed, RusSynodalLIO, RusCARS, ukr1996, dan1931, fin (1976), isl** -
+  copyrighted or CrossWire-only permission.
